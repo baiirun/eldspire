@@ -1,7 +1,7 @@
 import alchemy from "alchemy";
 import { TanStackStart, D1Database } from "alchemy/cloudflare";
 
-const app = await alchemy("eldspire");
+const app = await alchemy("wiki");
 
 // Create D1 database with migrations
 const database = await D1Database("eldspire-db", {
