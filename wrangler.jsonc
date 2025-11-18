@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "eldspire-www",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "main": "@tanstack/react-start/server-entry",
+  "d1_databases": [
+    {
+      "binding": "prod_d1_tutorial",
+      "database_name": "prod-d1-tutorial",
+      "database_id": "cd393d65-73b9-492d-ba5a-5a2644509b4e",
+      "remote": true
+    }
+  ]
+}
