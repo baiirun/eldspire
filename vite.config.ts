@@ -1,7 +1,7 @@
 import { cloudflare } from "@cloudflare/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
+import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
+import solid from "vite-plugin-solid";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 
@@ -14,7 +14,7 @@ const config = defineConfig({
     tailwindcss(),
     cloudflare({ viteEnvironment: { name: 'ssr' } }),
     tanstackStart(),
-    viteReact(),
+    solid({ ssr: true }),
   ],
 });
 

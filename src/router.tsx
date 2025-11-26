@@ -1,4 +1,4 @@
-import { createRouter } from "@tanstack/react-router";
+import { createRouter } from "@tanstack/solid-router";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";

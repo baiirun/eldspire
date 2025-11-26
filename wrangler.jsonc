@@ -5,7 +5,7 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
-  "main": "@tanstack/react-start/server-entry",
+  "main": "@tanstack/solid-start/server-entry",
   "d1_databases": [
     {
       "binding": "prod_d1_tutorial",

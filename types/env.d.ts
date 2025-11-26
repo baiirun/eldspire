@@ -1,16 +1,14 @@
-// This file infers types for the cloudflare:workers environment from your Alchemy Worker.
-// @see https://alchemy.run/concepts/bindings/#type-safe-bindings
+// app/types/env.d.ts
+import type { D1Database } from '@cloudflare/workers-types'
 
-import type { website } from "../alchemy.run.ts";
-
-export type CloudflareEnv = typeof website.Env;
-
-declare global {
-  type Env = CloudflareEnv;
-}
-
-declare module "cloudflare:workers" {
-  namespace Cloudflare {
-    export interface Env extends CloudflareEnv {}
+declare module '@tanstack/solid-start' {
+  interface Register {
+    context: {
+      cloudflare: {
+        env: {
+          DB: D1Database
+        }
+      }
+    }
   }
 }

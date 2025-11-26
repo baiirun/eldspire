@@ -1,4 +1,11 @@
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
+import * as Solid from "solid-js";
+import {
+  Outlet,
+  createRootRoute,
+  HeadContent,
+  Scripts,
+} from "@tanstack/solid-router";
+import { HydrationScript } from "solid-js/web";
 
 import appCss from "../styles.css?url";
 
@@ -13,7 +20,7 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStack Start Starter",
+        title: "Eldspire",
       },
     ],
     links: [
@@ -23,19 +30,27 @@ export const Route = createRootRoute({
       },
     ],
   }),
-
-  shellComponent: RootDocument,
+  component: RootComponent,
 });
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootComponent() {
+  return (
+    <RootDocument>
+      <Outlet />
+    </RootDocument>
+  );
+}
+
+function RootDocument(props: { children: Solid.JSX.Element }) {
   return (
     <html lang="en">
       <head>
+        <HydrationScript />
         <HeadContent />
       </head>
       <body>
-        <div className='layout'>
-          {children}
+        <div class="layout">
+          <Solid.Suspense>{props.children}</Solid.Suspense>
         </div>
         <Scripts />
       </body>
