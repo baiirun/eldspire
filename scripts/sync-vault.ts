@@ -21,6 +21,13 @@ export function hasPublishTag(content: string, tag: string): boolean {
 }
 
 /**
+ * Strip all #tags from content
+ */
+export function stripTags(content: string): string {
+  return content.replace(/#\w+/g, "").replace(/\n\s*\n\s*\n/g, "\n\n").trim();
+}
+
+/**
  * Strip the numeric ID prefix from a filename to get the page name
  */
 export function parseTitle(filename: string): string {
@@ -68,7 +75,7 @@ export async function collectPages(vaultPath: string, publishTag: string): Promi
       const filename = basename(filePath);
       const name = parseTitle(filename);
 
-      pages.push({ name, content });
+      pages.push({ name, content: stripTags(content) });
     }
   }
 

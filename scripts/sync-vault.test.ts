@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { tmpdir } from "node:os";
 import {
   hasPublishTag,
+  stripTags,
   parseTitle,
   findMarkdownFiles,
   collectPages,
@@ -39,6 +40,41 @@ This page is tagged #wiki for publishing.`;
 #wiki
 More content`;
     expect(hasPublishTag(content, "wiki")).toBe(true);
+  });
+});
+
+describe("stripTags", () => {
+  it("removes hashtags from content", () => {
+    expect(stripTags("Hello #wiki world")).toBe("Hello  world");
+  });
+
+  it("removes multiple tags", () => {
+    expect(stripTags("#tag1 #tag2 content #tag3")).toBe("content");
+  });
+
+  it("handles tags on their own line", () => {
+    const content = `# Title
+
+#wiki #published
+
+Some content here`;
+    const result = stripTags(content);
+    expect(result).not.toContain("#wiki");
+    expect(result).not.toContain("#published");
+    expect(result).toContain("# Title");
+    expect(result).toContain("Some content here");
+  });
+
+  it("preserves markdown headers", () => {
+    const content = "# Title\n## Subtitle\n#tag";
+    const result = stripTags(content);
+    expect(result).toContain("# Title");
+    expect(result).toContain("## Subtitle");
+    expect(result).not.toContain("#tag");
+  });
+
+  it("handles content with no tags", () => {
+    expect(stripTags("Just plain content")).toBe("Just plain content");
   });
 });
 
