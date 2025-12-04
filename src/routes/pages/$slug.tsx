@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/solid-router";
-import { Show } from "solid-js";
+import { createServerFn } from "@tanstack/solid-start";
 import { env } from "cloudflare:workers";
+import { Show } from "solid-js";
 import { parse } from "@/lib/markdown";
 import { Markdown } from "@/lib/markdown-solid";
 import { unslugify } from "@/lib/unslugify";
@@ -12,11 +13,11 @@ type Page = {
   updatedAt: number;
 };
 
-export const Route = createFileRoute("/pages/$slug")({
-  preload: true,
-  loader: async ({ params }) => {
+const getPage = createServerFn({ method: "GET" })
+  .inputValidator((slug: string) => slug)
+  .handler(async ({ data }) => {
     const db = env.prod_d1_tutorial;
-    const name = unslugify(params.slug);
+    const name = unslugify(data);
 
     const maybePage = await db
       .prepare("SELECT * FROM pages WHERE LOWER(name) = LOWER(?)")
@@ -24,7 +25,10 @@ export const Route = createFileRoute("/pages/$slug")({
       .first<Page>();
 
     return { page: maybePage ?? null };
-  },
+  });
+
+export const Route = createFileRoute("/pages/$slug")({
+  loader: ({ params }) => getPage({ data: params.slug }),
   component: PageView,
 });
 
