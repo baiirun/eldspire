@@ -76,6 +76,9 @@ function PageContent(props: { page: Page }) {
     <article class="prose">
       <h1 class="mb-8"><Link to="/">{props.page.name}</Link></h1>
       <Markdown content={parsed()} config={{ wikiLinkBasePath: "/pages" }} />
+      <p class="mt-8 text-sm text-gray-500">
+        Last updated: {new Date(props.page.updatedAt * 1000).toLocaleDateString()}
+      </p>
       <Show when={backlinks().length > 0}>
         <section class="mt-8 pt-4 border-t border-gray-200">
           <h2 class="text-sm text-gray-500 mb-2">Related pages</h2>
@@ -92,9 +95,6 @@ function PageContent(props: { page: Page }) {
           </ul>
         </section>
       </Show>
-      <footer class="mt-8 pt-4 border-t border-gray-200 text-sm text-gray-500">
-        Last updated: {new Date(props.page.updatedAt * 1000).toLocaleDateString()}
-      </footer>
     </article>
   );
 }
