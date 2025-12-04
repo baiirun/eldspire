@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/solid-router";
-import { createServerFn } from "@tanstack/solid-start";
 import { Show } from "solid-js";
+import { env } from "cloudflare:workers";
 import { parse } from "@/lib/markdown";
 import { Markdown } from "@/lib/markdown-solid";
 
@@ -11,16 +11,14 @@ type Page = {
   updatedAt: number;
 };
 
-const getPage = createServerFn({ method: "GET" })
-  .inputValidator((slug: unknown) => slug as string)
-  .handler(async ({ data: slug }) => {
-    const { env } = await import("cloudflare:workers");
+export const Route = createFileRoute("/pages/$slug")({
+  loader: async ({ params }) => {
     const db = env.prod_d1_tutorial;
 
     // Convert slug back to name (e.g., "archmage-velorin" -> "Archmage Velorin")
-    const name = slug
+    const name = params.slug
       .split("-")
-      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
 
     const page = await db
@@ -29,10 +27,7 @@ const getPage = createServerFn({ method: "GET" })
       .first<Page>();
 
     return { page: page ?? null };
-  });
-
-export const Route = createFileRoute("/pages/$slug")({
-  loader: ({ params }) => getPage({ data: params.slug }),
+  },
   component: PageView,
 });
 
