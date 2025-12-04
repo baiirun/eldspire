@@ -81,7 +81,7 @@ function PageContent(props: { page: Page }) {
       </p>
       <Show when={backlinks().length > 0}>
         <section class="mt-8 pt-4 border-t border-gray-200">
-          <h2 class="text-sm text-gray-500 mb-2">Related pages</h2>
+          <h2 class="text-base mb-2">Related pages</h2>
           <ul class="list-none p-0 space-y-1">
             <For each={backlinks()}>
               {(name) => (
