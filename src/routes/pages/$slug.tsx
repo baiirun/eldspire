@@ -25,7 +25,7 @@ const getPage = createServerFn({ method: "GET" })
     const name = unslugify(data);
 
     const maybePage = await session
-      .prepare("SELECT * FROM pages WHERE LOWER(name) = LOWER(?)")
+      .prepare("SELECT id, name, content, updated_at as updatedAt FROM pages WHERE LOWER(name) = LOWER(?)")
       .bind(name)
       .first<Page>();
 
