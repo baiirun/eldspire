@@ -64,7 +64,7 @@ function PageContent(props: { page: Page }) {
 
   return (
     <article class="prose">
-      <h1><Link to="/">{props.page.name}</Link></h1>
+      <h1 class="mb-8"><Link to="/">{props.page.name}</Link></h1>
       <Markdown content={parsed()} config={{ wikiLinkBasePath: "/pages" }} />
       <footer class="mt-8 pt-4 border-t border-gray-200 text-sm text-gray-500">
         Last updated: {new Date(props.page.updatedAt * 1000).toLocaleDateString()}

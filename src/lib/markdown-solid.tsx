@@ -7,6 +7,7 @@
 
 import type { JSX } from "solid-js";
 import { Link } from "@tanstack/solid-router";
+import { InternalLink } from "@/components/InternalLink";
 import {
   parse,
   render,
@@ -167,7 +168,7 @@ function createDefaultInlineRenderers(
       const slug = target.toLowerCase().replace(/\s+/g, "-");
       const href = `${basePath}/${encodeURIComponent(slug)}`;
 
-      return <Link to={href}>{display ?? target}</Link>;
+      return <InternalLink to={href}>{display ?? target}</InternalLink>;
     },
 
     embed: (target) => <div data-embed={target}>[Embedded: {target}]</div>,

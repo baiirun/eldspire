@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/solid-router";
+import { createFileRoute } from "@tanstack/solid-router";
+import { InternalLink } from "@/components/InternalLink";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -22,9 +23,9 @@ function App() {
         <h2>Wiki Pages</h2>
         <ul class="list-disc pl-6 space-y-1">
           <li>
-            <Link to="/pages/$slug" params={{ slug: "ashenport" }} preload="viewport" class="underline">
+            <InternalLink to="/pages/$slug" params={{ slug: "ashenport" }}>
               Ashenport
-            </Link>
+            </InternalLink>
           </li>
         </ul>
       </section>

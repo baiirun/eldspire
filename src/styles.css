@@ -7,6 +7,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+a:hover {
+    @apply opacity-60;
+}
+
 .layout {
     padding: 1.25rem;
     padding-top: 4rem;
