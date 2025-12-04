@@ -251,10 +251,11 @@ function parseFrontmatter(input: string): {
 function parseInline(text: string): InlineToken[] {
   const tokens: InlineToken[] = [];
   let i = 0;
+  let textStart = 0;
 
   const pushText = (end: number) => {
-    if (end > i) {
-      tokens.push({ type: "text", content: text.slice(i, end) });
+    if (end > textStart) {
+      tokens.push({ type: "text", content: text.slice(textStart, end) });
     }
   };
 
@@ -264,6 +265,7 @@ function parseInline(text: string): InlineToken[] {
       pushText(i);
       tokens.push({ type: "text", content: text[i + 1] });
       i += 2;
+      textStart = i;
       continue;
     }
 
@@ -275,6 +277,7 @@ function parseInline(text: string): InlineToken[] {
       pushText(i);
       tokens.push({ type: "linebreak" });
       i += text[i] === "\\" ? 2 : 3;
+      textStart = i;
       continue;
     }
 
@@ -286,6 +289,7 @@ function parseInline(text: string): InlineToken[] {
         const target = text.slice(i + 3, endBracket);
         tokens.push({ type: "embed", target });
         i = endBracket + 2;
+        textStart = i;
         continue;
       }
     }
@@ -307,6 +311,7 @@ function parseInline(text: string): InlineToken[] {
           tokens.push({ type: "wikilink", target: inner });
         }
         i = endBracket + 2;
+        textStart = i;
         continue;
       }
     }
@@ -332,6 +337,7 @@ function parseInline(text: string): InlineToken[] {
             tokens.push({ type: "image", alt, src: srcPart });
           }
           i = srcEnd + 1;
+          textStart = i;
           continue;
         }
       }
@@ -362,6 +368,7 @@ function parseInline(text: string): InlineToken[] {
             });
           }
           i = hrefEnd + 1;
+          textStart = i;
           continue;
         }
       }
@@ -380,6 +387,7 @@ function parseInline(text: string): InlineToken[] {
             children: [{ type: "text", content }],
           });
           i = endAngle + 1;
+          textStart = i;
           continue;
         }
       }
@@ -395,6 +403,7 @@ function parseInline(text: string): InlineToken[] {
           children: parseInline(text.slice(i + 2, end)),
         });
         i = end + 2;
+        textStart = i;
         continue;
       }
     }
@@ -409,6 +418,7 @@ function parseInline(text: string): InlineToken[] {
           children: parseInline(text.slice(i + 2, end)),
         });
         i = end + 2;
+        textStart = i;
         continue;
       }
     }
@@ -427,6 +437,7 @@ function parseInline(text: string): InlineToken[] {
           children: parseInline(text.slice(i + 3, end)),
         });
         i = end + 3;
+        textStart = i;
         continue;
       }
     }
@@ -445,6 +456,7 @@ function parseInline(text: string): InlineToken[] {
           children: parseInline(text.slice(i + 2, end)),
         });
         i = end + 2;
+        textStart = i;
         continue;
       }
     }
@@ -460,6 +472,7 @@ function parseInline(text: string): InlineToken[] {
           children: parseInline(text.slice(i + 1, end)),
         });
         i = end + 1;
+        textStart = i;
         continue;
       }
     }
@@ -475,6 +488,7 @@ function parseInline(text: string): InlineToken[] {
         pushText(i);
         tokens.push({ type: "code", content: text.slice(start, end) });
         i = end + delim.length;
+        textStart = i;
         continue;
       }
     }
@@ -654,12 +668,22 @@ function parseBlocks(lines: string[]): BlockToken[] {
 
     // Paragraph - collect lines until blank line or block element
     const paragraphLines: string[] = [];
-    while (
-      i < lines.length &&
-      lines[i].trim() !== "" &&
-      !isBlockStart(lines[i])
-    ) {
-      paragraphLines.push(lines[i]);
+    while (i < lines.length && lines[i].trim() !== "") {
+      const currentLine = lines[i];
+
+      // Check if this could be a setext heading underline
+      if (paragraphLines.length > 0 && /^(=+|-+)$/.test(currentLine.trim())) {
+        paragraphLines.push(currentLine);
+        i++;
+        break; // We have a setext heading, stop collecting
+      }
+
+      // Stop if we hit a block start (but not setext underlines, handled above)
+      if (isBlockStart(currentLine)) {
+        break;
+      }
+
+      paragraphLines.push(currentLine);
       i++;
     }
     if (paragraphLines.length > 0) {

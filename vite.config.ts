@@ -12,10 +12,19 @@ const config = defineConfig({
       projects: ["./tsconfig.json"],
     }),
     tailwindcss(),
-    cloudflare({ viteEnvironment: { name: 'ssr' } }),
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
     tanstackStart(),
     solid({ ssr: true }),
   ],
+  environments: {
+    client: {
+      build: {
+        rollupOptions: {
+          external: ["cloudflare:workers"],
+        },
+      },
+    },
+  },
 });
 
 export default config;
