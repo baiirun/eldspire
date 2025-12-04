@@ -3,6 +3,7 @@ import { Show } from "solid-js";
 import { env } from "cloudflare:workers";
 import { parse } from "@/lib/markdown";
 import { Markdown } from "@/lib/markdown-solid";
+import { unslugify } from "@/lib/unslugify";
 
 type Page = {
   id: number;
@@ -14,12 +15,7 @@ type Page = {
 export const Route = createFileRoute("/pages/$slug")({
   loader: async ({ params }) => {
     const db = env.prod_d1_tutorial;
-
-    // Convert slug back to name (e.g., "archmage-velorin" -> "Archmage Velorin")
-    const name = params.slug
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+    const name = unslugify(params.slug);
 
     const page = await db
       .prepare("SELECT * FROM pages WHERE LOWER(name) = LOWER(?)")
