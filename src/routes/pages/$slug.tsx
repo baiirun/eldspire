@@ -13,6 +13,7 @@ type Page = {
 };
 
 export const Route = createFileRoute("/pages/$slug")({
+  preload: true,
   loader: async ({ params }) => {
     const db = env.prod_d1_tutorial;
     const name = unslugify(params.slug);
