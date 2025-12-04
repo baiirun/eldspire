@@ -21,14 +21,14 @@ export function hasPublishTag(content: string, tag: string): boolean {
 }
 
 /**
- * Strip the xx.xx.xx prefix from a filename to get the page name
+ * Strip the numeric ID prefix from a filename to get the page name
  */
 export function parseTitle(filename: string): string {
   // Remove .md extension
   const nameWithoutExt = filename.replace(/\.md$/, "");
 
-  // Strip xx.xx.xx prefix (e.g., "04.99.06 How to pick furniture" -> "How to pick furniture")
-  return nameWithoutExt.replace(/^\d{2}\.\d{2}\.\d{2}\s+/, "");
+  // Strip xx.xx.xx prefix with arbitrary length digits (e.g., "04.99.1234 Title" -> "Title")
+  return nameWithoutExt.replace(/^\d+\.\d+\.\d+\s+/, "");
 }
 
 /**

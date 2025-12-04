@@ -48,6 +48,12 @@ describe("parseTitle", () => {
     expect(parseTitle("01.02.03 Test Page.md")).toBe("Test Page");
   });
 
+  it("handles arbitrary length IDs", () => {
+    expect(parseTitle("04.99.1234 Long ID.md")).toBe("Long ID");
+    expect(parseTitle("1.2.3 Short ID.md")).toBe("Short ID");
+    expect(parseTitle("123.456.789 All Long.md")).toBe("All Long");
+  });
+
   it("handles files without prefix", () => {
     expect(parseTitle("Regular Page.md")).toBe("Regular Page");
     expect(parseTitle("Simple.md")).toBe("Simple");
@@ -59,9 +65,8 @@ describe("parseTitle", () => {
   });
 
   it("does not strip invalid prefixes", () => {
-    expect(parseTitle("4.99.06 Invalid.md")).toBe("4.99.06 Invalid");
-    expect(parseTitle("04.9.06 Invalid.md")).toBe("04.9.06 Invalid");
     expect(parseTitle("04-99-06 Wrong Separator.md")).toBe("04-99-06 Wrong Separator");
+    expect(parseTitle("04.99 Missing Field.md")).toBe("04.99 Missing Field");
   });
 
   it("handles files without .md extension", () => {
