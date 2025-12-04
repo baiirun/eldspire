@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import {
   hasPublishTag,
   stripTags,
+  stripWikilinkPrefixes,
   parseTitle,
   findMarkdownFiles,
   collectPages,
@@ -75,6 +76,27 @@ Some content here`;
 
   it("handles content with no tags", () => {
     expect(stripTags("Just plain content")).toBe("Just plain content");
+  });
+});
+
+describe("stripWikilinkPrefixes", () => {
+  it("strips ID prefix from wikilinks", () => {
+    expect(stripWikilinkPrefixes("[[04.99.06 Ashenport]]")).toBe("[[Ashenport]]");
+    expect(stripWikilinkPrefixes("[[1.2.3 Short]]")).toBe("[[Short]]");
+  });
+
+  it("preserves display text", () => {
+    expect(stripWikilinkPrefixes("[[04.99.06 Ashenport|The Port]]")).toBe("[[Ashenport|The Port]]");
+  });
+
+  it("handles multiple wikilinks", () => {
+    const content = "See [[04.99.06 Ashenport]] and [[01.02.03 Other Place]]";
+    expect(stripWikilinkPrefixes(content)).toBe("See [[Ashenport]] and [[Other Place]]");
+  });
+
+  it("leaves wikilinks without prefix unchanged", () => {
+    expect(stripWikilinkPrefixes("[[Ashenport]]")).toBe("[[Ashenport]]");
+    expect(stripWikilinkPrefixes("[[Some Page|Display]]")).toBe("[[Some Page|Display]]");
   });
 });
 
