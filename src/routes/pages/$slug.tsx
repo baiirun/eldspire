@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/solid-router";
 import { createServerFn } from "@tanstack/solid-start";
 import { env } from "cloudflare:workers";
-import { Show } from "solid-js";
+import { For, Show } from "solid-js";
+import { InternalLink } from "@/components/InternalLink";
 import { parse } from "@/lib/markdown";
 import { Markdown } from "@/lib/markdown-solid";
 import { unslugify } from "@/lib/unslugify";
@@ -12,6 +13,7 @@ type Page = {
   name: string;
   content: string | null;
   updatedAt: number;
+  backlinks: string | null;
 };
 
 const getPage = createServerFn({ method: "GET" })
@@ -25,7 +27,7 @@ const getPage = createServerFn({ method: "GET" })
     const name = unslugify(data);
 
     const maybePage = await session
-      .prepare("SELECT id, name, content, updated_at as updatedAt FROM pages WHERE LOWER(name) = LOWER(?)")
+      .prepare("SELECT id, name, content, updated_at as updatedAt, backlinks FROM pages WHERE LOWER(name) = LOWER(?)")
       .bind(name)
       .first<Page>();
 
@@ -61,11 +63,35 @@ function PageView() {
 
 function PageContent(props: { page: Page }) {
   const parsed = () => parse(props.page.content ?? "");
+  const backlinks = (): string[] => {
+    if (!props.page.backlinks) return [];
+    try {
+      return JSON.parse(props.page.backlinks);
+    } catch {
+      return [];
+    }
+  };
 
   return (
     <article class="prose">
       <h1 class="mb-8"><Link to="/">{props.page.name}</Link></h1>
       <Markdown content={parsed()} config={{ wikiLinkBasePath: "/pages" }} />
+      <Show when={backlinks().length > 0}>
+        <section class="mt-8 pt-4 border-t border-gray-200">
+          <h2 class="text-sm text-gray-500 mb-2">Related pages</h2>
+          <ul class="list-none p-0 space-y-1">
+            <For each={backlinks()}>
+              {(name) => (
+                <li>
+                  <InternalLink to={`/pages/${encodeURIComponent(name.toLowerCase().replace(/\s+/g, "-"))}`}>
+                    {name}
+                  </InternalLink>
+                </li>
+              )}
+            </For>
+          </ul>
+        </section>
+      </Show>
       <footer class="mt-8 pt-4 border-t border-gray-200 text-sm text-gray-500">
         Last updated: {new Date(props.page.updatedAt * 1000).toLocaleDateString()}
       </footer>

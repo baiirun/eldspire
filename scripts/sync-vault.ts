@@ -4,6 +4,7 @@ import { join, basename } from "node:path";
 export interface Page {
   name: string;
   content: string;
+  links: string[];
 }
 
 export interface SyncResult {
@@ -41,6 +42,19 @@ export function stripDmSections(content: string): string {
  */
 export function stripWikilinkPrefixes(content: string): string {
   return content.replace(/\[\[(\d+\.\d+\.\d+\s+)([^\]|]+)(\|[^\]]+)?\]\]/g, "[[$2$3]]");
+}
+
+/**
+ * Extract wikilink targets from content
+ * Returns unique page names that are linked to
+ */
+export function extractWikilinks(content: string): string[] {
+  const matches = content.matchAll(/\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g);
+  const links = new Set<string>();
+  for (const match of matches) {
+    links.add(match[1].trim());
+  }
+  return Array.from(links);
 }
 
 /**
@@ -91,7 +105,9 @@ export async function collectPages(vaultPath: string, publishTag: string): Promi
       const filename = basename(filePath);
       const name = parseTitle(filename);
 
-      pages.push({ name, content: stripWikilinkPrefixes(stripDmSections(stripTags(content))) });
+      const processedContent = stripWikilinkPrefixes(stripDmSections(stripTags(content)));
+      const links = extractWikilinks(processedContent);
+      pages.push({ name, content: processedContent, links });
     }
   }
 
