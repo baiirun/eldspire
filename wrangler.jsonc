@@ -1,10 +1,17 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "eldspire-www",
+  "preview_urls": true,
   "compatibility_date": "2025-09-02",
   "routes": [
-    { "pattern": "eldspire.com/*", "zone_name": "eldspire.com" },
-    { "pattern": "www.eldspire.com/*", "zone_name": "eldspire.com" }
+    {
+      "pattern": "eldspire.com/*",
+      "zone_name": "eldspire.com"
+    },
+    {
+      "pattern": "www.eldspire.com/*",
+      "zone_name": "eldspire.com"
+    }
   ],
   "compatibility_flags": [
     "nodejs_compat"

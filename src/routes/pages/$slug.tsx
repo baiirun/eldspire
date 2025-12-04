@@ -5,6 +5,7 @@ import { Show } from "solid-js";
 import { parse } from "@/lib/markdown";
 import { Markdown } from "@/lib/markdown-solid";
 import { unslugify } from "@/lib/unslugify";
+import { getRequest } from "@tanstack/solid-start/server";
 
 type Page = {
   id: number;
@@ -16,10 +17,14 @@ type Page = {
 const getPage = createServerFn({ method: "GET" })
   .inputValidator((slug: string) => slug)
   .handler(async ({ data }) => {
-    const db = env.prod_d1_tutorial;
+
+    const request = getRequest();
+    const bookmark = request.headers.get('x-d1-bookmark') ?? 'first-unconstrained';
+    const session = env.prod_d1_tutorial.withSession(bookmark)
+
     const name = unslugify(data);
 
-    const maybePage = await db
+    const maybePage = await session
       .prepare("SELECT * FROM pages WHERE LOWER(name) = LOWER(?)")
       .bind(name)
       .first<Page>();
@@ -28,7 +33,11 @@ const getPage = createServerFn({ method: "GET" })
   });
 
 export const Route = createFileRoute("/pages/$slug")({
-  loader: ({ params }) => getPage({ data: params.slug }),
+  loader: async ({ params }) => {
+
+
+    return await getPage({ data: params.slug })
+  },
   component: PageView,
 });
 
