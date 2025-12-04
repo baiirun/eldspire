@@ -22,19 +22,19 @@ function App() {
         <h2>Wiki Pages</h2>
         <ul class="list-disc pl-6 space-y-1">
           <li>
-            <Link to="/pages/$slug" params={{ slug: "eldspire" }} preload="render" class="underline">
+            <Link to="/pages/$slug" params={{ slug: "eldspire" }} preload="viewport" class="underline">
               Eldspire
             </Link>{" "}
             - The towering capital city
           </li>
           <li>
-            <Link to="/pages/$slug" params={{ slug: "verdant-kingdom" }} preload="render" class="underline">
+            <Link to="/pages/$slug" params={{ slug: "verdant-kingdom" }} preload="viewport" class="underline">
               Verdant Kingdom
             </Link>{" "}
             - A prosperous nation of lush forests
           </li>
           <li>
-            <Link to="/pages/$slug" params={{ slug: "archmage-velorin" }} preload="render" class="underline">
+            <Link to="/pages/$slug" params={{ slug: "archmage-velorin" }} preload="viewport" class="underline">
               Archmage Velorin
             </Link>{" "}
             - Legendary founder of Eldspire
