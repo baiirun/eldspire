@@ -100,15 +100,15 @@ export async function syncToApi(pages: Page[], apiUrl: string): Promise<SyncResu
   return response.json();
 }
 
-async function main() {
-  const vaultPath = process.env.OBSIDIAN_VAULT_PATH;
-  const publishTag = process.env.SYNC_TAG ?? "wiki";
-  const apiUrl = process.env.SYNC_API_URL;
+// Default configuration (bundled into binary)
+const DEFAULT_VAULT_PATH = "/Users/byronguina/Library/Mobile Documents/iCloud~md~obsidian/Documents/Zaum";
+const DEFAULT_API_URL = "https://eldspire.com";
+const DEFAULT_TAG = "wiki";
 
-  if (!vaultPath) {
-    console.error("Error: OBSIDIAN_VAULT_PATH environment variable is required");
-    process.exit(1);
-  }
+async function main() {
+  const vaultPath = process.env.OBSIDIAN_VAULT_PATH ?? DEFAULT_VAULT_PATH;
+  const publishTag = process.env.SYNC_TAG ?? DEFAULT_TAG;
+  const apiUrl = process.env.SYNC_API_URL ?? DEFAULT_API_URL;
 
   // Check vault exists
   try {
@@ -134,11 +134,6 @@ async function main() {
 
   if (pages.length === 0) {
     console.log("No pages to sync.");
-    return;
-  }
-
-  if (!apiUrl) {
-    console.log("\nDry run mode (SYNC_API_URL not set)");
     return;
   }
 

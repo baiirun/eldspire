@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "deploy": "bun run build && wrangler deploy",
     "cf-typegen": "wrangler types",
-    "sync": "bun scripts/sync-vault.ts"
+    "sync": "bun scripts/sync-vault.ts",
+    "sync:build": "bun build --compile scripts/sync-vault.ts --outfile eldspire && sudo mv eldspire /usr/local/bin/"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.6",

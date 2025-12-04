@@ -40,35 +40,56 @@ export const Route = createFileRoute("/api/sync")({
         const result: SyncResult = { created: 0, updated: 0, errors: [] };
         const now = Math.floor(Date.now() / 1000);
 
-        for (const page of body.pages) {
+        // Filter valid pages
+        const validPages = body.pages.filter((page) => {
           if (!page.name || typeof page.name !== "string") {
             result.errors.push("Page missing name");
-            continue;
+            return false;
           }
+          return true;
+        });
 
-          try {
-            const existing = await env.prod_d1_tutorial
-              .prepare("SELECT id FROM pages WHERE LOWER(name) = LOWER(?)")
-              .bind(page.name)
-              .first<{ id: number }>();
+        if (validPages.length === 0) {
+          return new Response(JSON.stringify(result), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
 
-            if (existing) {
-              await env.prod_d1_tutorial
+        // Check which pages exist in a single query
+        const placeholders = validPages.map(() => "LOWER(?)").join(", ");
+        const existingPages = await env.prod_d1_tutorial
+          .prepare(`SELECT id, LOWER(name) as name FROM pages WHERE LOWER(name) IN (${placeholders})`)
+          .bind(...validPages.map((p) => p.name))
+          .all<{ id: number; name: string }>();
+
+        const existingMap = new Map(existingPages.results.map((p) => [p.name, p.id]));
+
+        // Build batch statements
+        const statements: D1PreparedStatement[] = [];
+
+        for (const page of validPages) {
+          const existingId = existingMap.get(page.name.toLowerCase());
+
+          if (existingId) {
+            statements.push(
+              env.prod_d1_tutorial
                 .prepare("UPDATE pages SET content = ?, updated_at = ? WHERE id = ?")
-                .bind(page.content ?? null, now, existing.id)
-                .run();
-              result.updated++;
-            } else {
-              await env.prod_d1_tutorial
+                .bind(page.content ?? null, now, existingId)
+            );
+            result.updated++;
+          } else {
+            statements.push(
+              env.prod_d1_tutorial
                 .prepare("INSERT INTO pages (name, content, updated_at) VALUES (?, ?, ?)")
                 .bind(page.name, page.content ?? null, now)
-                .run();
-              result.created++;
-            }
-          } catch (error) {
-            result.errors.push(`Failed to sync "${page.name}": ${error}`);
+            );
+            result.created++;
           }
         }
+
+        // Execute all statements in a single batch
+        await env.prod_d1_tutorial.batch(statements);
 
         return new Response(JSON.stringify(result), {
           status: 200,
