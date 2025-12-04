@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PagesSlugRouteImport } from './routes/pages/$slug'
+import { Route as ApiSyncRouteImport } from './routes/api/sync'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const PagesSlugRoute = PagesSlugRouteImport.update({
   path: '/pages/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSyncRoute = ApiSyncRouteImport.update({
+  id: '/api/sync',
+  path: '/api/sync',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/sync': typeof ApiSyncRoute
   '/pages/$slug': typeof PagesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/sync': typeof ApiSyncRoute
   '/pages/$slug': typeof PagesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/sync': typeof ApiSyncRoute
   '/pages/$slug': typeof PagesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pages/$slug'
+  fullPaths: '/' | '/api/sync' | '/pages/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pages/$slug'
-  id: '__root__' | '/' | '/pages/$slug'
+  to: '/' | '/api/sync' | '/pages/$slug'
+  id: '__root__' | '/' | '/api/sync' | '/pages/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiSyncRoute: typeof ApiSyncRoute
   PagesSlugRoute: typeof PagesSlugRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof PagesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/sync': {
+      id: '/api/sync'
+      path: '/api/sync'
+      fullPath: '/api/sync'
+      preLoaderRoute: typeof ApiSyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiSyncRoute: ApiSyncRoute,
   PagesSlugRoute: PagesSlugRoute,
 }
 export const routeTree = rootRouteImport
