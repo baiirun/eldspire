@@ -28,6 +28,13 @@ export function stripTags(content: string): string {
 }
 
 /**
+ * Strip DM-only sections marked with @@dm ... @@dm
+ */
+export function stripDmSections(content: string): string {
+  return content.replace(/@@dm[\s\S]*?@@dm/g, "").replace(/\n\s*\n\s*\n/g, "\n\n").trim();
+}
+
+/**
  * Strip ID prefixes from wikilinks in content
  * [[04.99.06 Ashenport]] -> [[Ashenport]]
  * [[04.99.06 Ashenport|Custom Display]] -> [[Ashenport|Custom Display]]
@@ -84,7 +91,7 @@ export async function collectPages(vaultPath: string, publishTag: string): Promi
       const filename = basename(filePath);
       const name = parseTitle(filename);
 
-      pages.push({ name, content: stripWikilinkPrefixes(stripTags(content)) });
+      pages.push({ name, content: stripWikilinkPrefixes(stripDmSections(stripTags(content))) });
     }
   }
 
