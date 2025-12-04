@@ -17,12 +17,12 @@ export const Route = createFileRoute("/pages/$slug")({
     const db = env.prod_d1_tutorial;
     const name = unslugify(params.slug);
 
-    const page = await db
+    const maybePage = await db
       .prepare("SELECT * FROM pages WHERE LOWER(name) = LOWER(?)")
       .bind(name)
       .first<Page>();
 
-    return { page: page ?? null };
+    return { page: maybePage ?? null };
   },
   component: PageView,
 });
