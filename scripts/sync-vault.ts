@@ -6,6 +6,7 @@ export interface Page {
   content: string;
   links: string[];
   backlinks: string[];
+  updatedAt: number; // Unix timestamp (seconds)
 }
 
 export interface SyncResult {
@@ -163,10 +164,12 @@ export async function collectPages(vaultPath: string, publishTag: string): Promi
     if (hasPublishTag(content, publishTag)) {
       const filename = basename(filePath);
       const name = parseTitle(filename);
+      const stats = await stat(filePath);
+      const updatedAt = Math.floor(stats.mtime.getTime() / 1000);
 
       const processedContent = stripWikilinkPrefixes(stripDmSections(stripTags(content)));
       const links = extractWikilinks(processedContent);
-      pages.push({ name, content: processedContent, links, backlinks: [] });
+      pages.push({ name, content: processedContent, links, backlinks: [], updatedAt });
     }
   }
 

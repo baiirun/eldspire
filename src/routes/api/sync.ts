@@ -6,6 +6,7 @@ interface PageInput {
   content: string;
   links: string[];
   backlinks: string[];
+  updatedAt: number; // Unix timestamp (seconds)
 }
 
 interface SyncRequest {
@@ -40,7 +41,6 @@ export const Route = createFileRoute("/api/sync")({
         }
 
         const result: SyncResult = { created: 0, updated: 0, errors: [] };
-        const now = Math.floor(Date.now() / 1000);
 
         // Filter valid pages
         const validPages = body.pages.filter((page) => {
@@ -78,14 +78,14 @@ export const Route = createFileRoute("/api/sync")({
             statements.push(
               env.prod_d1_tutorial
                 .prepare("UPDATE pages SET content = ?, backlinks = ?, updated_at = ? WHERE id = ?")
-                .bind(page.content ?? null, backlinksJson, now, existingId)
+                .bind(page.content ?? null, backlinksJson, page.updatedAt, existingId)
             );
             result.updated++;
           } else {
             statements.push(
               env.prod_d1_tutorial
                 .prepare("INSERT INTO pages (name, content, backlinks, updated_at) VALUES (?, ?, ?, ?)")
-                .bind(page.name, page.content ?? null, backlinksJson, now)
+                .bind(page.name, page.content ?? null, backlinksJson, page.updatedAt)
             );
             result.created++;
           }

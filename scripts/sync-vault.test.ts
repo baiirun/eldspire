@@ -247,7 +247,7 @@ describe("extractWikilinks", () => {
 
 describe("collectRelatedLinks", () => {
   function makePage(name: string, links: string[]): Page {
-    return { name, content: "", links, backlinks: [] };
+    return { name, content: "", links, backlinks: [], updatedAt: 0 };
   }
 
   it("calculates direct backlinks", () => {
