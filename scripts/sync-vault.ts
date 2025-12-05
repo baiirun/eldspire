@@ -5,6 +5,7 @@ export interface Page {
   name: string;
   content: string;
   links: string[];
+  backlinks: string[];
 }
 
 export interface SyncResult {
@@ -92,6 +93,51 @@ export async function findMarkdownFiles(dir: string): Promise<string[]> {
 }
 
 /**
+ * Calculate backlinks for all pages, including siblings.
+ * Backlinks include:
+ * 1. Pages that link directly to this page
+ * 2. Siblings: other pages linked from the same source page
+ *    (e.g., if A links to B and C, then C is a sibling backlink for B)
+ */
+export function calculateBacklinks(pages: Page[]): void {
+  // Build a map of page name -> forward links (normalized to lowercase)
+  const pageLinksMap = new Map<string, string[]>();
+  for (const page of pages) {
+    pageLinksMap.set(page.name.toLowerCase(), page.links.map((l) => l.toLowerCase()));
+  }
+
+  // Build a set of valid page names for filtering
+  const validPages = new Set(pages.map((p) => p.name.toLowerCase()));
+
+  // For each page, collect backlinks
+  for (const page of pages) {
+    const targetName = page.name.toLowerCase();
+    const backlinks = new Set<string>();
+
+    // Find all pages that link to this page
+    for (const [sourceName, sourceLinks] of pageLinksMap) {
+      if (sourceLinks.includes(targetName)) {
+        // Add the source as a backlink
+        backlinks.add(sourceName);
+
+        // Add siblings: other pages linked from the same source
+        for (const sibling of sourceLinks) {
+          if (sibling !== targetName && validPages.has(sibling)) {
+            backlinks.add(sibling);
+          }
+        }
+      }
+    }
+
+    // Convert back to original casing by finding matching pages
+    const pageNameMap = new Map(pages.map((p) => [p.name.toLowerCase(), p.name]));
+    page.backlinks = Array.from(backlinks)
+      .map((name) => pageNameMap.get(name) ?? name)
+      .sort();
+  }
+}
+
+/**
  * Collect pages from the vault that should be synced
  */
 export async function collectPages(vaultPath: string, publishTag: string): Promise<Page[]> {
@@ -107,9 +153,12 @@ export async function collectPages(vaultPath: string, publishTag: string): Promi
 
       const processedContent = stripWikilinkPrefixes(stripDmSections(stripTags(content)));
       const links = extractWikilinks(processedContent);
-      pages.push({ name, content: processedContent, links });
+      pages.push({ name, content: processedContent, links, backlinks: [] });
     }
   }
+
+  // Calculate backlinks after all pages are collected
+  calculateBacklinks(pages);
 
   return pages;
 }

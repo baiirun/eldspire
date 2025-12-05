@@ -5,6 +5,7 @@ interface PageInput {
   name: string;
   content: string;
   links: string[];
+  backlinks: string[];
 }
 
 interface SyncRequest {
@@ -71,19 +72,20 @@ export const Route = createFileRoute("/api/sync")({
 
         for (const page of validPages) {
           const existingId = existingMap.get(page.name.toLowerCase());
+          const backlinksJson = JSON.stringify(page.backlinks ?? []);
 
           if (existingId) {
             statements.push(
               env.prod_d1_tutorial
-                .prepare("UPDATE pages SET content = ?, updated_at = ? WHERE id = ?")
-                .bind(page.content ?? null, now, existingId)
+                .prepare("UPDATE pages SET content = ?, backlinks = ?, updated_at = ? WHERE id = ?")
+                .bind(page.content ?? null, backlinksJson, now, existingId)
             );
             result.updated++;
           } else {
             statements.push(
               env.prod_d1_tutorial
-                .prepare("INSERT INTO pages (name, content, updated_at) VALUES (?, ?, ?)")
-                .bind(page.name, page.content ?? null, now)
+                .prepare("INSERT INTO pages (name, content, backlinks, updated_at) VALUES (?, ?, ?, ?)")
+                .bind(page.name, page.content ?? null, backlinksJson, now)
             );
             result.created++;
           }
@@ -91,33 +93,6 @@ export const Route = createFileRoute("/api/sync")({
 
         // Execute all statements in a single batch
         await env.prod_d1_tutorial.batch(statements);
-
-        // Calculate backlinks: build a map of target -> [source pages]
-        const backlinksMap = new Map<string, Set<string>>();
-        for (const page of validPages) {
-          for (const link of page.links ?? []) {
-            const target = link.toLowerCase();
-            if (!backlinksMap.has(target)) {
-              backlinksMap.set(target, new Set());
-            }
-            backlinksMap.get(target)!.add(page.name);
-          }
-        }
-
-        // Update backlinks for each target page
-        const backlinkStatements: D1PreparedStatement[] = [];
-        for (const [target, sources] of backlinksMap) {
-          const backlinksJson = JSON.stringify(Array.from(sources));
-          backlinkStatements.push(
-            env.prod_d1_tutorial
-              .prepare("UPDATE pages SET backlinks = ? WHERE LOWER(name) = ?")
-              .bind(backlinksJson, target)
-          );
-        }
-
-        if (backlinkStatements.length > 0) {
-          await env.prod_d1_tutorial.batch(backlinkStatements);
-        }
 
         return new Response(JSON.stringify(result), {
           status: 200,

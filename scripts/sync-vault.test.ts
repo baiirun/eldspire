@@ -9,6 +9,9 @@ import {
   parseTitle,
   findMarkdownFiles,
   collectPages,
+  extractWikilinks,
+  calculateBacklinks,
+  type Page,
 } from "./sync-vault";
 
 describe("hasPublishTag", () => {
@@ -212,5 +215,170 @@ No wiki tag here`
   it("returns empty array when no pages match", async () => {
     const pages = await collectPages(testDir, "nonexistent");
     expect(pages).toHaveLength(0);
+  });
+});
+
+describe("extractWikilinks", () => {
+  it("extracts simple wikilinks", () => {
+    const content = "See [[Page One]] and [[Page Two]]";
+    expect(extractWikilinks(content)).toEqual(["Page One", "Page Two"]);
+  });
+
+  it("extracts wikilinks with display text", () => {
+    const content = "See [[Page One|Display Text]]";
+    expect(extractWikilinks(content)).toEqual(["Page One"]);
+  });
+
+  it("deduplicates wikilinks", () => {
+    const content = "See [[Page One]] and [[Page One]] again";
+    expect(extractWikilinks(content)).toEqual(["Page One"]);
+  });
+
+  it("returns empty array when no wikilinks", () => {
+    const content = "No links here";
+    expect(extractWikilinks(content)).toEqual([]);
+  });
+
+  it("trims whitespace from link targets", () => {
+    const content = "See [[ Page One ]]";
+    expect(extractWikilinks(content)).toEqual(["Page One"]);
+  });
+});
+
+describe("calculateBacklinks", () => {
+  function makePage(name: string, links: string[]): Page {
+    return { name, content: "", links, backlinks: [] };
+  }
+
+  it("calculates direct backlinks", () => {
+    const pages = [
+      makePage("A", ["B", "C"]),
+      makePage("B", []),
+      makePage("C", []),
+    ];
+
+    calculateBacklinks(pages);
+
+    expect(pages[1].backlinks).toContain("A");
+    expect(pages[2].backlinks).toContain("A");
+  });
+
+  it("calculates sibling backlinks", () => {
+    // A links to both B and C, so B and C are siblings
+    const pages = [
+      makePage("A", ["B", "C"]),
+      makePage("B", []),
+      makePage("C", []),
+    ];
+
+    calculateBacklinks(pages);
+
+    // B should have C as sibling (via A)
+    expect(pages[1].backlinks).toContain("C");
+    // C should have B as sibling (via A)
+    expect(pages[2].backlinks).toContain("B");
+  });
+
+  it("does not include self as backlink", () => {
+    const pages = [
+      makePage("A", ["B"]),
+      makePage("B", ["A"]),
+    ];
+
+    calculateBacklinks(pages);
+
+    // B's backlinks should not include B
+    expect(pages[1].backlinks).not.toContain("B");
+  });
+
+  it("handles case-insensitive matching", () => {
+    const pages = [
+      makePage("Parent", ["child"]),
+      makePage("Child", []),
+    ];
+
+    calculateBacklinks(pages);
+
+    expect(pages[1].backlinks).toContain("Parent");
+  });
+
+  it("preserves original casing in backlinks", () => {
+    const pages = [
+      makePage("Parent Page", ["child page"]),
+      makePage("Child Page", []),
+    ];
+
+    calculateBacklinks(pages);
+
+    expect(pages[1].backlinks).toContain("Parent Page");
+  });
+
+  it("only includes siblings that exist as pages", () => {
+    // A links to B and NonExistent, but NonExistent isn't a page
+    const pages = [
+      makePage("A", ["B", "NonExistent"]),
+      makePage("B", []),
+    ];
+
+    calculateBacklinks(pages);
+
+    // B should not have NonExistent as sibling
+    expect(pages[1].backlinks).not.toContain("NonExistent");
+    expect(pages[1].backlinks).not.toContain("nonexistent");
+  });
+
+  it("handles complex link graph", () => {
+    // A -> B, C
+    // B -> C, D
+    // C -> D
+    // D -> (none)
+    const pages = [
+      makePage("A", ["B", "C"]),
+      makePage("B", ["C", "D"]),
+      makePage("C", ["D"]),
+      makePage("D", []),
+    ];
+
+    calculateBacklinks(pages);
+
+    // D is linked by B and C
+    // D's siblings: via B (C), via C (none new)
+    expect(pages[3].backlinks).toContain("B");
+    expect(pages[3].backlinks).toContain("C");
+
+    // C is linked by A and B
+    // C's siblings: via A (B), via B (D)
+    expect(pages[2].backlinks).toContain("A");
+    expect(pages[2].backlinks).toContain("B");
+    expect(pages[2].backlinks).toContain("D");
+
+    // B is linked by A
+    // B's siblings: via A (C)
+    expect(pages[1].backlinks).toContain("A");
+    expect(pages[1].backlinks).toContain("C");
+  });
+
+  it("sorts backlinks alphabetically", () => {
+    const pages = [
+      makePage("Parent", ["Zebra", "Apple", "Mango"]),
+      makePage("Zebra", []),
+      makePage("Apple", []),
+      makePage("Mango", []),
+    ];
+
+    calculateBacklinks(pages);
+
+    expect(pages[1].backlinks).toEqual(["Apple", "Mango", "Parent"]);
+  });
+
+  it("handles pages with no incoming links", () => {
+    const pages = [
+      makePage("Orphan", []),
+      makePage("Other", ["Something"]),
+    ];
+
+    calculateBacklinks(pages);
+
+    expect(pages[0].backlinks).toEqual([]);
   });
 });
