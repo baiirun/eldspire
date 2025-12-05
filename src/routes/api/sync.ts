@@ -60,7 +60,7 @@ export const Route = createFileRoute("/api/sync")({
 
         // Check which pages exist in a single query
         const placeholders = validPages.map(() => "LOWER(?)").join(", ");
-        const existingPages = await env.prod_d1_tutorial
+        const existingPages = await env.DB
           .prepare(`SELECT id, LOWER(name) as name FROM pages WHERE LOWER(name) IN (${placeholders})`)
           .bind(...validPages.map((p) => p.name))
           .all<{ id: number; name: string }>();
@@ -76,14 +76,14 @@ export const Route = createFileRoute("/api/sync")({
 
           if (existingId) {
             statements.push(
-              env.prod_d1_tutorial
+              env.DB
                 .prepare("UPDATE pages SET content = ?, backlinks = ?, updated_at = ? WHERE id = ?")
                 .bind(page.content ?? null, backlinksJson, page.updatedAt, existingId)
             );
             result.updated++;
           } else {
             statements.push(
-              env.prod_d1_tutorial
+              env.DB
                 .prepare("INSERT INTO pages (name, content, backlinks, updated_at) VALUES (?, ?, ?, ?)")
                 .bind(page.name, page.content ?? null, backlinksJson, page.updatedAt)
             );
@@ -92,7 +92,7 @@ export const Route = createFileRoute("/api/sync")({
         }
 
         // Execute all statements in a single batch
-        await env.prod_d1_tutorial.batch(statements);
+        await env.DB.batch(statements);
 
         return new Response(JSON.stringify(result), {
           status: 200,

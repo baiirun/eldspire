@@ -2,7 +2,7 @@ import type { D1Database } from '@cloudflare/workers-types'
 import handler, { createServerEntry } from '@tanstack/solid-start/server-entry'
 
 interface CloudflareEnv {
-  prod_d1_tutorial: D1Database
+  DB: D1Database
 }
 
 declare module '@tanstack/solid-start' {

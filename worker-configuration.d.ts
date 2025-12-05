@@ -5,7 +5,7 @@ declare namespace Cloudflare {
 	interface Env {
 		SYNC_API_KEY: "";
 		ALCHEMY_PASSWORD: string;
-		prod_d1_tutorial: D1Database;
+		DB: D1Database;
 	}
 }
 interface Env extends Cloudflare.Env {}

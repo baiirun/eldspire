@@ -22,7 +22,7 @@ const getPage = createServerFn({ method: "GET" })
 
     const request = getRequest();
     const bookmark = request.headers.get('x-d1-bookmark') ?? 'first-unconstrained';
-    const session = env.prod_d1_tutorial.withSession(bookmark)
+    const session = env.DB.withSession(bookmark)
 
     const name = unslugify(data);
 

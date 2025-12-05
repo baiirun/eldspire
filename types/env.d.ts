@@ -4,7 +4,7 @@ declare module '@tanstack/solid-start' {
   interface Register {
     context: {
       cloudflare: {
-        prod_d1_tutorial: D1Database
+        DB: D1Database
       }
     }
   }
