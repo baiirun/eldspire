@@ -10,7 +10,7 @@ import {
   findMarkdownFiles,
   collectPages,
   extractWikilinks,
-  calculateBacklinks,
+  collectRelatedLinks,
   type Page,
 } from "./sync-vault";
 
@@ -245,7 +245,7 @@ describe("extractWikilinks", () => {
   });
 });
 
-describe("calculateBacklinks", () => {
+describe("collectRelatedLinks", () => {
   function makePage(name: string, links: string[]): Page {
     return { name, content: "", links, backlinks: [] };
   }
@@ -257,7 +257,7 @@ describe("calculateBacklinks", () => {
       makePage("C", []),
     ];
 
-    calculateBacklinks(pages);
+    collectRelatedLinks(pages);
 
     expect(pages[1].backlinks).toContain("A");
     expect(pages[2].backlinks).toContain("A");
@@ -271,7 +271,7 @@ describe("calculateBacklinks", () => {
       makePage("C", []),
     ];
 
-    calculateBacklinks(pages);
+    collectRelatedLinks(pages);
 
     // B should have C as sibling (via A)
     expect(pages[1].backlinks).toContain("C");
@@ -285,7 +285,7 @@ describe("calculateBacklinks", () => {
       makePage("B", ["A"]),
     ];
 
-    calculateBacklinks(pages);
+    collectRelatedLinks(pages);
 
     // B's backlinks should not include B
     expect(pages[1].backlinks).not.toContain("B");
@@ -297,7 +297,7 @@ describe("calculateBacklinks", () => {
       makePage("Child", []),
     ];
 
-    calculateBacklinks(pages);
+    collectRelatedLinks(pages);
 
     expect(pages[1].backlinks).toContain("Parent");
   });
@@ -308,7 +308,7 @@ describe("calculateBacklinks", () => {
       makePage("Child Page", []),
     ];
 
-    calculateBacklinks(pages);
+    collectRelatedLinks(pages);
 
     expect(pages[1].backlinks).toContain("Parent Page");
   });
@@ -320,7 +320,7 @@ describe("calculateBacklinks", () => {
       makePage("B", []),
     ];
 
-    calculateBacklinks(pages);
+    collectRelatedLinks(pages);
 
     // B should not have NonExistent as sibling
     expect(pages[1].backlinks).not.toContain("NonExistent");
@@ -339,7 +339,7 @@ describe("calculateBacklinks", () => {
       makePage("D", []),
     ];
 
-    calculateBacklinks(pages);
+    collectRelatedLinks(pages);
 
     // D is linked by B and C
     // D's siblings: via B (C), via C (none new)
@@ -366,7 +366,7 @@ describe("calculateBacklinks", () => {
       makePage("Mango", []),
     ];
 
-    calculateBacklinks(pages);
+    collectRelatedLinks(pages);
 
     expect(pages[1].backlinks).toEqual(["Apple", "Mango", "Parent"]);
   });
@@ -377,7 +377,7 @@ describe("calculateBacklinks", () => {
       makePage("Other", ["Something"]),
     ];
 
-    calculateBacklinks(pages);
+    collectRelatedLinks(pages);
 
     expect(pages[0].backlinks).toEqual([]);
   });
