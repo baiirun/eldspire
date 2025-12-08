@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+    font-size: 18px;
+}
+
 body {
     @apply m-0 bg-stone-50 text-stone-900;
     font-family: "Times New Roman";
