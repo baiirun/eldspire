@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PagesSlugRouteImport } from './routes/pages/$slug'
+import { Route as GenerateBackgroundRouteImport } from './routes/generate/background'
 import { Route as ApiSyncRouteImport } from './routes/api/sync'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const PagesSlugRoute = PagesSlugRouteImport.update({
   path: '/pages/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GenerateBackgroundRoute = GenerateBackgroundRouteImport.update({
+  id: '/generate/background',
+  path: '/generate/background',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiSyncRoute = ApiSyncRouteImport.update({
   id: '/api/sync',
   path: '/api/sync',
@@ -32,30 +38,34 @@ const ApiSyncRoute = ApiSyncRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/sync': typeof ApiSyncRoute
+  '/generate/background': typeof GenerateBackgroundRoute
   '/pages/$slug': typeof PagesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/sync': typeof ApiSyncRoute
+  '/generate/background': typeof GenerateBackgroundRoute
   '/pages/$slug': typeof PagesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/sync': typeof ApiSyncRoute
+  '/generate/background': typeof GenerateBackgroundRoute
   '/pages/$slug': typeof PagesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/sync' | '/pages/$slug'
+  fullPaths: '/' | '/api/sync' | '/generate/background' | '/pages/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/sync' | '/pages/$slug'
-  id: '__root__' | '/' | '/api/sync' | '/pages/$slug'
+  to: '/' | '/api/sync' | '/generate/background' | '/pages/$slug'
+  id: '__root__' | '/' | '/api/sync' | '/generate/background' | '/pages/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiSyncRoute: typeof ApiSyncRoute
+  GenerateBackgroundRoute: typeof GenerateBackgroundRoute
   PagesSlugRoute: typeof PagesSlugRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof PagesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/generate/background': {
+      id: '/generate/background'
+      path: '/generate/background'
+      fullPath: '/generate/background'
+      preLoaderRoute: typeof GenerateBackgroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/sync': {
       id: '/api/sync'
       path: '/api/sync'
@@ -88,6 +105,7 @@ declare module '@tanstack/solid-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiSyncRoute: ApiSyncRoute,
+  GenerateBackgroundRoute: GenerateBackgroundRoute,
   PagesSlugRoute: PagesSlugRoute,
 }
 export const routeTree = rootRouteImport
