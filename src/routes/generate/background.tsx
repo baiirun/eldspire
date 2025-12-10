@@ -610,63 +610,43 @@ const tables: BackgroundTable[] = [
 ];
 
 function BackgroundGenerator() {
-  const [selectedTable, setSelectedTable] = createSignal<TableId>("custom");
   const [roll, setRoll] = createSignal<number | null>(null);
   const [background, setBackground] = createSignal<string | null>(null);
+  const [tableName, setTableName] = createSignal<string | null>(null);
 
-  const currentTable = () => tables.find((t) => t.id === selectedTable())!;
-
-  const rollBackground = () => {
-    const table = currentTable();
+  const rollOnTable = (table: BackgroundTable) => {
     const newRoll = Math.floor(Math.random() * table.dieSize) + 1;
     setRoll(newRoll);
     setBackground(table.backgrounds[newRoll - 1]);
-  };
-
-  const handleTableChange = (tableId: TableId) => {
-    setSelectedTable(tableId);
-    setRoll(null);
-    setBackground(null);
+    setTableName(table.name);
   };
 
   return (
     <div class="space-y-6">
       <section class="space-y-2">
         <h1 class="mb-8">Background Generator</h1>
-        <p>
-          Select a table and roll to generate a random background for your
-          character.
-        </p>
+        <p>Click a table to roll a random background for your character.</p>
       </section>
 
       <section class="space-y-4">
-        <div class="flex gap-2">
+        <div class="flex flex-wrap gap-2">
           <For each={tables}>
             {(table) => (
               <button
-                onClick={() => handleTableChange(table.id)}
-                class={`px-4 py-2 border cursor-pointer ${
-                  selectedTable() === table.id
-                    ? "border-stone-600 bg-stone-200"
-                    : "border-stone-400 bg-stone-100 hover:bg-stone-200"
-                }`}
+                onClick={() => rollOnTable(table)}
+                class="px-4 py-2 border border-stone-400 bg-stone-100 hover:bg-stone-200 active:bg-stone-300 cursor-pointer"
               >
-                {table.name}
+                {table.name} (d{table.dieSize})
               </button>
             )}
           </For>
         </div>
 
-        <button
-          onClick={rollBackground}
-          class="px-4 py-2 border border-stone-400 bg-stone-100 hover:bg-stone-200 cursor-pointer"
-        >
-          Roll d{currentTable().dieSize}
-        </button>
-
         {roll() !== null && (
           <div class="p-4 border border-stone-300 bg-stone-100">
-            <p class="text-sm text-stone-500 mb-2">Rolled: {roll()}</p>
+            <p class="text-sm text-stone-500 mb-2">
+              {tableName()} — Rolled: {roll()}
+            </p>
             <p class="text-lg">{background()}</p>
           </div>
         )}
