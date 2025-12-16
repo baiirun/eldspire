@@ -21,3 +21,7 @@ a:hover {
     margin: 0 auto;
     max-width: 42rem;
 }
+
+.prose p + p {
+    margin-top: 1rem;
+}
