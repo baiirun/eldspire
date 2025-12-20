@@ -1,4 +1,5 @@
 import * as Solid from "solid-js";
+import { createSignal, onMount, onCleanup } from "solid-js";
 import {
   Outlet,
   createRootRoute,
@@ -8,6 +9,7 @@ import {
 import { HydrationScript } from "solid-js/web";
 
 import appCss from "../styles.css?url";
+import { CommandPalette } from "@/components/CommandPalette";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -34,9 +36,24 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const [paletteOpen, setPaletteOpen] = createSignal(false);
+
+  onMount(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setPaletteOpen(true);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    onCleanup(() => document.removeEventListener("keydown", handleKeyDown));
+  });
+
   return (
     <RootDocument>
       <Outlet />
+      <CommandPalette open={paletteOpen()} onClose={() => setPaletteOpen(false)} />
     </RootDocument>
   );
 }
