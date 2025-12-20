@@ -21,7 +21,8 @@
     {
       "binding": "DB",
       "database_name": "eldspire",
-      "database_id": "5dc2e2eb-b729-4102-853f-83d08b99b14d"
+      "database_id": "5dc2e2eb-b729-4102-853f-83d08b99b14d",
+      "remote": true
     }
   ]
 }
