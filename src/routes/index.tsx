@@ -23,8 +23,8 @@ function App() {
         <h2>Wiki Pages</h2>
         <ul class="list-disc pl-6 space-y-1">
           <li>
-            <InternalLink to="/pages/$slug" params={{ slug: "tidesgate" }}>
-              Tidesgate
+            <InternalLink to="/pages/$slug" params={{ slug: "verenthal" }}>
+              Verenthal
             </InternalLink>
           </li>
         </ul>
