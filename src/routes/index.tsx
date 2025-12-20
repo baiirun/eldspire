@@ -1,11 +1,29 @@
 import { createFileRoute } from "@tanstack/solid-router";
+import { createServerFn } from "@tanstack/solid-start";
+import { env } from "cloudflare:workers";
+import { For } from "solid-js";
 import { InternalLink } from "@/components/InternalLink";
 
+type RecentPage = {
+  name: string;
+};
+
+const getRecentPages = createServerFn({ method: "GET" }).handler(async () => {
+  const result = await env.DB.prepare(
+    "SELECT name FROM pages ORDER BY updated_at DESC LIMIT 3"
+  ).all<RecentPage>();
+
+  return result.results;
+});
+
 export const Route = createFileRoute("/")({
+  loader: async () => await getRecentPages(),
   component: App,
 });
 
 function App() {
+  const recentPages = Route.useLoaderData();
+
   return (
     <div class="space-y-6">
       <section class="space-y-2">
@@ -22,11 +40,18 @@ function App() {
       <section class="space-y-2">
         <h2>Wiki Pages</h2>
         <ul class="list-disc pl-6 space-y-1">
-          <li>
-            <InternalLink to="/pages/$slug" params={{ slug: "verenthal" }}>
-              Verenthal
-            </InternalLink>
-          </li>
+          <For each={recentPages()}>
+            {(page) => (
+              <li>
+                <InternalLink
+                  to="/pages/$slug"
+                  params={{ slug: page.name.toLowerCase().replace(/\s+/g, "-") }}
+                >
+                  {page.name}
+                </InternalLink>
+              </li>
+            )}
+          </For>
         </ul>
       </section>
     </div>

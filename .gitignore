@@ -12,3 +12,6 @@ count.txt
 todos.json
 .wrangler
 .alchemy
+
+# bv (beads viewer) local config and caches
+.bv/
