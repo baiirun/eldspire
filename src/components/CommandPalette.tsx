@@ -1,6 +1,6 @@
-import { createSignal, createEffect, For, Show } from "solid-js";
+import { createSignal, createEffect, createResource, For, Show } from "solid-js";
 import { createServerFn } from "@tanstack/solid-start";
-import { useNavigate } from "@tanstack/solid-router";
+import { useNavigate, Link } from "@tanstack/solid-router";
 import { env } from "cloudflare:workers";
 
 type SearchResult = {
@@ -26,11 +26,18 @@ type CommandPaletteProps = {
 
 export function CommandPalette(props: CommandPaletteProps) {
   const [query, setQuery] = createSignal("");
-  const [results, setResults] = createSignal<SearchResult[]>([]);
+  const [debouncedQuery, setDebouncedQuery] = createSignal("");
   const [selectedIndex, setSelectedIndex] = createSignal(0);
   const navigate = useNavigate();
   let inputRef: HTMLInputElement | undefined;
   let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+
+  const [results] = createResource(debouncedQuery, async (q) => {
+    if (!q.trim()) return [];
+    const data = await searchPages({ data: q });
+    setSelectedIndex(0);
+    return data;
+  });
 
   const toSlug = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
 
@@ -42,7 +49,7 @@ export function CommandPalette(props: CommandPaletteProps) {
   createEffect(() => {
     if (props.open) {
       setQuery("");
-      setResults([]);
+      setDebouncedQuery("");
       setSelectedIndex(0);
       setTimeout(() => inputRef?.focus(), 0);
     }
@@ -53,21 +60,19 @@ export function CommandPalette(props: CommandPaletteProps) {
     if (debounceTimer) clearTimeout(debounceTimer);
 
     if (!q.trim()) {
-      setResults([]);
+      setDebouncedQuery("");
       return;
     }
 
-    debounceTimer = setTimeout(async () => {
-      const data = await searchPages({ data: q });
-      setResults(data);
-      setSelectedIndex(0);
+    debounceTimer = setTimeout(() => {
+      setDebouncedQuery(q);
     }, 300);
   });
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    const len = results().length;
+    const len = results()?.length ?? 0;
 
-    if (e.key === "ArrowDown") {
+    if (e.key === "ArrowDown" || e.key === "Tab") {
       e.preventDefault();
       setSelectedIndex((i) => (i + 1) % Math.max(len, 1));
     } else if (e.key === "ArrowUp") {
@@ -75,7 +80,7 @@ export function CommandPalette(props: CommandPaletteProps) {
       setSelectedIndex((i) => (i - 1 + Math.max(len, 1)) % Math.max(len, 1));
     } else if (e.key === "Enter" && len > 0) {
       e.preventDefault();
-      const selected = results()[selectedIndex()];
+      const selected = results()?.[selectedIndex()];
       if (selected) navigateToPage(selected.name);
     } else if (e.key === "Escape") {
       e.preventDefault();
@@ -105,25 +110,32 @@ export function CommandPalette(props: CommandPaletteProps) {
             onKeyDown={handleKeyDown}
             class="w-full px-4 py-3 text-lg border-b border-stone-200 outline-none"
           />
-          <Show when={results().length > 0}>
+          <Show when={(results()?.length ?? 0) > 0}>
             <ul class="max-h-80 overflow-y-auto">
               <For each={results()}>
                 {(result, index) => (
                   <li
-                    class={`px-4 py-2 cursor-pointer ${
+                    class={`cursor-pointer ${
                       index() === selectedIndex()
                         ? "bg-stone-100"
                         : "hover:bg-stone-50"
                     }`}
-                    onClick={() => navigateToPage(result.name)}
                   >
-                    {result.name}
+                    <Link
+                      to="/pages/$slug"
+                      params={{ slug: toSlug(result.name) }}
+                      preload="viewport"
+                      class="block px-4 py-2"
+                      onClick={() => props.onClose()}
+                    >
+                      {result.name}
+                    </Link>
                   </li>
                 )}
               </For>
             </ul>
           </Show>
-          <Show when={query().trim() && results().length === 0}>
+          <Show when={debouncedQuery() && results()?.length === 0 && !results.loading}>
             <div class="px-4 py-3 text-stone-500">No pages found</div>
           </Show>
         </div>
