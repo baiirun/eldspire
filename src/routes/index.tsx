@@ -54,6 +54,37 @@ function App() {
           </For>
         </ul>
       </section>
+
+      <section class="space-y-2">
+        <h2>Characters</h2>
+        <ul class="list-disc pl-6 space-y-1">
+          <li>
+            <InternalLink to="/pages/$slug" params={{ slug: "thaniel-cottonwood" }}>
+              Thaniel Cottonwood
+            </InternalLink>
+          </li>
+          <li>
+            <InternalLink to="/pages/$slug" params={{ slug: "tharn" }}>
+              Tharn
+            </InternalLink>
+          </li>
+          <li>
+            <InternalLink to="/pages/$slug" params={{ slug: "eli" }}>
+              Eli
+            </InternalLink>
+          </li>
+          <li>
+            <InternalLink to="/pages/$slug" params={{ slug: "tirolas" }}>
+              Tirolas
+            </InternalLink>
+          </li>
+          <li>
+            <InternalLink to="/pages/$slug" params={{ slug: "reverend-mother" }}>
+              Reverend Mother
+            </InternalLink>
+          </li>
+        </ul>
+      </section>
     </div>
   );
 }
