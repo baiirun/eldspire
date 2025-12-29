@@ -82,6 +82,11 @@ function App() {
 							Adventure Log
 						</InternalLink>
 					</li>
+					<li>
+						<InternalLink to="/pages/$slug" params={{ slug: "quest-log" }}>
+							Quest Log
+						</InternalLink>
+					</li>
 				</ul>
 			</section>
 
