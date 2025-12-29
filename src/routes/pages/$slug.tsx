@@ -1,12 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/solid-router";
 import { createServerFn } from "@tanstack/solid-start";
 import { env } from "cloudflare:workers";
-import { For, Show } from "solid-js";
+import { createResource, For, Show } from "solid-js";
 import { InternalLink } from "@/components/InternalLink";
 import { parse } from "@/lib/markdown";
 import { Markdown } from "@/lib/markdown-solid";
 import { unslugify } from "@/lib/unslugify";
 import { getRequest } from "@tanstack/solid-start/server";
+
+type RecentPage = {
+  name: string;
+};
+
+const getRecentPages = createServerFn({ method: "GET" }).handler(async () => {
+  const result = await env.DB.prepare(
+    "SELECT name FROM pages ORDER BY updated_at DESC LIMIT 3"
+  ).all<RecentPage>();
+
+  return result.results;
+});
 
 type Page = {
   id: number;
@@ -47,17 +59,42 @@ function PageView() {
   const data = Route.useLoaderData();
 
   return (
-    <Show
-      when={data().page}
-      fallback={
-        <div class="space-y-4">
-          <h1>Page Not Found</h1>
-          <p>The page you're looking for doesn't exist yet.</p>
-        </div>
-      }
-    >
+    <Show when={data().page} fallback={<PageNotFound />}>
       {(page) => <PageContent page={page()} />}
     </Show>
+  );
+}
+
+function PageNotFound() {
+  const [recentPages] = createResource(() => getRecentPages());
+
+  return (
+    <div class="space-y-4">
+      <h1>Page Not Found</h1>
+      <p>The page you're looking for doesn't exist. Try these links instead:</p>
+      <ul class="list-disc pl-6 space-y-1">
+        <li>
+          <InternalLink to="/pages/$slug" params={{ slug: "adventure-log" }}>
+            Adventure Log
+          </InternalLink>
+        </li>
+        <For each={recentPages()}>
+          {(page) => (
+            <li>
+              <InternalLink
+                to="/pages/$slug"
+                params={{ slug: page.name.toLowerCase().replace(/\s+/g, "-") }}
+              >
+                {page.name}
+              </InternalLink>
+            </li>
+          )}
+        </For>
+      </ul>
+      <p>
+        <Link to="/">← Back to Home</Link>
+      </p>
+    </div>
   );
 }
 
