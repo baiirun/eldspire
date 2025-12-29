@@ -38,24 +38,6 @@ function App() {
       </section>
 
       <section class="space-y-2">
-        <h2>Wiki Pages</h2>
-        <ul class="list-disc pl-6 space-y-1">
-          <For each={recentPages()}>
-            {(page) => (
-              <li>
-                <InternalLink
-                  to="/pages/$slug"
-                  params={{ slug: page.name.toLowerCase().replace(/\s+/g, "-") }}
-                >
-                  {page.name}
-                </InternalLink>
-              </li>
-            )}
-          </For>
-        </ul>
-      </section>
-
-      <section class="space-y-2">
         <h2>Characters</h2>
         <ul class="list-disc pl-6 space-y-1">
           <li>
@@ -83,6 +65,31 @@ function App() {
               Reverend Mother
             </InternalLink>
           </li>
+        </ul>
+      </section>
+
+      <section class="space-y-2">
+        <h2>Adventure Log</h2>
+        <InternalLink to="/pages/$slug" params={{ slug: "adventure-log" }}>
+          Adventure Log
+        </InternalLink>
+      </section>
+
+      <section class="space-y-2">
+        <h2>Wiki Pages</h2>
+        <ul class="list-disc pl-6 space-y-1">
+          <For each={recentPages()}>
+            {(page) => (
+              <li>
+                <InternalLink
+                  to="/pages/$slug"
+                  params={{ slug: page.name.toLowerCase().replace(/\s+/g, "-") }}
+                >
+                  {page.name}
+                </InternalLink>
+              </li>
+            )}
+          </For>
         </ul>
       </section>
     </div>
