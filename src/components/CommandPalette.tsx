@@ -72,12 +72,22 @@ export function CommandPalette(props: CommandPaletteProps) {
   const handleKeyDown = (e: KeyboardEvent) => {
     const len = results()?.length ?? 0;
 
-    if (e.key === "ArrowDown" || e.key === "Tab") {
+    if (e.key === "Tab") {
       e.preventDefault();
-      setSelectedIndex((i) => (i + 1) % Math.max(len, 1));
+      e.stopPropagation();
+      if (len > 0) {
+        if (e.shiftKey) {
+          setSelectedIndex((i) => (i - 1 + len) % len);
+        } else {
+          setSelectedIndex((i) => (i + 1) % len);
+        }
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (len > 0) setSelectedIndex((i) => (i + 1) % len);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setSelectedIndex((i) => (i - 1 + Math.max(len, 1)) % Math.max(len, 1));
+      if (len > 0) setSelectedIndex((i) => (i - 1 + len) % len);
     } else if (e.key === "Enter" && len > 0) {
       e.preventDefault();
       const selected = results()?.[selectedIndex()];
@@ -126,6 +136,7 @@ export function CommandPalette(props: CommandPaletteProps) {
                       params={{ slug: toSlug(result.name) }}
                       preload="viewport"
                       class="block px-4 py-2"
+                      tabIndex={-1}
                       onClick={() => props.onClose()}
                     >
                       {result.name}
