@@ -38,12 +38,10 @@ export function stripDmSections(content: string): string {
 }
 
 /**
- * Strip ID prefixes from wikilinks in content
- * [[04.99.06 Ashenport]] -> [[Ashenport]]
- * [[04.99.06 Ashenport|Custom Display]] -> [[Ashenport|Custom Display]]
+ * No-op. Previously stripped ID prefixes from wikilinks, but vault no longer uses prefixed filenames.
  */
 export function stripWikilinkPrefixes(content: string): string {
-  return content.replace(/\[\[(\d+\.\d+\.\d+\s+)([^\]|]+)(\|[^\]]+)?\]\]/g, "[[$2$3]]");
+  return content;
 }
 
 /**
@@ -60,14 +58,10 @@ export function extractWikilinks(content: string): string[] {
 }
 
 /**
- * Strip the numeric ID prefix from a filename to get the page name
+ * Extract page name from filename by removing .md extension
  */
 export function parseTitle(filename: string): string {
-  // Remove .md extension
-  const nameWithoutExt = filename.replace(/\.md$/, "");
-
-  // Strip xx.xx.xx prefix with arbitrary length digits (e.g., "04.99.1234 Title" -> "Title")
-  return nameWithoutExt.replace(/^\d+\.\d+\.\d+\s+/, "");
+  return filename.replace(/\.md$/, "");
 }
 
 /**

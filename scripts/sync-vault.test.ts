@@ -83,55 +83,20 @@ Some content here`;
 });
 
 describe("stripWikilinkPrefixes", () => {
-  it("strips ID prefix from wikilinks", () => {
-    expect(stripWikilinkPrefixes("[[04.99.06 Ashenport]]")).toBe("[[Ashenport]]");
-    expect(stripWikilinkPrefixes("[[1.2.3 Short]]")).toBe("[[Short]]");
-  });
-
-  it("preserves display text", () => {
-    expect(stripWikilinkPrefixes("[[04.99.06 Ashenport|The Port]]")).toBe("[[Ashenport|The Port]]");
-  });
-
-  it("handles multiple wikilinks", () => {
-    const content = "See [[04.99.06 Ashenport]] and [[01.02.03 Other Place]]";
-    expect(stripWikilinkPrefixes(content)).toBe("See [[Ashenport]] and [[Other Place]]");
-  });
-
-  it("leaves wikilinks without prefix unchanged", () => {
+  it("returns content unchanged (no-op)", () => {
     expect(stripWikilinkPrefixes("[[Ashenport]]")).toBe("[[Ashenport]]");
     expect(stripWikilinkPrefixes("[[Some Page|Display]]")).toBe("[[Some Page|Display]]");
   });
 });
 
 describe("parseTitle", () => {
-  it("strips xx.xx.xx prefix from filename", () => {
-    expect(parseTitle("04.99.06 How to pick furniture.md")).toBe("How to pick furniture");
-    expect(parseTitle("01.02.03 Test Page.md")).toBe("Test Page");
-  });
-
-  it("handles arbitrary length IDs", () => {
-    expect(parseTitle("04.99.1234 Long ID.md")).toBe("Long ID");
-    expect(parseTitle("1.2.3 Short ID.md")).toBe("Short ID");
-    expect(parseTitle("123.456.789 All Long.md")).toBe("All Long");
-  });
-
-  it("handles files without prefix", () => {
-    expect(parseTitle("Regular Page.md")).toBe("Regular Page");
-    expect(parseTitle("Simple.md")).toBe("Simple");
-  });
-
-  it("handles edge cases", () => {
-    expect(parseTitle("00.00.00 Edge Case.md")).toBe("Edge Case");
-    expect(parseTitle("99.99.99 Max Values.md")).toBe("Max Values");
-  });
-
-  it("does not strip invalid prefixes", () => {
-    expect(parseTitle("04-99-06 Wrong Separator.md")).toBe("04-99-06 Wrong Separator");
-    expect(parseTitle("04.99 Missing Field.md")).toBe("04.99 Missing Field");
+  it("removes .md extension from filename", () => {
+    expect(parseTitle("Ashenport.md")).toBe("Ashenport");
+    expect(parseTitle("How to pick furniture.md")).toBe("How to pick furniture");
   });
 
   it("handles files without .md extension", () => {
-    expect(parseTitle("01.01.01 No Extension")).toBe("No Extension");
+    expect(parseTitle("No Extension")).toBe("No Extension");
   });
 });
 
@@ -144,31 +109,31 @@ describe("file scanning integration", () => {
     await mkdir(join(testDir, ".hidden"), { recursive: true });
 
     await writeFile(
-      join(testDir, "01.01.01 Published Page.md"),
+      join(testDir, "Published Page.md"),
       `# Published Page
 Content here #wiki`
     );
 
     await writeFile(
-      join(testDir, "02.02.02 Also Published.md"),
+      join(testDir, "Also Published.md"),
       `# Also Published
 This has #wiki inline tag`
     );
 
     await writeFile(
-      join(testDir, "03.03.03 Not Published.md"),
+      join(testDir, "Not Published.md"),
       `# Not Published
 No wiki tag here`
     );
 
     await writeFile(
-      join(testDir, "subdir", "04.04.04 Nested Published.md"),
+      join(testDir, "subdir", "Nested Published.md"),
       `# Nested
 #wiki #nested`
     );
 
     await writeFile(
-      join(testDir, ".hidden", "05.05.05 Hidden.md"),
+      join(testDir, ".hidden", "Hidden.md"),
       `# Should be ignored
 #wiki`
     );
@@ -197,7 +162,7 @@ No wiki tag here`
     expect(names).not.toContain("Not Published");
   });
 
-  it("strips prefix from collected page names", async () => {
+  it("uses filename as page name", async () => {
     const pages = await collectPages(testDir, "wiki");
     const publishedPage = pages.find((p) => p.name === "Published Page");
 
