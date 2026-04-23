@@ -26,6 +26,12 @@ a:hover {
     margin-top: 1rem;
 }
 
+.prose hr {
+    margin: 1rem 0 1.25rem;
+    border: 0;
+    border-top: 1px solid currentColor;
+}
+
 .prose h2 {
     margin-top: 2rem;
     margin-bottom: 1rem;
