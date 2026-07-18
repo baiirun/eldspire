@@ -883,6 +883,7 @@ function parseList(
   const ordered = /^\d+\.$/.test(match[2]);
   const startNum = ordered ? parseInt(match[3] || "1") : undefined;
   const items: ListItem[] = [];
+  const isOrderedMarker = (marker: string) => /^\d+\.$/.test(marker);
 
   let i = start;
   while (i < lines.length) {
@@ -890,6 +891,10 @@ function parseList(
     const itemMatch = line.match(/^(\s*)(-|\*|\+|\d+\.)\s(.*)$/);
 
     if (itemMatch && itemMatch[1].length === baseIndent) {
+      if (isOrderedMarker(itemMatch[2]) !== ordered) {
+        break;
+      }
+
       // New item at same level
       const content = itemMatch[3];
       const itemLines: string[] = [content];

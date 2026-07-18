@@ -384,6 +384,16 @@ describe("render function", () => {
     expect(html).toContain('data-callout="tip"');
   });
 
+  it("renders unordered and ordered lists", () => {
+    const result = parse("- Alpha\n- Beta\n\n1. First\n2. Second");
+    const html = render(result, stringRenderer);
+
+    expect(html).toContain("<ul>");
+    expect(html).toContain("<li><p>Alpha</p></li>");
+    expect(html).toContain("<ol>");
+    expect(html).toContain("<li><p>First</p></li>");
+  });
+
   it("allows custom renderers", () => {
     const customRenderer: Renderer<string> = {
       ...stringRenderer,
