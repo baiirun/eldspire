@@ -43,6 +43,19 @@ export const Route = createRootRoute({
     ],
     links: [
       {
+        rel: "preconnect",
+        href: "https://fonts.googleapis.com",
+      },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,700&display=swap",
+      },
+      {
         rel: "stylesheet",
         href: appCss,
       },
@@ -116,8 +129,18 @@ function RootDocument(props: { children: Solid.JSX.Element }) {
         <HeadContent />
       </head>
       <body>
-        <div class="layout">
-          <Solid.Suspense>{props.children}</Solid.Suspense>
+        <div class="site-shell">
+          <header class="site-header">
+            <Link class="site-name" to="/">Eldspire</Link>
+            <nav class="site-nav" aria-label="Primary navigation">
+              <Link to="/rules">Rules</Link>
+              <Link to="/generator">Generator</Link>
+              <Link to="/sheet">Sheet</Link>
+            </nav>
+          </header>
+          <main class="site-main">
+            <Solid.Suspense>{props.children}</Solid.Suspense>
+          </main>
         </div>
         <Scripts />
       </body>

@@ -110,8 +110,8 @@ function PageContent(props: { page: Page }) {
   };
 
   return (
-    <article class="prose">
-      <h1 class="mb-8"><Link to="/">{props.page.name}</Link></h1>
+    <article class="prose page-column">
+      <h1><Link to="/">{props.page.name}</Link></h1>
       <Markdown content={parsed()} config={{ wikiLinkBasePath: "/pages" }} />
       <p class="mt-8 text-sm text-gray-500">
         Last updated: {new Date(props.page.updatedAt * 1000).toLocaleDateString()}

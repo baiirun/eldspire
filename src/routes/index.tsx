@@ -25,11 +25,10 @@ function App() {
 	const recentPages = Route.useLoaderData();
 
 	return (
-		<div class="space-y-6">
-			<section class="space-y-2">
-				<h1 class="mb-8">
-					I. <span class="ml-4">Frame</span>
-				</h1>
+		<div class="page-column home-page">
+			<section class="page-intro">
+				<p class="eyebrow">A survival fantasy world</p>
+				<h1>Eldspire</h1>
 				<p>
 					Cultures clash in mystical lands as explorers, adventurers, and
 					colonial powers seek fame and fortune in a world haunted by the shadow
@@ -37,9 +36,18 @@ function App() {
 				</p>
 			</section>
 
-			<section class="space-y-2">
+			<section class="home-section">
+				<h2>Play</h2>
+				<ul>
+					<li><InternalLink to="/rules">Read the rules</InternalLink></li>
+					<li><InternalLink to="/generator">Generate a character</InternalLink></li>
+					<li><InternalLink to="/sheet">Print a character sheet</InternalLink></li>
+				</ul>
+			</section>
+
+			<section class="home-section">
 				<h2>Characters</h2>
-				<ul class="list-disc pl-6 space-y-1">
+				<ul>
 					<li>
 						<InternalLink
 							to="/pages/$slug"
@@ -74,9 +82,9 @@ function App() {
 				</ul>
 			</section>
 
-			<section class="space-y-2">
+			<section class="home-section">
 				<h2>Logs</h2>
-				<ul class="list-disc pl-6 space-y-1">
+				<ul>
 					<li>
 						<InternalLink to="/pages/$slug" params={{ slug: "adventure-log" }}>
 							Adventure Log
@@ -90,9 +98,9 @@ function App() {
 				</ul>
 			</section>
 
-			<section class="space-y-2">
-				<h2>Wiki Pages</h2>
-				<ul class="list-disc pl-6 space-y-1">
+			<section class="home-section">
+				<h2>Recently Updated</h2>
+				<ul>
 					<For each={recentPages()}>
 						{(page) => (
 							<li>
