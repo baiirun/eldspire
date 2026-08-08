@@ -1,4 +1,4 @@
-import { createSignal, createEffect, createResource, For, Show } from "solid-js";
+import { createSignal, createEffect, createResource, For, Show, Suspense } from "solid-js";
 import { createServerFn } from "@tanstack/solid-start";
 import { useNavigate, Link } from "@tanstack/solid-router";
 import { env } from "cloudflare:workers";
@@ -120,35 +120,37 @@ export function CommandPalette(props: CommandPaletteProps) {
             onKeyDown={handleKeyDown}
             class="w-full px-4 py-3 text-lg border-b border-stone-200 outline-none"
           />
-          <Show when={(results()?.length ?? 0) > 0}>
-            <ul class="max-h-80 overflow-y-auto">
-              <For each={results()}>
-                {(result, index) => (
-                  <li
-                    class={`cursor-pointer ${
-                      index() === selectedIndex()
-                        ? "bg-stone-100"
-                        : "hover:bg-stone-50"
-                    }`}
-                  >
-                    <Link
-                      to="/pages/$slug"
-                      params={{ slug: toSlug(result.name) }}
-                      preload="viewport"
-                      class="block px-4 py-2"
-                      tabIndex={-1}
-                      onClick={() => props.onClose()}
+          <Suspense>
+            <Show when={(results()?.length ?? 0) > 0}>
+              <ul class="max-h-80 overflow-y-auto">
+                <For each={results()}>
+                  {(result, index) => (
+                    <li
+                      class={`cursor-pointer ${
+                        index() === selectedIndex()
+                          ? "bg-stone-100"
+                          : "hover:bg-stone-50"
+                      }`}
                     >
-                      {result.name}
-                    </Link>
-                  </li>
-                )}
-              </For>
-            </ul>
-          </Show>
-          <Show when={debouncedQuery() && results()?.length === 0 && !results.loading}>
-            <div class="px-4 py-3 text-stone-500">No pages found</div>
-          </Show>
+                      <Link
+                        to="/pages/$slug"
+                        params={{ slug: toSlug(result.name) }}
+                        preload="viewport"
+                        class="block px-4 py-2"
+                        tabIndex={-1}
+                        onClick={() => props.onClose()}
+                      >
+                        {result.name}
+                      </Link>
+                    </li>
+                  )}
+                </For>
+              </ul>
+            </Show>
+            <Show when={debouncedQuery() && results()?.length === 0 && !results.loading}>
+              <div class="px-4 py-3 text-stone-500">No pages found</div>
+            </Show>
+          </Suspense>
         </div>
       </div>
     </Show>
