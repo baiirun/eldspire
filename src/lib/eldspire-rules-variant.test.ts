@@ -21,6 +21,7 @@ describe("Eldspire experimental rules", () => {
     expect(html).toContain("one separate Arcane");
     expect(html).toContain("New unranked Feature");
     expect(html).toContain('href="/rules"');
+    expect(html).toContain('href="/rules/variant/d6-pool"');
     expect(html).not.toContain("Rated Features");
     expect(html).not.toContain("Separate Fatigue Dice");
     expect(html).not.toContain("Convert action dice");
