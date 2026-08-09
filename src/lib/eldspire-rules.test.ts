@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { threatSparkTables } from "@/data/eldspire-threat-tables";
 import { renderEldspireRules } from "./eldspire-rules";
 
 describe("Eldspire rules", () => {
@@ -8,14 +7,12 @@ describe("Eldspire rules", () => {
 
     expect(html).toContain("How To Play");
     expect(html).toContain('id="rolling"');
-    expect(html).toContain('id="threats"');
+    expect(html).toContain('id="actions-threats"');
     expect(html).toContain('id="character-tables"');
+    expect(html).toContain('href="/rules/variant"');
+    expect(html).not.toContain("Threat Format");
+    expect(html).not.toContain("Threat Spark Tables");
     expect(html).not.toContain("{{table:");
-    expect(html).not.toContain("{{threat-tables}}");
     expect(html.match(/<tr><td>100<\/td>/g)).toHaveLength(9);
-    expect(html.match(/id="threat-table-/g)).toHaveLength(8);
-    expect(threatSparkTables.every((table) => table.entries.length === 12)).toBe(
-      true,
-    );
   });
 });

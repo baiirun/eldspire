@@ -306,6 +306,14 @@ button:disabled {
   padding: 0;
 }
 
+.rules-page ul {
+  list-style-type: disc;
+}
+
+.rules-page ol {
+  list-style-type: decimal;
+}
+
 .rules-page li {
   margin-bottom: 0.22rem;
   padding-left: 0.15rem;
@@ -340,6 +348,73 @@ button:disabled {
   border-left: 3px solid var(--rule);
   padding-left: 0.8rem;
   color: rgba(17, 17, 17, 0.76);
+}
+
+.rules-variant-page code {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.rules-procedure-list {
+  counter-reset: procedure;
+  margin-left: 0 !important;
+  list-style: none !important;
+}
+
+.rules-procedure-list > li {
+  position: relative;
+  min-height: 2rem;
+  padding-left: 2.35rem;
+}
+
+.rules-procedure-list > li + li {
+  margin-top: 0.8rem;
+}
+
+.rules-procedure-list > li::before {
+  position: absolute;
+  top: -0.05rem;
+  left: 0;
+  display: grid;
+  width: 1.65rem;
+  height: 1.65rem;
+  place-items: center;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  content: counter(procedure);
+  counter-increment: procedure;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.rules-variant-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.rules-variant-card {
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--ink);
+  padding: 0.8rem;
+  font-size: 0.96rem;
+}
+
+.rules-variant-card-push {
+  border-top-width: 6px;
+}
+
+.rules-variant-card-team {
+  border-top-style: dashed;
+}
+
+.rules-variant-card h3 {
+  margin-top: 0;
+}
+
+.rules-variant-card > :last-child {
+  margin-bottom: 0;
 }
 
 .rules-random-index {
@@ -723,6 +798,10 @@ button:disabled {
   .rules-random-columns {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+
+  .rules-variant-grid {
+    grid-template-columns: 1fr;
   }
 
   .texture-line {

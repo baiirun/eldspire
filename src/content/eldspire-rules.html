@@ -4,7 +4,7 @@
             <a href="#principles">Principles</a>
             <a href="#characters">Create a Character</a>
             <a href="#rolling">Resolve Action</a>
-            <a href="#threats">Enemies & Hazards</a>
+            <a href="#actions-threats">Actions &amp; Threats</a>
             <a href="#harm">Fatigue & Harm</a>
             <a href="#recovery">Recovery</a>
             <a href="#equipment">Equipment</a>
@@ -15,12 +15,12 @@
             <a href="#advancement">Advancement</a>
             <a href="#deferred">Deferred Rules</a>
             <a href="#character-tables">Character Tables</a>
-            <a href="#threat-tables">Threat Spark Tables</a>
           </nav>
           <div class="rules-body">
             <p class="rules-eyebrow">Eldspire Expedition Rules</p>
             <h1>How To Play</h1>
             <p class="rules-dek">A fantasy adventure game about dangerous roads, hungry ruins, tired heroes, and the warmth that makes returning worth the risk.</p>
+            <p class="rules-note"><strong>These are the current rules.</strong> The experimental Baselines step-dice modifier package is available at <a href="/rules/variant">/rules/variant</a>.</p>
 
             <section class="rules-section" id="principles">
               <h2>Core Principles</h2>
@@ -30,7 +30,7 @@
                 <li>The GM describes what is possible, what is dangerous, and what could happen.</li>
                 <li>Roll only when the outcome is both uncertain and consequential.</li>
                 <li>Consequences follow from established fiction rather than a universal damage procedure.</li>
-                <li>The same procedure resolves travel, exploration, negotiation, violence, magic, and escape.</li>
+                <li>The same procedure resolves every uncertain, consequential action.</li>
               </ul>
               <p>The character sheet records evidence about who a character is. It is not a menu limiting what they may attempt.</p>
             </section>
@@ -133,25 +133,49 @@
               <p>Ordinary opposition may fall after one decisive action. Durable threats may require fictional breakpoints, vulnerabilities, or a short progress track.</p>
             </section>
 
-            <section class="rules-section" id="threats">
-              <h2>Enemies and Hazards</h2>
-              <p>Build people, monsters, traps, weather, and supernatural hazards from the fiction outward. Their descriptions establish what they can do, what can affect them, and what consequences they can inflict. They do not need conventional combat statistics.</p>
-              <ol>
-                <li><strong>State what it is:</strong> establish its nature, behavior, sensory presence, and enough history to place it in the world.</li>
-                <li><strong>Give it pressure:</strong> decide what it wants now and how the situation changes if the characters hesitate.</li>
-                <li><strong>Find its defining truth:</strong> state the one fictional quality players must respect.</li>
-                <li><strong>Write two to four moves:</strong> concrete warnings and consequences that change the situation.</li>
-                <li><strong>Add counterplay only when needed:</strong> provide leverage for threats that are immune, recurring, or otherwise unreadable.</li>
-                <li><strong>Add endurance only when needed:</strong> use visible breakpoints or a short track when several meaningful changes in position should be required.</li>
-              </ol>
-              <h3>Threat Format</h3>
+            <section class="rules-section" id="actions-threats">
+              <h2>How Actions and Threats Work</h2>
+              <p>Enemies do not take turns or roll dice. Instead, the GM describes threats acting in the world, and the characters decide how to respond.</p>
+
+              <h3>Warnings</h3>
+              <p>A Warning shows what is about to happen and what it threatens while leaving time to act. Name the danger, what is at risk, and any important constraints.</p>
               <div class="rules-note">
-                <p><strong>Name</strong></p>
-                <p>One or two evocative sentences establishing nature, behavior, pressure, and important fictional qualities.</p>
-                <p>Two to four concrete ways it advances the danger.</p>
-                <p>Optional counterplay, escalation, endurance, or special procedure.</p>
+                <p><em>The ogre draws back its hammer. The cracked arch will collapse if the blow lands. What do you do?</em></p>
               </div>
-              <p>Most ordinary people and minor threats fall, flee, surrender, or change after one decisive action. Endurance represents visible fictional change rather than hidden hit points. Use the <a href="#threat-tables">Threat Spark Tables</a> when a premise does not arrive immediately.</p>
+              <p>A Warning may threaten a character, companion, resource, route, opportunity, relationship, or objective.</p>
+
+              <h3>Responding</h3>
+              <p>The player states what they want and how they act. The GM clarifies what is possible and what consequence may follow. Roll only when the response is uncertain and consequential.</p>
+              <p>One roll resolves both the character's action and the threat:</p>
+              <ul>
+                <li>If the result includes no consequence, the character achieves their intent and prevents or overcomes the immediate threat.</li>
+                <li>If the result includes a consequence, the character achieves their intent, but an established danger or related cost still lands.</li>
+                <li>On a failure, the character does not achieve their intent and the threatened consequence lands, or the situation changes for the worse.</li>
+              </ul>
+              <p>A consequence on a successful roll cannot erase the success.</p>
+
+              <h3>Consequences</h3>
+              <p>A Consequence makes danger real and changes the fiction immediately. It may:</p>
+              <ul>
+                <li>Harm or separate someone.</li>
+                <li>Break equipment or consume a resource.</li>
+                <li>Close a route or remove an opportunity.</li>
+                <li>Advance time or another threat.</li>
+                <li>Put the characters in greater danger.</li>
+                <li>Make an announced enemy action happen.</li>
+              </ul>
+              <p>Consequences must follow from the established fiction. Warn before applying a surprising or irreversible consequence. If the characters ignore a Warning, the GM may apply its Consequence without another roll.</p>
+
+              <h3>Example</h3>
+              <p>The ogre threatens to collapse the arch. Mara tries to jam its hammer arm with her spear.</p>
+              <ul>
+                <li><strong>Exceptional success:</strong> she pins its arm, saves the arch, and forces the ogre to drop its hammer.</li>
+                <li><strong>Clean success:</strong> she pins its arm and saves the arch.</li>
+                <li><strong>Success with a consequence:</strong> she saves the arch, but the hammer shatters her spear.</li>
+                <li><strong>Failure:</strong> the hammer lands and the arch collapses, cutting off the passage.</li>
+                <li><strong>Ignored Warning:</strong> if Mara searches the treasure instead, the hammer lands and the arch collapses without a roll.</li>
+              </ul>
+              <p class="rules-note"><strong>The rhythm of play:</strong> Warning → response → one roll → changed fiction.</p>
             </section>
 
             <section class="rules-section" id="harm">
@@ -177,7 +201,7 @@
               <p>For a harsher Fatigue spiral, roll 2d10 instead of 1d20 and compare the total to current Fatigue normally. Low Fatigue is easier to withstand, but Rally becomes sharply less reliable above 10 Fatigue; use the total on the same fallout table. The lowest possible result is 2.</p>
 
               <h3>Wounds</h3>
-              <p>Wounds are lasting injuries caused only by Wound-capable fiction. Name each one concretely. Fatigue never automatically becomes a Wound.</p>
+              <p>Wounds are lasting injuries caused only by Wound-capable fiction, such as <em>Broken Ribs</em>, <em>Concussion</em>, <em>Burned Hand</em>, <em>Gashed Thigh</em>, or <em>Crushed Knee</em>. Name each one concretely. Fatigue never automatically becomes a Wound.</p>
               <table class="rules-table">
                 <thead><tr><th>Wounds</th><th>Untreated Floor</th><th>All Treated</th></tr></thead>
                 <tbody>
@@ -191,7 +215,7 @@
               <p>A Wound can be avoided or redirected only through concrete protection such as armor, a shield, sacrificed equipment, an ally, magic, retreat, or established positioning.</p>
 
               <h3>Conditions</h3>
-              <p>Conditions are unranked fictional states such as <em>Poisoned</em>, <em>Terrified</em>, <em>Lost</em>, <em>Cursed</em>, or <em>Weary</em>. They change permission, position, and consequences rather than applying standard penalties. A Condition clears when its fiction is resolved.</p>
+              <p>Conditions are unranked fictional states such as <em>Poisoned</em>, <em>Terrified</em>, <em>Lost</em>, <em>Hunted</em>, <em>Inspired</em>, <em>Disguised</em>, <em>Trusted by the Watch</em>, or <em>Blessed Against Fire</em>. They change permission, position, and consequences rather than applying standard bonuses or penalties. A Condition clears when its fiction is resolved.</p>
 
               <h3>Meet Death</h3>
               <p>When a character with three Wounds would take another, they become Dying and Meet Death. Describe how Death and her threshold appear, then roll 1d10.</p>
@@ -200,6 +224,8 @@
                 <li><strong>6-9:</strong> Death returns you Maimed, indebted, transformed, bound, or permanently changed. Leave the immediate scene.</li>
                 <li><strong>1-5:</strong> Your time has come. Choose a final exceptional deed followed by death, extraordinary supernatural transformation or servitude, or willing passage into death.</li>
               </ul>
+              <h3>Maimed</h3>
+              <p>Meeting Death can leave a character Maimed. Record the permanent injury or loss concretely, such as <em>Lost Eye</em>, <em>Severed Hand</em>, <em>Ruined Leg</em>, <em>Destroyed Voice</em>, or <em>Body Withered by Death</em>. A Maim changes fictional permissions, position, and consequences rather than applying a standard penalty. Adaptation, prosthetics, or powerful magic may change its effects without erasing what happened. If a Maim makes continued adventuring impossible, the character must retire.</p>
             </section>
 
             <section class="rules-section" id="recovery">
@@ -209,6 +235,7 @@
                 <li>A meaningful moment of respite clears 1 Fatigue.</li>
                 <li>A good camp clears 3 Fatigue.</li>
                 <li>Each uninterrupted day in a proper safe haven clears 5 Fatigue.</li>
+                <li>Engaging in your Comfort during camp or downtime clears 1 additional Fatigue.</li>
                 <li>Recovery never lowers Fatigue below the current floor.</li>
               </ul>
               <p>Interruptions, danger, deprivation, and strenuous activity may prevent recovery through the ordinary fiction.</p>
@@ -289,7 +316,7 @@
                 <li><strong>Repair:</strong> restore damaged gear, armor, or equipment.</li>
                 <li><strong>Provision:</strong> forage, hunt, gather water, or prepare food.</li>
                 <li><strong>Prepare:</strong> scout, fortify, conceal, study maps, or ready the next stage.</li>
-                <li><strong>Connect:</strong> share comfort or companionship, clear 1 additional Fatigue, and establish fitting character change.</li>
+                <li><strong>Connect:</strong> engage in your Comfort or share companionship, clear 1 additional Fatigue, and establish fitting character change.</li>
                 <li><strong>Work:</strong> pursue research, training, crafting, spell recovery, or another undertaking.</li>
               </ul>
               <p>These are prompts, not action ratings. Roll only when the activity is uncertain and consequential.</p>
@@ -392,21 +419,5 @@
               {{table:comforts}}
             </section>
 
-            <section class="rules-section" id="threat-tables">
-              <h2>Threat Spark Tables</h2>
-              <p>Choose the form table that fits, then roll or choose from the remaining tables. Rewrite the result into ordinary prose and retain only what matters.</p>
-              <p class="rules-note"><strong>[Form]</strong> is trying to <strong>[Pressure]</strong>. Its approach is revealed by <strong>[Sign]</strong>. It can <strong>[Move]</strong> and <strong>[Move]</strong>. Complicate it with <strong>[Complication]</strong>. If special counterplay is needed, begin with <strong>[Leverage]</strong>.</p>
-              <nav class="rules-random-index" aria-label="Threat table index">
-                <a href="#threat-table-people">People</a>
-                <a href="#threat-table-entities">Monsters & Entities</a>
-                <a href="#threat-table-hazards">Places & Hazards</a>
-                <a href="#threat-table-pressure">Pressure</a>
-                <a href="#threat-table-sign">Signs</a>
-                <a href="#threat-table-move">Moves</a>
-                <a href="#threat-table-complication">Complications</a>
-                <a href="#threat-table-counterplay">Counterplay</a>
-              </nav>
-              {{threat-tables}}
-            </section>
           </div>
         </article>

@@ -1,9 +1,5 @@
-import rulesTemplate from "@/content/eldspire-rules.html?raw";
+import rulesTemplate from "../content/eldspire-rules.html?raw";
 import { eldspireTables, type EldspireTableKey } from "@/data/eldspire-tables";
-import {
-  threatSparkTables,
-  type ThreatSparkTable,
-} from "@/data/eldspire-threat-tables";
 
 const tableTitles = {
   traits: "Traits",
@@ -56,40 +52,13 @@ function renderRandomTable(key: EldspireTableKey): string {
   </section>`;
 }
 
-function renderThreatTable(table: ThreatSparkTable): string {
-  const midpoint = Math.ceil(table.entries.length / 2);
-  const halves = [
-    table.entries.slice(0, midpoint),
-    table.entries.slice(midpoint),
-  ];
-
-  return `<section class="rules-random-table" id="threat-table-${table.id}">
-    <h3>${escapeHtml(table.title)} (d12)</h3>
-    <div class="rules-random-columns">
-      ${halves
-        .map(
-          (half, index) => `<table class="rules-table">
-            <thead><tr><th>Roll</th><th>${escapeHtml(table.resultHeading)}</th></tr></thead>
-            <tbody>${renderRows(half, index * midpoint + 1)}</tbody>
-          </table>`,
-        )
-        .join("")}
-    </div>
-  </section>`;
-}
-
 export function renderEldspireRules(): string {
-  const characterRules = Object.keys(tableTitles).reduce(
+  return Object.keys(tableTitles).reduce(
     (html, key) =>
       html.replace(
         `{{table:${key}}}`,
         renderRandomTable(key as EldspireTableKey),
     ),
     rulesTemplate,
-  );
-
-  return characterRules.replace(
-    "{{threat-tables}}",
-    threatSparkTables.map(renderThreatTable).join(""),
   );
 }
