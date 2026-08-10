@@ -14,7 +14,8 @@ describe("Eldspire d6-pool experimental rules", () => {
     expect(html).not.toContain("Force d8");
     expect(html).toContain("Exactly one 6");
     expect(html).toContain("Two or more 6s");
-    expect(html).toContain("stake 1–3 Fatigue");
+    expect(html).toContain("pay 1–3 Fatigue");
+    expect(html).toContain("The Fatigue is paid regardless of the result");
     expect(html).toContain("Any number of characters may help");
     expect(html).toContain("It never adds a separate Arcane die");
     expect(html).toContain("Remove one d6 for each spell Tier above 1");
