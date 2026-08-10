@@ -8,7 +8,7 @@ describe("Eldspire d6-pool experimental rules", () => {
     expect(html).toContain("How To Play: d6-Pool Variant");
     expect(html).toContain('aria-label="Experimental Eldspire d6-pool rules"');
     expect(html).toContain("Every action has Difficulty 8");
-    expect(html).toContain("Record Baselines as ratings from 1–5");
+    expect(html).toContain("Record Approaches as ratings from 1–5");
     expect(html).toContain("Force 3");
     expect(html).not.toContain("Force 3d6");
     expect(html).not.toContain("Force d8");

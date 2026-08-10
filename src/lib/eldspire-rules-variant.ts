@@ -35,6 +35,6 @@ export function renderEldspireRulesVariant(): string {
     .replace("<h1>How To Play</h1>", "<h1>How To Play: Step-Dice Variant</h1>")
     .replace(
       '<p class="rules-note"><strong>These are the current rules.</strong> Experimental alternatives are available as the <a href="/rules/variant">step-dice variant</a> and <a href="/rules/variant/d6-pool">d6-pool variant</a>.</p>',
-      '<p class="rules-note"><strong>Experimental and noncanonical.</strong> This page replaces the character, action, advancement, and spellcasting procedures with the Baselines step-dice variant. Return to the <a href="/rules">current rules</a> or compare the <a href="/rules/variant/d6-pool">d6-pool variant</a>.</p>',
+      '<p class="rules-note"><strong>Experimental and noncanonical.</strong> This page replaces the character, action, advancement, and spellcasting procedures with the Approaches step-dice variant. Return to the <a href="/rules">current rules</a> or compare the <a href="/rules/variant/d6-pool">d6-pool variant</a>.</p>',
     );
 }

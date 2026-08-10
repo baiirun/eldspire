@@ -7,7 +7,7 @@ describe("Eldspire experimental rules", () => {
 
     expect(html).toContain("How To Play: Step-Dice Variant");
     expect(html).toContain('class="rules-page rules-variant-page"');
-    expect(html).toContain("Starting Baselines");
+    expect(html).toContain("Starting Approaches");
     expect(html).toContain("<h3>Advantage</h3>");
     expect(html).toContain("<h3>Disadvantage</h3>");
     expect(html).toContain("<h3>Static Results</h3>");
