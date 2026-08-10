@@ -17,15 +17,15 @@
   </table>
 
   <h3>Starting Baselines</h3>
-  <p>Choose an array and assign one pool to each Baseline:</p>
+  <p>Choose an array and assign one rating to each Baseline:</p>
   <table class="rules-table">
-    <thead><tr><th>Array</th><th>Pools</th></tr></thead>
+    <thead><tr><th>Array</th><th>Ratings</th></tr></thead>
     <tbody>
-      <tr><td>Focused</td><td>3d6, 3d6, 2d6, 2d6, 2d6, 1d6, 1d6, 1d6</td></tr>
-      <tr><td>Versatile</td><td>3d6, 2d6, 2d6, 2d6, 2d6, 2d6, 1d6, 1d6</td></tr>
+      <tr><td>Focused</td><td>3, 3, 2, 2, 2, 1, 1, 1</td></tr>
+      <tr><td>Versatile</td><td>3, 2, 2, 2, 2, 2, 1, 1</td></tr>
     </tbody>
   </table>
-  <p>Record Baselines directly as d6 pools, such as Force 3d6. They advance from 1d6 to 5d6.</p>
+  <p>Record Baselines as ratings from 1–5, such as Force 3. The chosen Baseline contributes that many d6s to an action.</p>
 
   <h3>Unranked Features</h3>
   <p>Write one adventuring <strong>Archetype</strong> and four <strong>Traits</strong>. They are evocative, performable truths rather than ratings.</p>
@@ -54,7 +54,7 @@
     <li>Roll the pool, determine one result, change the fiction, and move the spotlight.</li>
   </ol>
 
-  <p><strong>Action pool:</strong> the d6s supplied by one Baseline, one Feature die, and any additional dice from Push or Tag Team.</p>
+  <p><strong>Action pool:</strong> a number of d6s equal to one Baseline rating, one Feature die, and any additional dice from Push or Tag Team.</p>
   <p>A relevant Feature normally contributes d8. Roll the pool and add the highest d6 to the Feature die. Additional d6s from Push and Tag Team join the same pool.</p>
 
   <h3>Static Difficulty</h3>
@@ -62,7 +62,7 @@
   <table class="rules-table">
     <thead><tr><th>Total</th><th>d6 Pool</th><th>Result</th></tr></thead>
     <tbody>
-      <tr><td>Below 8</td><td>Any 1</td><td><strong>Super Fail.</strong> The action fails, its ordinary consequence lands, and the character makes a Rally check.</td></tr>
+      <tr><td>Below 8</td><td>Any 1</td><td><strong>Fumble.</strong> The action fails, its ordinary consequence lands, and the character makes a Rally check.</td></tr>
       <tr><td>Below 8</td><td>No 1s</td><td><strong>Fail.</strong> The action fails and its ordinary consequence lands.</td></tr>
       <tr><td>8+</td><td>No 6s</td><td><strong>Success at Cost.</strong> The action succeeds and an announced cost lands.</td></tr>
       <tr><td>8+</td><td>Exactly one 6</td><td><strong>Success.</strong> The action succeeds without the immediate cost.</td></tr>
@@ -80,20 +80,20 @@
   <p>Advantage and Disadvantage cancel, returning the Feature to d8. If no Feature applies, the character may still attempt the action with a fallback d4. Advantage can raise that fallback to d8. Routine actions still happen without rolling, and impossible actions remain impossible.</p>
 
   <h3>Push</h3>
-  <p>Before rolling, the acting character may stake 1–3 Fatigue to add the same number of d6s. On a Fail or Super Fail, gain the staked Fatigue in addition to ordinary failure Fatigue. On any successful result, gain none of the staked Fatigue.</p>
+  <p>Before rolling, the acting character may stake 1–3 Fatigue to add the same number of d6s. On a Fail or Fumble, gain the staked Fatigue in addition to ordinary failure Fatigue. On any successful result, gain none of the staked Fatigue.</p>
 
   <h3>Tag Team</h3>
   <p>When characters commit to one coordinated action, state one shared goal and choose a lead. Each helper must describe a contribution that makes sense in the fiction and is supported by one of their Features. They may then stake 1 Fatigue and add one d6. A helper contributes only once.</p>
-  <p>Roll once and resolve one shared outcome. On a Fail or Super Fail, each helper gains their staked Fatigue; on any successful result, they do not. The action's consequences may affect any helper whose contribution placed them in danger. Any number of characters may help when every contribution meets these requirements.</p>
+  <p>Roll once and resolve one shared outcome. On a Fail or Fumble, each helper gains their staked Fatigue; on any successful result, they do not. The action's consequences may affect any helper whose contribution placed them in danger. Any number of characters may help when every contribution meets these requirements.</p>
 
   <h3>Success at Cost</h3>
   <p>The stated intent happens, but an announced cost lands. The cost may add Fatigue, reduce effect, consume time or equipment, attract danger, worsen position, or force a difficult choice. It cannot erase the success.</p>
 
   <h3>Failure</h3>
-  <p>A Fail or Super Fail normally adds 1 Fatigue to the character making the roll, plus any staked Push Fatigue. The GM may establish a higher amount before the roll when the pressure clearly warrants it.</p>
+  <p>A Fail or Fumble normally adds 1 Fatigue to the character making the roll, plus any staked Push Fatigue. The GM may establish a higher amount before the roll when the pressure clearly warrants it.</p>
   <p>After adding Fatigue, apply the action's ordinary consequence.</p>
 
-  <h3>Super Failure and Rally</h3>
+  <h3>Fumble and Rally</h3>
   <p>When the total fails and any d6 in the pool shows a natural 1, make one Rally check after gaining failure Fatigue. Never make more than one Rally check from an action, regardless of how many 1s appear.</p>
   <p>The Rally result is added to the action's ordinary consequence. Helpers do not make additional checks, though either consequence may affect a helper whose contribution placed them in danger. Successful rolls never trigger Rally from their dice; the established fiction may still require it independently.</p>
 
@@ -108,10 +108,10 @@
 
 <section class="rules-section" id="magic">
   <h2>Magic</h2>
-  <p>Each spell has a fixed Tier from 1–5 and text defining effect, scale, reach, requirements, and permission. To cast it, know the spell, use a relevant magical Feature, and choose a Baseline pool containing at least as many dice as the spell's Tier.</p>
+  <p>Each spell has a fixed Tier from 1–5 and text defining effect, scale, reach, requirements, and permission. To cast it, know the spell, use a relevant magical Feature, and choose a Baseline rating equal to or greater than the spell's Tier.</p>
   <p>Casting uses the ordinary Difficulty 8 action roll and five results. It never adds a separate Arcane die.</p>
   <ol>
-    <li>Start with the chosen Baseline pool.</li>
+    <li>Start with a number of d6s equal to the chosen Baseline rating.</li>
     <li>Remove one d6 for each spell Tier above 1.</li>
     <li>Add any Push or Tag Team dice.</li>
     <li>Add the magical Feature die, roll, and resolve the result normally.</li>
@@ -126,7 +126,7 @@
       <tr><td>5</td><td>−4d6</td></tr>
     </tbody>
   </table>
-  <p>The eligibility requirement always leaves at least 1d6 before Push or Tag Team dice are added.</p>
+  <p>Because the Baseline rating must equal or exceed the spell's Tier, this always leaves at least 1d6 before Push or Tag Team dice are added.</p>
   <table class="rules-table">
     <thead><tr><th>Result</th><th>Spellcasting Outcome</th></tr></thead>
     <tbody>
@@ -134,10 +134,10 @@
       <tr><td>Success</td><td>The spell works as intended.</td></tr>
       <tr><td>Success at Cost</td><td>The spell works, remains available, and the caster gains Fatigue equal to its Tier.</td></tr>
       <tr><td>Fail</td><td>The spell fails, becomes exhausted, and the ordinary consequence lands.</td></tr>
-      <tr><td>Super Fail</td><td>The spell fails, becomes exhausted, the ordinary consequence lands, and a magical Mishap replaces the normal Rally check.</td></tr>
+      <tr><td>Fumble</td><td>The spell fails, becomes exhausted, the ordinary consequence lands, and a magical Mishap replaces the normal Rally check.</td></tr>
     </tbody>
   </table>
-  <p>A Mishap is the magical interpretation of the ordinary Super Fail result, not a separate trigger or check. Spell Tier removes more dice, causes more Fatigue on Success at Cost, and scales Mishap severity without changing Difficulty.</p>
+  <p>A Mishap is the magical interpretation of the ordinary Fumble result, not a separate trigger or check. Spell Tier removes more dice, causes more Fatigue on Success at Cost, and scales Mishap severity without changing Difficulty.</p>
   <p>Tag Team still uses one caster and one spell. Helpers may add d6s after the Tier reduction through knowledge, equipment, positioning, ritual support, or other relevant Features. Casting a second spell is a separate action.</p>
   <p>One Work activity at camp restores all exhausted spells when the caster performs their tradition's recovery practice. Learned spells are lost only through explicit fiction that severs their source.</p>
   <p>Until a Mishap table exists, resolve a trigger as a severe magical consequence shaped by the spell, Tier, tradition, place, and immediate fiction. Record it for later design.</p>
@@ -164,10 +164,10 @@
     <thead><tr><th>Advance</th><th>XP</th></tr></thead>
     <tbody>
       <tr><td>New unranked Feature</td><td>10</td></tr>
-      <tr><td>Baseline 1d6 → 2d6</td><td>20</td></tr>
-      <tr><td>Baseline 2d6 → 3d6</td><td>40</td></tr>
-      <tr><td>Baseline 3d6 → 4d6</td><td>60</td></tr>
-      <tr><td>Baseline 4d6 → 5d6</td><td>80</td></tr>
+      <tr><td>Baseline 1 → 2</td><td>20</td></tr>
+      <tr><td>Baseline 2 → 3</td><td>40</td></tr>
+      <tr><td>Baseline 3 → 4</td><td>60</td></tr>
+      <tr><td>Baseline 4 → 5</td><td>80</td></tr>
     </tbody>
   </table>
   <p>Growth must follow demonstrated change, training, mentorship, discovery, transformation, or important texture. Spending XP consumes no downtime activity.</p>

@@ -8,7 +8,9 @@ describe("Eldspire d6-pool experimental rules", () => {
     expect(html).toContain("How To Play: d6-Pool Variant");
     expect(html).toContain('aria-label="Experimental Eldspire d6-pool rules"');
     expect(html).toContain("Every action has Difficulty 8");
-    expect(html).toContain("Record Baselines directly as d6 pools");
+    expect(html).toContain("Record Baselines as ratings from 1–5");
+    expect(html).toContain("Force 3");
+    expect(html).not.toContain("Force 3d6");
     expect(html).not.toContain("Force d8");
     expect(html).toContain("Exactly one 6");
     expect(html).toContain("Two or more 6s");
@@ -17,7 +19,9 @@ describe("Eldspire d6-pool experimental rules", () => {
     expect(html).toContain("It never adds a separate Arcane die");
     expect(html).toContain("Remove one d6 for each spell Tier above 1");
     expect(html).toContain("gains Fatigue equal to its Tier");
-    expect(html).toContain("A Mishap is the magical interpretation of the ordinary Super Fail result");
+    expect(html).toContain("A Mishap is the magical interpretation of the ordinary Fumble result");
+    expect(html).toContain("<h3>Fumble and Rally</h3>");
+    expect(html).not.toContain("Super Fail");
     expect(html).not.toContain("The spell works and becomes exhausted");
     expect(html).toContain('href="/rules"');
     expect(html).toContain('href="/rules/variant"');
