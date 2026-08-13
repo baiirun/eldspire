@@ -16,7 +16,15 @@ describe("Eldspire d6-pool experimental rules", () => {
     expect(html).toContain("Two or more 6s");
     expect(html).toContain("pay 1–3 Fatigue");
     expect(html).toContain("The Fatigue is paid regardless of the result");
+    expect(html).toContain("They may then pay 1 Fatigue and add one d6");
     expect(html).toContain("Any number of characters may help");
+    expect(html).toContain("character, action, harm, advancement, and spellcasting");
+    expect(html).toContain("Faltering");
+    expect(html).toContain("gain 2 Fatigue instead of the ordinary 1 Fatigue");
+    expect(html).toContain("The Body Gives Out");
+    expect(html).toContain("Meet Death regardless of current Wounds");
+    expect(html).toContain("Approach Fallout");
+    expect(html).not.toContain("<strong>Fray.</strong>");
     expect(html).toContain("It never adds a separate Arcane die");
     expect(html).toContain("Remove one d6 for each spell Tier above 1");
     expect(html).toContain("gains Fatigue equal to its Tier");

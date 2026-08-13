@@ -17,6 +17,8 @@ describe("Eldspire experimental rules", () => {
     expect(html).toContain("<h3>Failure</h3>");
     expect(html).toContain("<h3>Rally</h3>");
     expect(html).toContain("A successful roll never triggers Rally from its dice");
+    expect(html).toContain("<strong>Fray.</strong>");
+    expect(html).not.toContain("<strong>Faltering.</strong>");
     expect(html).not.toContain("Failure and Rally");
     expect(html).toContain("one separate Arcane");
     expect(html).toContain("New unranked Feature");

@@ -62,8 +62,8 @@
   <table class="rules-table">
     <thead><tr><th>Total</th><th>d6 Pool</th><th>Result</th></tr></thead>
     <tbody>
-      <tr><td>Below 8</td><td>Any 1</td><td><strong>Fumble.</strong> The action fails, its ordinary consequence lands, and the character makes a Rally check.</td></tr>
-      <tr><td>Below 8</td><td>No 1s</td><td><strong>Fail.</strong> The action fails and its ordinary consequence lands.</td></tr>
+      <tr><td>Below 8</td><td>Any 1</td><td><strong>Fumble.</strong> The action fails, the character gains 1 Fatigue, its ordinary consequence lands, and the character makes a Rally check.</td></tr>
+      <tr><td>Below 8</td><td>No 1s</td><td><strong>Fail.</strong> The action fails, the character gains 1 Fatigue, and its ordinary consequence lands.</td></tr>
       <tr><td>8+</td><td>No 6s</td><td><strong>Success at Cost.</strong> The action succeeds and an announced cost lands.</td></tr>
       <tr><td>8+</td><td>Exactly one 6</td><td><strong>Success.</strong> The action succeeds without the immediate cost.</td></tr>
       <tr><td>8+</td><td>Two or more 6s</td><td><strong>Exceptional Success.</strong> The action succeeds and exceeds its original intent.</td></tr>
@@ -83,8 +83,8 @@
   <p>Before rolling, the acting character may pay 1–3 Fatigue to add the same number of d6s. The Fatigue is paid regardless of the result, and any result-generated Fatigue stacks afterward.</p>
 
   <h3>Tag Team</h3>
-  <p>When characters commit to one coordinated action, state one shared goal and choose a lead. Each helper must describe a contribution that makes sense in the fiction and is supported by one of their Features. They may then stake 1 Fatigue and add one d6. A helper contributes only once.</p>
-  <p>Roll once and resolve one shared outcome. On a Fail or Fumble, each helper gains their staked Fatigue; on any successful result, they do not. The action's consequences may affect any helper whose contribution placed them in danger. Any number of characters may help when every contribution meets these requirements.</p>
+  <p>When characters commit to one coordinated action, state one shared goal and choose a lead. Each helper must describe a contribution that makes sense in the fiction and is supported by one of their Features. They may then pay 1 Fatigue and add one d6. The Fatigue is paid regardless of the result, and a helper contributes only once.</p>
+  <p>Roll once and resolve one shared outcome. The action's consequences may affect any helper whose contribution placed them in danger. Any number of characters may help when every contribution meets these requirements.</p>
 
   <h3>Success at Cost</h3>
   <p>The stated intent happens, but an announced cost lands. The cost may add Fatigue, reduce effect, consume time or equipment, attract danger, worsen position, or force a difficult choice. It cannot erase the success.</p>
@@ -104,6 +104,83 @@
   <h3>Spotlight and Opposition</h3>
   <p>There is no separate combat mode and enemies do not roll. The GM announces threats; players describe how they answer. Move the spotlight after every resolved action so every positioned character can intervene. Use clockwise order only if free spotlight becomes chaotic.</p>
   <p>Ordinary opposition may fall after one decisive action. Durable threats may require fictional breakpoints, vulnerabilities, or a short progress track.</p>
+</section>
+
+<section class="rules-section" id="harm">
+  <h2>Fatigue, Wounds, and Conditions</h2>
+  <h3>Fatigue and Rally</h3>
+  <p>Fatigue is the toll of exertion, hunger, fear, weather, poor sleep, glancing harm, blood loss, magic, and deprivation. It ranges from 0–20 and can never recover below the current Fatigue Floor. The fiction may add Fatigue directly.</p>
+  <p>When a Fumble or reaching 20 Fatigue triggers Rally, resolve the triggering event and its ordinary consequences first. Then roll 1d20. Roll over current Fatigue to hold together. Roll equal to or under it and apply the same numbered Fallout below. Rally Fallout never clears Fatigue or retracts what the character accomplished.</p>
+  <table class="rules-table">
+    <thead><tr><th>d20</th><th>Rally Fallout</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Adrenaline.</strong> The next action you attempt before the immediate situation changes has Advantage.</td></tr>
+      <tr><td>2</td><td><strong>Winded.</strong> You cannot Push or contribute to a Tag Team until you get a moment out of immediate danger to catch your breath.</td></tr>
+      <tr><td>3</td><td><strong>Jumpy.</strong> Gain 1 Fatigue; one nearby companion also gains 1 Fatigue.</td></tr>
+      <tr><td>4</td><td><strong>Overwhelmed.</strong> Your next action has Disadvantage, after which this effect ends.</td></tr>
+      <tr><td>5</td><td><strong>Dark-Shy.</strong> The first time in a scene that reliable light is lost or you enter darkness without it, gain 1 Fatigue.</td></tr>
+      <tr><td>6</td><td><strong>Blood-Shy.</strong> The first time in a scene that violence begins or someone nearby suffers a Wound, gain 1 Fatigue.</td></tr>
+      <tr><td>7</td><td><strong>Restless.</strong> A respite cannot reduce your Fatigue. A good camp or safe haven still can.</td></tr>
+      <tr><td>8</td><td><strong>Loss of Confidence.</strong> Attach a concrete Condition to the Approach used and reduce its current rating by 1.</td></tr>
+      <tr><td>9</td><td><strong>Afraid To Be Alone.</strong> The first time in a scene that you become separated from every companion, gain 1 Fatigue.</td></tr>
+      <tr><td>10</td><td><strong>Faltering.</strong> Whenever you Fail or Fumble an action, gain 2 Fatigue instead of the ordinary 1 Fatigue. Additional Fatigue from Push, magic, and other effects is unchanged.</td></tr>
+      <tr><td>11</td><td><strong>Road-Worn.</strong> Gain 1 Fatigue when beginning another dangerous route leg without having made a good camp since the last one.</td></tr>
+      <tr><td>12</td><td><strong>Nightmares.</strong> A good camp counts only as a respite for you unless another character uses their Connect camp activity with you. A safe haven still works normally.</td></tr>
+      <tr><td>13</td><td><strong>Magic-Sick.</strong> The first time in a scene that uncontrolled or hostile magic affects you or your surroundings, gain 1 Fatigue.</td></tr>
+      <tr><td>14</td><td><strong>Fixated.</strong> Name something from the triggering situation that you cannot let go. Attach the Condition to the Approach used and reduce its current rating by 1. The first time in a scene that you turn away from the fixation, gain 1 Fatigue.</td></tr>
+      <tr><td>15</td><td><strong>Collapse.</strong> After the triggering action, you cannot act for the rest of the scene unless another character gets you somewhere safe.</td></tr>
+      <tr><td>16</td><td><strong>Coming Apart.</strong> Attach a distinct concrete Condition to the Approach used and to one other Approach changed by the pressure. Reduce each current rating by 1.</td></tr>
+      <tr><td>17</td><td><strong>Spiraling.</strong> Until this Condition is resolved, make each future Rally check twice and use the worse result.</td></tr>
+      <tr><td>18</td><td><strong>Compounding Problems.</strong> Roll twice more on this table and apply both results. Reroll 18–20; duplicate persistent results escalate as described below.</td></tr>
+      <tr><td>19</td><td><strong>The Body Gives Out.</strong> The accumulated pressure becomes Wound-capable. Suffer a Wound, attach it to the Approach used, and reduce that Approach's current rating by 1.</td></tr>
+      <tr><td>20</td><td><strong>Meet Death.</strong> At maximum Fatigue, the accumulated exhaustion, exposure, fear, pain, or magic becomes fatal. Meet Death regardless of current Wounds.</td></tr>
+    </tbody>
+  </table>
+  <p>Results 1–4 and 15 are immediate and may recur. Results 5–14, 16, and 17 create Conditions that remain until their fiction is meaningfully resolved; the listed rule is their mechanical effect, not a complete prescription of how they appear. If a persistent result is already active, use the next higher result that is not already active. Results that attach new Conditions to Approaches may recur when each Condition is concretely different.</p>
+  <p>Fatigue gained while resolving Rally Fallout does not immediately trigger another Rally, though a character at 20 Fatigue still cannot continue until they recover.</p>
+
+  <h3>Approach Fallout</h3>
+  <p>Every Wound and Condition that the table says to attach is written beneath one Approach and reduces its current rating by 1. The player chooses and names the affected Approach subject to what happened in the fiction; when a result specifies the Approach used, it must go there. Multiple tags can affect the same Approach or different ones, and their reductions stack. An Approach at 0 cannot be selected.</p>
+  <p>Clearing an attached Condition restores its reduction. Treating an attached Wound restores its reduction; healing it removes the Wound as usual. Wounds still count toward Meet Death and set the Fatigue Floor.</p>
+  <table class="rules-table">
+    <thead><tr><th>Approach</th><th>Name the Fallout by asking</th></tr></thead>
+    <tbody>
+      <tr><td>Force</td><td>What can you no longer sustain, move, or bring to bear?</td></tr>
+      <tr><td>Finesse</td><td>What has begun shaking, slipping, or falling out of rhythm?</td></tr>
+      <tr><td>Grit</td><td>What can you no longer endure without giving ground?</td></tr>
+      <tr><td>Reason</td><td>What thought has clouded, trapped, or escaped you?</td></tr>
+      <tr><td>Instinct</td><td>What danger do you now hesitate before or overreact to?</td></tr>
+      <tr><td>Presence</td><td>Who saw you falter, or what confidence cracked?</td></tr>
+      <tr><td>Heart</td><td>What fear, grief, conviction, or attachment now controls you?</td></tr>
+      <tr><td>Cunning</td><td>What lie, tell, vulnerability, or shortcut has caught up with you?</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Wounds and the Fatigue Floor</h3>
+  <p>Outside Rally Fallout, Wounds are lasting injuries caused only by Wound-capable fiction, such as <em>Broken Ribs</em>, <em>Concussion</em>, <em>Burned Hand</em>, <em>Gashed Thigh</em>, or <em>Crushed Knee</em>. Name each one concretely.</p>
+  <table class="rules-table">
+    <thead><tr><th>Wounds</th><th>Untreated Floor</th><th>All Treated</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>0</td><td>0</td></tr>
+      <tr><td>1</td><td>5</td><td>0</td></tr>
+      <tr><td>2</td><td>10</td><td>5</td></tr>
+      <tr><td>3</td><td>15</td><td>10</td></tr>
+    </tbody>
+  </table>
+  <p>Use the treated floor only when every current Wound is treated. Healing removes a Wound and follows the injury's fiction. A Wound can be avoided or redirected only through concrete protection such as armor, a shield, sacrificed equipment, an ally, magic, retreat, or established positioning.</p>
+
+  <h3>Other Conditions</h3>
+  <p>Conditions outside the Rally table remain unranked fictional states such as <em>Poisoned</em>, <em>Lost</em>, <em>Hunted</em>, <em>Disguised</em>, or <em>Blessed Against Fire</em>. They change permission, position, and consequences rather than applying a standard modifier unless a rule says to attach them to an Approach. A Condition clears when its fiction is resolved.</p>
+
+  <h3>Meet Death</h3>
+  <p>When a character with three Wounds would take another—or result 20 invokes Meet Death directly—they become Dying. Describe how Death and her threshold appear, then roll 1d10.</p>
+  <ul>
+    <li><strong>10:</strong> Death returns you but permanently marks you. Retain three Wounds.</li>
+    <li><strong>6–9:</strong> Death returns you Maimed, indebted, transformed, bound, or permanently changed. Leave the immediate scene.</li>
+    <li><strong>1–5:</strong> Your time has come. Choose a final exceptional deed followed by death, extraordinary supernatural transformation or servitude, or willing passage into death.</li>
+  </ul>
+  <h3>Maimed</h3>
+  <p>Meeting Death can leave a character Maimed. Record the permanent injury or loss concretely. A Maim changes fictional permissions, position, and consequences rather than applying a standard penalty. Adaptation, prosthetics, or powerful magic may change its effects without erasing what happened. If a Maim makes continued adventuring impossible, the character must retire.</p>
 </section>
 
 <section class="rules-section" id="magic">

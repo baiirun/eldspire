@@ -10,6 +10,8 @@ describe("Eldspire rules", () => {
     expect(html).toContain('id="actions-threats"');
     expect(html).toContain('id="character-tables"');
     expect(html).toContain('href="/rules/variant"');
+    expect(html).toContain("<strong>Fray.</strong>");
+    expect(html).not.toContain("<strong>Faltering.</strong>");
     expect(html).not.toContain("Threat Format");
     expect(html).not.toContain("Threat Spark Tables");
     expect(html).not.toContain("{{table:");
