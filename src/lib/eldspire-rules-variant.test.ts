@@ -24,6 +24,9 @@ describe("Eldspire experimental rules", () => {
     expect(html).toContain("New unranked Feature");
     expect(html).toContain('href="/rules"');
     expect(html).toContain('href="/rules/variant/d6-pool"');
+    expect(html).toContain("Conflict normally begins with what a character wants to change");
+    expect(html).toContain("The normal rhythm:</strong> goal → opposition and stakes");
+    expect(html).not.toContain("The GM announces threats; players describe how they answer");
     expect(html).not.toContain("Rated Features");
     expect(html).not.toContain("Separate Fatigue Dice");
     expect(html).not.toContain("Convert action dice");

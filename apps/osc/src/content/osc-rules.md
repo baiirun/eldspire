@@ -49,6 +49,15 @@ Only use one feature per roll. If several could apply, choose the one that best 
 
 OSC uses a dice pool system.
 
+Start with the agent's goal, not an opposition turn:
+
+1. The agent states what they want to change and how they act.
+2. The GM states what opposes the action and the likely consequences.
+3. If the outcome is uncertain and consequential, make one roll for both sides.
+4. Apply the result, change the fiction, and follow the new opening or urgent threat.
+
+Opposition acts first only when surprise, prepared or overwhelming position, an earlier consequence or failure, hesitation, or ignored danger gives it the lead. The lead is fictional, not a turn order. Clean and critical success normally preserve agent momentum; a mixed result achieves the goal with a consequence; failure normally lets opposition act or take the lead. Do not introduce another threat merely because a roll was resolved.
+
 ```text
 one relevant feature
 + tools / help / setup / position

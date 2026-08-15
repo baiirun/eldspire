@@ -34,6 +34,9 @@ describe("Eldspire d6-pool experimental rules", () => {
     expect(html).not.toContain("The spell works and becomes exhausted");
     expect(html).toContain('href="/rules"');
     expect(html).toContain('href="/rules/variant"');
+    expect(html).toContain("Conflict normally begins with what a character wants to change");
+    expect(html).toContain("The normal rhythm:</strong> goal → opposition and stakes");
+    expect(html).not.toContain("The GM announces threats; players describe how they answer");
 
     expect(html).toContain('id="principles"');
     expect(html).toContain('id="actions-threats"');
