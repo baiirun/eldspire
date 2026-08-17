@@ -27,7 +27,6 @@ Vice:
 Haven:
 Keepsake/trinket:
 Appearance:
-Bad habit:
 ```
 
 Practice, Relationship, and Traits add d6s. Background and texture establish permission, position, and hooks.

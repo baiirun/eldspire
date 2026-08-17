@@ -1,10 +1,13 @@
+@import "@fontsource/ibm-plex-mono/latin-400.css";
+@import "@fontsource/ibm-plex-mono/latin-700.css";
 @import "tailwindcss";
 
 :root {
   color-scheme: light;
   --black: #000;
   --white: #fff;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "IBM Plex Mono", ui-monospace, "SFMono-Regular", "Cascadia Mono",
+    "Roboto Mono", Menlo, Consolas, monospace;
   font-synthesis: none;
 }
 
@@ -22,7 +25,8 @@ body {
   min-height: 100vh;
   background: var(--white);
   color: var(--black);
-  font-family: "Courier New", Courier, monospace;
+  font-family: "IBM Plex Mono", ui-monospace, "SFMono-Regular", "Cascadia Mono",
+    "Roboto Mono", Menlo, Consolas, monospace;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
