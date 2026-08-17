@@ -1,8 +1,6 @@
 <!-- Generated from Zaum/Untitled TTRPG quickstart guide.md. -->
 # OSC
 
-Layout note: format this page as compact boxed modules, like a back-page rules reference.
-
 Secret bureau agents investigate, contain, conceal, and survive the impossible. The rules are simple. The job is not.
 
 - **You can attempt anything that makes sense in the fiction.** If there is no pressure, it just happens.
@@ -48,14 +46,12 @@ Only use one rated Feature per roll. If several could apply, choose the one that
 
 OSC uses a d6 pool plus one position die.
 
-Start with the agent's goal, not an opposition turn:
+When the outcome is uncertain and consequential:
 
 1. The agent states what they want to change and how they act.
-2. The GM states what opposes the action and the likely consequences.
-3. If the outcome is uncertain and consequential, make one roll for both sides.
-4. Apply the result, change the fiction, and follow the new opening or urgent threat.
-
-Opposition acts first only when surprise, prepared or overwhelming position, an earlier consequence or failure, hesitation, or ignored danger gives it the lead. The lead is fictional, not a turn order. Success and Exceptional Success normally preserve agent momentum; Success at Cost achieves the goal with a consequence; Fail and Fumble normally let opposition act or take the lead. Do not introduce another threat merely because a roll was resolved.
+2. Establish the likely consequences.
+3. Make one roll.
+4. Apply the result and change the situation.
 
 ```text
 rating d6s from one Practice, Relationship, or Trait
@@ -146,113 +142,3 @@ Marked By The Static [3]
 Downtime is where mission pressure becomes character change. Show what the job cost, what the character protects, and whether a Condition is healed, left unresolved, or integrated into who they become.
 
 Use downtime and free play to discover deeper wants, needs, fears, and avoided truths. Do not answer everything on the starting sheet.
-
-## Running OSC
-
-### GM Principles
-
-- Roll only when pressure can change the situation.
-- Name stakes before the roll.
-- Hit what was actually risked.
-- Use Conditions before math.
-- Make danger concrete.
-- Let success happen; make costs matter.
-- Ask for fallout ideas; make the call.
-- Move toward exposure, rupture, or containment.
-
-### Core GM Move
-
-When something goes wrong:
-
-- mark Stress
-- worsen position
-- add or worsen a Condition
-- damage gear, cover, standing, or trust
-- split the group
-- lose time or opportunity
-- tick a clock
-- reveal the threat
-- force a hard choice
-- show the cost of containment
-
-### Condition Rubric
-
-Ask:
-
-1. What was actually put at risk?
-2. Is it tier 1, 2, or 3?
-3. What changed in the fiction?
-4. What clears, repairs, treats, covers up, or transforms it?
-
-| Target | Condition 1 | Condition 2 | Condition 3 |
-| --- | --- | --- | --- |
-| Body | bruised, winded, cut, rattled | concussion, deep slash, bullet wound | collapsed lung, shattered bone, burning alive |
-| Mind | shaken, fixated, humiliated | compulsion, phobia, memory scar | possessed, enthralled, mind locked away |
-| Practice | confidence shaken, tool delayed | license flagged, methods discredited | practice burned, access barred |
-| Relationship | trust nicked, awkward debt | implicated, lied to, endangered | severed, kidnapped, turned |
-| Trait | reputation complicated, tell exposed | challenged, inverted, made costly | broken, transformed, unsafe |
-| Gear | cracked, jammed, low battery | broken, traceable, out of ammo | destroyed, lost, cursed |
-| Cover / Bureau | paper trail, suspicious witness | cover strained, heat rising | cover blown, clearance revoked |
-| Mission | clock ticks, witness spooked | objective endangered, anomaly spreads | mission failed, breach public |
-
-Fictional promotion:
-
-```text
-new problem: add a new Condition
-same problem worsens: increase its tier
-```
-
-### Panic / Fallout
-
-Use the failed panic roll as the fallout result.
-
-| d20 | Fallout |
-| --- | --- |
-| 1 | Flinch: hesitate, recoil, gasp, lose rhythm. |
-| 2 | Stumble: drop, fumble, misread, mishandle. |
-| 3 | Blurt: say the wrong thing, key the radio, answer the voice. |
-| 4 | Fixate: lock onto the wrong detail. |
-| 5 | Need Grounding: continue only if steadied, guided, or covered. |
-| 6 | Seek Cover: retreat, hide, surrender position. |
-| 7 | Freeze: still, silent, unable to choose. |
-| 8 | Flee: run, back away, abandon the room, split off. |
-| 9 | Lash Out: accuse, shove, threaten, fire, smash. |
-| 10 | Confess: reveal a truth, secret, fear, name, cover detail. |
-| 11 | Give Ground: surrender leverage, step into danger, reveal position, lose control. |
-| 12 | Haunted: gain a Condition tied to dreams, shame, injury, pursuit, guilt, memory. |
-| 13 | Break Coordination: isolate, abandon plan, force hard choice. |
-| 14 | Make It Worse: fire spreads, gun goes off, witness bolts, cover slips. |
-| 15 | Raise Floor: Stress Floor +1. |
-| 16 | Burn Cover: expose OSC, burn identity, destroy evidence, create witnesses. |
-| 17 | Lose Yourself: dissociate, rage, collapse, obey instinct, fugue. |
-| 18 | Break Feature: damage, sever, compromise, transform. |
-| 19 | Become A Vector: carry the problem forward: rumor, infection, guilt, signal, legal exposure, violence, attention. |
-| 20 | Taken Out: death, disappearance, arrest, hospitalization, removal. |
-
-### Opposition Template
-
-```text
-Name:
-Want:
-Signs:
-What it does on Success at Cost / Fail / Fumble:
-Conditions it creates:
-How it worsens position, marks Stress, or triggers panic:
-How it can be contained:
-What happens if ignored:
-```
-
-### Mission Shape
-
-```text
-Briefing: what the Bureau thinks is happening.
-Scene 1: ordinary world with one wrong detail.
-Scene 2: investigation, witness, site, or artifact.
-Scene 3: escalation; the threat acts.
-Scene 4: containment, extraction, destruction, or bargain.
-Debrief: Stress, Conditions, cover-up, downtime choice.
-```
-
-### Setting Language
-
-Make rule objects sound like the setting. Conditions, Traits, Backgrounds, Practices, gear, vices, havens, and clues should imply secrecy, dread, bureaucracy, intimacy, and containment.

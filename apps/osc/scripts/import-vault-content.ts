@@ -23,7 +23,6 @@ function publishableRules(markdown: string): string {
     markdown
       .slice(start)
       .replace(rulesHeading, "# OSC")
-      .replace("## Page 2: GM", "## Running OSC")
       .trim(),
     "",
   ].join("\n");

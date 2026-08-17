@@ -10,8 +10,6 @@ export const characterFields = [
   "nostalgicObject",
   "normalTrinket",
   "weirdTrinket",
-  "complication",
-  "firstBrush",
 ] as const;
 
 export type CharacterField = (typeof characterFields)[number];
@@ -26,8 +24,6 @@ const fieldTables = {
   nostalgicObject: "nostalgicObjects",
   normalTrinket: "normalTrinkets",
   weirdTrinket: "weirdTrinkets",
-  complication: "complications",
-  firstBrush: "firstBrushes",
 } as const satisfies Record<CharacterField, OscTableKey>;
 
 export type RatedFeature = {
@@ -131,11 +127,6 @@ ${traits}
 - Nostalgic Object: ${character.nostalgicObject}
 - Normal Trinket: ${character.normalTrinket}
 - Optional Weird Trinket: ${character.weirdTrinket}
-
-## Case File
-
-- Complication: ${character.complication}
-- First Brush With The Impossible: ${character.firstBrush}
 
 ## Pressure
 

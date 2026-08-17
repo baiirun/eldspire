@@ -33,8 +33,6 @@ const fieldLabels: Record<CharacterField, string> = {
   nostalgicObject: "Nostalgic Object",
   normalTrinket: "Normal Trinket",
   weirdTrinket: "Optional Weird Trinket",
-  complication: "Complication",
-  firstBrush: "First Brush With The Impossible",
 };
 
 const ratedFields = ["practice", "relationship"] as const;
@@ -47,7 +45,6 @@ const textureFields = [
   "normalTrinket",
   "weirdTrinket",
 ] as const;
-const caseFields = ["complication", "firstBrush"] as const;
 
 function CharacterGenerator() {
   const [character, setCharacter] = createSignal<GeneratedCharacter>();
@@ -107,9 +104,8 @@ function CharacterGenerator() {
   return (
     <div class="generator-page page-column">
       <header class="page-intro">
-        <p class="eyebrow">Personnel intake · Form OSC-17</p>
-        <h1>Generate an agent</h1>
-        <p class="dek">Roll a complete field agent, then lock and reroll details until the file tells a story.</p>
+        <h1>Character generator</h1>
+        <p>Generate a character, then lock or reroll individual details.</p>
       </header>
 
       <div class="command-bar" aria-label="Character generator controls">
@@ -171,26 +167,13 @@ function CharacterGenerator() {
               )}</For>
             </GeneratorSection>
 
-            <GeneratorSection title="Case File">
-              <For each={caseFields}>{(field) => (
-                <FieldRow
-                  label={fieldLabels[field]}
-                  value={current()[field]}
-                  roll={current().rolls[field]}
-                  locked={locked().has(field)}
-                  onReroll={() => reroll(field)}
-                  onLock={() => toggleLock(field)}
-                />
-              )}</For>
-            </GeneratorSection>
-
             <GeneratorSection title="Pressure">
               <div class="rated-line"><span>Current Stress / Stress Floor</span><strong>0 / 0</strong></div>
               <div class="texture-line"><div><span class="texture-label">Conditions</span><span>None</span></div></div>
             </GeneratorSection>
 
             <details class="markdown-disclosure">
-              <summary>Markdown case file</summary>
+              <summary>Markdown character sheet</summary>
               <textarea readonly value={markdown()} aria-label="Character Markdown" />
             </details>
           </article>

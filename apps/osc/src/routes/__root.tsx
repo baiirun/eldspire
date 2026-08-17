@@ -20,27 +20,13 @@ export const Route = createRootRoute({
           "Rules and character generator for secret bureau agents confronting the impossible.",
       },
     ],
-    links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&display=swap",
-      },
-      { rel: "stylesheet", href: appCss },
-    ],
+    links: [{ rel: "stylesheet", href: appCss }],
   }),
   component: RootComponent,
   notFoundComponent: () => (
     <section class="page-column page-intro">
-      <p class="eyebrow">File not found</p>
-      <h1>Redacted</h1>
-      <p>The requested record does not exist or your clearance is insufficient.</p>
-      <p><Link to="/">Return to headquarters</Link></p>
+      <h1>Page not found</h1>
+      <p><Link to="/">Return home</Link></p>
     </section>
   ),
 });
@@ -62,7 +48,6 @@ function RootComponent() {
             </nav>
           </header>
           <main class="site-main"><Outlet /></main>
-          <footer class="site-footer">OSC · Eyes Only</footer>
         </div>
         <Scripts />
       </body>
