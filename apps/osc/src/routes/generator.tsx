@@ -37,8 +37,8 @@ const fieldLabels: Record<CharacterField, string> = {
   firstBrush: "First Brush With The Impossible",
 };
 
-const ratedFields = ["background", "practice", "relationship"] as const;
-const ratings = { background: 1, practice: 2, relationship: 2 } as const;
+const ratedFields = ["practice", "relationship"] as const;
+const ratings = { practice: 2, relationship: 2 } as const;
 const textureFields = [
   "appearance",
   "vice",
@@ -125,7 +125,18 @@ function CharacterGenerator() {
               A <strong>{current().practice.toLowerCase()}</strong> shaped by <strong>{current().background.toLowerCase()}</strong>, still answerable to <strong>{current().relationship.toLowerCase()}</strong>.
             </p>
 
-            <GeneratorSection title="Character Features">
+            <GeneratorSection title="Background">
+              <FieldRow
+                label={fieldLabels.background}
+                value={current().background}
+                roll={current().rolls.background}
+                locked={locked().has("background")}
+                onReroll={() => reroll("background")}
+                onLock={() => toggleLock("background")}
+              />
+            </GeneratorSection>
+
+            <GeneratorSection title="Rated Character Features">
               <For each={ratedFields}>{(field) => (
                 <FieldRow
                   label={fieldLabels[field]}

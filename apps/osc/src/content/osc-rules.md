@@ -8,17 +8,17 @@ Secret bureau agents investigate, contain, conceal, and survive the impossible. 
 - **You can attempt anything that makes sense in the fiction.** If there is no pressure, it just happens.
 - **Ask questions.** The more you learn, the more precise your actions become.
 - **Roll when failure would matter.** If nothing changes on failure, do not roll.
-- **Use one feature.** Background, Practice, Relationship, or Trait says why this action belongs to you.
-- **Use tools and help.** Gear, setup, leverage, and other agents can add dice.
-- **Push when it matters.** Reroll any number of non-Stress dice showing `2-9`; pushed dice become Stress dice.
-- **Stress dice show danger.** The GM infects dice when the situation is dangerous, contaminated, desperate, or personal.
+- **Use one rated feature.** Practice, Relationship, or Trait says why this action belongs to you and supplies d6s.
+- **Improve your position.** Gear, setup, leverage, and circumstances change the position die.
+- **Push when it matters.** Mark `1–3 Stress` before rolling to add the same number of d6s.
+- **Read one roll two ways.** The highest d6 plus position determines success; all d6s determine its quality.
 - **Panic checks happen when pressure breaks containment.** Failed panic creates or worsens a Condition.
 - **Conditions are what the story did to you.** They change permission, cost, risk, and recovery.
 
 ### Creating A Character
 
 ```text
-Background 1
+Background: __________
 Practice 2
 Relationship 2
 Traits 2 / 1 / 1
@@ -32,22 +32,21 @@ Appearance:
 Bad habit:
 ```
 
-Features add dice. Texture adds hooks: vice, haven, keepsakes, appearance, trinkets.
+Practice, Relationship, and Traits add d6s. Background and texture establish permission, position, and hooks.
 
 ### Character Features
 
-When you do something under pressure, choose one relevant feature and roll that many dice. The feature says why this action belongs to you.
+When you do something under pressure, choose one relevant rated Feature and roll that many d6s. The Feature says why this action belongs to you.
 
-- **Background:** upbringing, class, community, old habits, survival instincts, social access.
 - **Practice:** training, profession, field experience, craft, investigation, violence, technical work.
 - **Relationship:** someone you know, owe, protect, exploit, answer to, or can call on.
 - **Trait:** a vivid phrase, reputation, idiom, scar, secret, or world fact that enshrines your fantasy.
 
-Only use one feature per roll. If several could apply, choose the one that best frames the action.
+Only use one rated Feature per roll. If several could apply, choose the one that best frames the action. Background is unrated but can establish what the agent knows, who they can reach, what is possible, or what position they have.
 
 ### Rolling
 
-OSC uses a dice pool system.
+OSC uses a d6 pool plus one position die.
 
 Start with the agent's goal, not an opposition turn:
 
@@ -56,37 +55,39 @@ Start with the agent's goal, not an opposition turn:
 3. If the outcome is uncertain and consequential, make one roll for both sides.
 4. Apply the result, change the fiction, and follow the new opening or urgent threat.
 
-Opposition acts first only when surprise, prepared or overwhelming position, an earlier consequence or failure, hesitation, or ignored danger gives it the lead. The lead is fictional, not a turn order. Clean and critical success normally preserve agent momentum; a mixed result achieves the goal with a consequence; failure normally lets opposition act or take the lead. Do not introduce another threat merely because a roll was resolved.
+Opposition acts first only when surprise, prepared or overwhelming position, an earlier consequence or failure, hesitation, or ignored danger gives it the lead. The lead is fictional, not a turn order. Success and Exceptional Success normally preserve agent momentum; Success at Cost achieves the goal with a consequence; Fail and Fumble normally let opposition act or take the lead. Do not introduce another threat merely because a roll was resolved.
 
 ```text
-one relevant feature
-+ tools / help / setup / position
+rating d6s from one Practice, Relationship, or Trait
++ one position die: d4 Disadvantage / d8 Normal / d12 Advantage
 ```
 
-If no feature applies, roll `2d10` and keep the lowest.
+Add the highest d6 to the position die and compare the total to Difficulty `8`. Then read every d6:
 
-| Highest Die | Outcome  |
-| ----------- | -------- |
-| 1-5         | failure  |
-| 6-9         | mixed    |
-| 10          | clean    |
-| two 10s     | critical |
+| Total | d6 pool | Result |
+|---|---|---|
+| Below `8` | Any `1` | Fumble: fail, mark `1 Stress`, suffer the consequence, then check panic. |
+| Below `8` | No `1s` | Fail: fail, mark `1 Stress`, and suffer the consequence. |
+| `8+` | No `6s` | Success at Cost: succeed and suffer the announced cost. |
+| `8+` | One `6` | Success: succeed without the immediate cost. |
+| `8+` | Multiple `6s` | Exceptional Success: succeed beyond the original intent. |
+
+Every d6 counts, including Push and Tag Team dice. The position die affects only the total. If no rated Feature applies, roll `1d6 + d4` for now.
 
 ### Modifying A Roll
 
 | Source | Effect |
 | --- | --- |
-| relevant feature | add its rating in dice |
-| useful tool / setup / help | add 1 die |
-| push | after rolling, reroll any number of non-Stress dice showing `2-9` once |
-| no relevant feature | roll 2d10, keep lowest |
-| danger / contamination / desperation | GM infects dice |
+| relevant rated Feature | add its rating in d6s |
+| compromised method or circumstances | use Disadvantage `d4` |
+| ordinary position | use Normal `d8` |
+| useful tool, setup, access, or strong leverage | use Advantage `d12` |
+| Push | before rolling, mark `1–3 Stress` for the same number of d6s |
+| no relevant rated Feature | roll `1d6 + d4` |
 
-When you push, the pushed dice become Stress dice. Keep the new results. Each pushed `1` marks 1 Stress and can trigger panic. Resolve the action, then resolve panic/fallout.
+The Stress from Push is marked whether the roll succeeds or fails. Result-generated Stress stacks afterward.
 
-Push is also how you fight a consequence. If the GM names a likely consequence and you want to avoid or change it, push before the outcome is final.
-
-Tag Team: name one shared goal, choose one lead feature, each other agent adds 1 die with a concrete contribution, roll once, everyone is exposed.
+Tag Team: name one shared goal and lead agent. Each helper with a concrete contribution supported by a rated Feature marks `1 Stress` and adds `1d6`. Roll once; everyone placed in danger shares exposure.
 
 ### Stress And Panic
 
@@ -100,9 +101,7 @@ Stress Floor: what you cannot recover below
 Max Stress: 20
 ```
 
-Gain Stress when a pushed die shows `1`, when you suffer horror, take pressure from an anomaly, get hurt, betray yourself, strain a relationship, or fail in a way that should actually cost you. Failure does not automatically mark Stress unless the fiction makes it matter.
-
-Stress dice are infected dice. They replace dice in your pool when danger, contamination, desperation, or personal pressure enters the roll. Each `1` on a Stress die marks 1 Stress. If any Stress die shows `1`, make one panic check.
+Gain Stress on Fail or Fumble, when you Push or help in a Tag Team, or when you suffer horror, pressure from an anomaly, injury, shame, betrayal, strained relationships, secrecy, or supernatural contact.
 
 ```text
 roll d20 over Current Stress
@@ -114,7 +113,8 @@ Failed panic creates or worsens a Condition, then vents Stress based on the fall
 
 Make a panic check when:
 
-- a Stress die shows `1`
+- an action Fumbles
+- Current Stress reaches `20`
 - a monster, anomaly, location, artifact, or mission feature calls for it
 - another agent dies, breaks, or vanishes in front of you
 - the team loses control and death, exposure, or containment failure feels close
@@ -165,7 +165,7 @@ Use downtime and free play to discover deeper wants, needs, fears, and avoided t
 When something goes wrong:
 
 - mark Stress
-- infect dice
+- worsen position
 - add or worsen a Condition
 - damage gear, cover, standing, or trust
 - split the group
@@ -235,9 +235,9 @@ Use the failed panic roll as the fallout result.
 Name:
 Want:
 Signs:
-What it does on mixed/failure:
+What it does on Success at Cost / Fail / Fumble:
 Conditions it creates:
-How it infects dice:
+How it worsens position, marks Stress, or triggers panic:
 How it can be contained:
 What happens if ignored:
 ```

@@ -20,23 +20,24 @@ related:
 created: 2026-07-06
 ---
 
-This is a table bank for fast, random, OSR-inspired character creation in [[Untitled TTRPG system]].
+This is the table bank for fast, random, OSR-inspired character creation in [[OSC, the TTRPG]].
 
 Use these tables to inspire Backgrounds, Practices, Traits, relationships, appearances, vices, havens, personal objects, professional competence, and the first ways a character has been touched by the weird. Roll, pick, combine, or contradict results.
 
-Separate generated results into two roles:
+Separate generated results into three roles:
 
-- **Character Features**: rated, mechanically applicable dice sources: Background, Professional Practice, Relationship, and Trait.
+- **Background**: an unrated fictional truth that establishes origin, access, knowledge, permission, position, and consequences.
+- **Rated Character Features**: mechanically applicable d6 sources: Professional Practice, Relationship, and Trait.
 - **Character Texture**: flavor, prompts, and hooks that do not add dice by default: appearance, vice, haven, nostalgic object, trinket, obligations, and weird events.
 
-Texture can still matter in play. It can justify fictional positioning, become a Stress trigger, support downtime, create GM hooks, or be promoted into a feature later. It just is not a rated dice source by default.
+Background and Texture can still matter in play. They can justify fictional position, become Stress triggers, support downtime, create GM hooks, or become rated Practices, Relationships, or Traits later. They do not supply d6s by default.
 
 ## Procedure
 
 Start with the core character structure:
 
 ```text
-Background: 1
+Background: unrated
 Professional Practice: 2
 Relationship: 2
 Traits: 2 / 1 / 1
@@ -60,7 +61,7 @@ optional: 1 weird trinket or doodad
 
 Each result should become either:
 
-- a Background, Practice, Relationship, or Trait
+- an unrated Background or a rated Practice, Relationship, or Trait
 - a downtime hook
 - a gear detail
 - a Stress trigger
@@ -69,7 +70,7 @@ Each result should become either:
 
 ## d100 Traits
 
-Roll `1d100`, choose, or combine two entries. These are written as direct Trait seeds; add a rating afterward if Traits become rated.
+Roll `1d100`, choose, or combine two entries. These are direct Trait seeds; assign ratings from the starting `2 / 1 / 1` array.
 
 Traits can be origins, scars, reputations, phrases, relationships, or named bits of the setting. See [[Generating Traits for the untitled TTRPG]] for the generation procedure. They should read like descriptors that enshrine a character fantasy: `Strong as an Ox`, `Always Knows the Exits`, `Trusting Face`, `Streetrat`. They can also imply world facts like `Survived Crash Site 18`, `Blacksite Janitor`, or `Last Witness at Bellwether`. They still need table judgment, but they should feel like something a player wants to perform.
 

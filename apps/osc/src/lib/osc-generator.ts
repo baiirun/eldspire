@@ -110,9 +110,12 @@ export function characterMarkdown(character: GeneratedCharacter): string {
 
   return `# OSC Agent
 
-## Character Features
+## Background
 
-- Background: ${character.background} 1
+- ${character.background}
+
+## Rated Character Features
+
 - Professional Practice: ${character.practice} 2
 - Relationship: ${character.relationship} 2
 

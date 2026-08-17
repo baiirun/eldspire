@@ -32,6 +32,8 @@ describe("OSC character generator", () => {
     const markdown = characterMarkdown(generateCharacter(() => 0));
 
     expect(markdown).toContain("# OSC Agent");
+    expect(markdown).toContain("## Background\n\n- Company town kid");
+    expect(markdown).not.toContain("Background: Company town kid 1");
     expect(markdown).toContain("Professional Practice:");
     expect(markdown).toContain("Current Stress: 0");
   });

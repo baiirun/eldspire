@@ -14,16 +14,16 @@ const sources = {
 };
 
 function publishableRules(markdown: string): string {
-  const start = markdown.indexOf("## How To Play Untitled TTRPG");
+  const rulesHeading = "## How To Play OSC";
+  const start = markdown.indexOf(rulesHeading);
   if (start < 0) throw new Error("OSC rules heading was not found");
 
   return [
     "<!-- Generated from Zaum/Untitled TTRPG quickstart guide.md. -->",
     markdown
       .slice(start)
-      .replace("## How To Play Untitled TTRPG", "# OSC")
+      .replace(rulesHeading, "# OSC")
       .replace("## Page 2: GM", "## Running OSC")
-      .replaceAll("Untitled TTRPG", "OSC")
       .trim(),
     "",
   ].join("\n");
