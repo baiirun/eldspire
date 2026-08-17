@@ -179,6 +179,26 @@ button:disabled {
   padding-left: 1.5rem;
 }
 
+.prose ul {
+  list-style: disc;
+}
+
+.prose ul ul {
+  list-style: circle;
+}
+
+.prose ul ul ul {
+  list-style: square;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose ol ol {
+  list-style: lower-alpha;
+}
+
 .prose li + li {
   margin-top: 0.35rem;
 }
