@@ -10,10 +10,7 @@ import {
 import {
   characterFields,
   characterMarkdown,
-  cryptoRandomIndex,
-  drawTraits,
   generateCharacter,
-  rerollField,
   type CharacterField,
   type GeneratedCharacter,
 } from "@/lib/osc-generator";
@@ -38,6 +35,7 @@ const fieldLabels: Record<CharacterField, string> = {
 const ratedFields = ["practice", "relationship"] as const;
 const ratings = { practice: 2, relationship: 2 } as const;
 const textureFields = [
+  "background",
   "appearance",
   "vice",
   "haven",
@@ -85,16 +83,6 @@ function CharacterGenerator() {
     });
   }
 
-  function reroll(field: CharacterField) {
-    const current = character();
-    if (current) setCharacter(rerollField(current, field));
-  }
-
-  function rerollTraits() {
-    const current = character();
-    if (current) setCharacter({ ...current, traits: drawTraits(cryptoRandomIndex) });
-  }
-
   async function copyMarkdown() {
     await navigator.clipboard.writeText(markdown());
     setCopyLabel("Copied");
@@ -105,33 +93,17 @@ function CharacterGenerator() {
     <div class="generator-page page-column">
       <header class="page-intro">
         <h1>Character generator</h1>
-        <p>Generate a character, then lock or reroll individual details.</p>
+        <p>Generate a character. Select rows to lock them before generating again.</p>
       </header>
 
       <div class="command-bar" aria-label="Character generator controls">
         <button class="command-primary" type="button" onClick={generate}>Generate Agent</button>
-        <button type="button" onClick={() => setLocked(new Set())}>Unlock All</button>
         <button type="button" onClick={copyMarkdown} disabled={!character()}>{copyLabel()}</button>
       </div>
 
       <Show when={character()} fallback={<p>Opening personnel file…</p>}>
         {(current) => (
           <article class="generated-character">
-            <p class="character-summary">
-              A <strong>{current().practice.toLowerCase()}</strong> shaped by <strong>{current().background.toLowerCase()}</strong>, still answerable to <strong>{current().relationship.toLowerCase()}</strong>.
-            </p>
-
-            <GeneratorSection title="Background">
-              <FieldRow
-                label={fieldLabels.background}
-                value={current().background}
-                roll={current().rolls.background}
-                locked={locked().has("background")}
-                onReroll={() => reroll("background")}
-                onLock={() => toggleLock("background")}
-              />
-            </GeneratorSection>
-
             <GeneratorSection title="Rated Character Features">
               <For each={ratedFields}>{(field) => (
                 <FieldRow
@@ -140,18 +112,27 @@ function CharacterGenerator() {
                   rating={ratings[field]}
                   roll={current().rolls[field]}
                   locked={locked().has(field)}
-                  onReroll={() => reroll(field)}
-                  onLock={() => toggleLock(field)}
+                  onToggleLock={() => toggleLock(field)}
                 />
               )}</For>
             </GeneratorSection>
 
-            <GeneratorSection title="Traits" actions={
-              <FieldActions label="Traits" locked={locked().has("traits")} onReroll={rerollTraits} onLock={() => toggleLock("traits")} />
-            }>
-              <For each={current().traits}>{(trait) => (
-                <div class="rated-line"><span>{trait.name}</span><strong>{trait.rating}</strong></div>
-              )}</For>
+            <GeneratorSection title="Traits">
+              <button
+                class="field-row traits-row"
+                classList={{ locked: locked().has("traits") }}
+                type="button"
+                aria-label={`${locked().has("traits") ? "Unlock" : "Lock"} Traits`}
+                aria-pressed={locked().has("traits")}
+                onClick={() => toggleLock("traits")}
+              >
+                <span class="traits-list">
+                  <For each={current().traits}>{(trait) => (
+                    <span class="rated-line trait-line"><span>{trait.name}</span><strong>{trait.rating}</strong></span>
+                  )}</For>
+                </span>
+                <LockIcon locked={locked().has("traits")} />
+              </button>
             </GeneratorSection>
 
             <GeneratorSection title="Character Texture">
@@ -161,8 +142,7 @@ function CharacterGenerator() {
                   value={current()[field]}
                   roll={current().rolls[field]}
                   locked={locked().has(field)}
-                  onReroll={() => reroll(field)}
-                  onLock={() => toggleLock(field)}
+                  onToggleLock={() => toggleLock(field)}
                 />
               )}</For>
             </GeneratorSection>
@@ -183,10 +163,10 @@ function CharacterGenerator() {
   );
 }
 
-function GeneratorSection(props: { title: string; actions?: JSX.Element; children: JSX.Element }) {
+function GeneratorSection(props: { title: string; children: JSX.Element }) {
   return (
     <section class="generator-section">
-      <header><h2>{props.title}</h2>{props.actions}</header>
+      <header><h2>{props.title}</h2></header>
       {props.children}
     </section>
   );
@@ -198,28 +178,39 @@ function FieldRow(props: {
   rating?: number;
   roll: number;
   locked: boolean;
-  onReroll: () => void;
-  onLock: () => void;
+  onToggleLock: () => void;
 }) {
   return (
-    <div class="texture-line">
-      <div>
+    <button
+      class="field-row"
+      classList={{ locked: props.locked }}
+      type="button"
+      aria-label={`${props.locked ? "Unlock" : "Lock"} ${props.label}`}
+      aria-pressed={props.locked}
+      onClick={props.onToggleLock}
+    >
+      <span class="field-copy">
         <span class="texture-label">{props.label} · {String(props.roll).padStart(2, "0")}</span>
         <span>{props.value}</span>
-      </div>
+      </span>
       {props.rating && <strong class="field-rating">{props.rating}</strong>}
-      <FieldActions {...props} />
-    </div>
+      <LockIcon locked={props.locked} />
+    </button>
   );
 }
 
-function FieldActions(props: { label: string; locked: boolean; onReroll: () => void; onLock: () => void }) {
+function LockIcon(props: { locked: boolean }) {
   return (
-    <span class="field-actions">
-      <button type="button" onClick={props.onReroll}>Reroll <span class="sr-only">{props.label}</span></button>
-      <button classList={{ locked: props.locked }} type="button" onClick={props.onLock} aria-pressed={props.locked}>
-        {props.locked ? "Locked" : "Lock"} <span class="sr-only">{props.label}</span>
-      </button>
+    <span class="lock-icon" aria-hidden="true">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="7" width="10" height="7" rx="1" />
+        <Show
+          when={props.locked}
+          fallback={<path d="M6 7V5a3 3 0 0 1 5.7-1.3" />}
+        >
+          <path d="M5 7V5a3 3 0 0 1 6 0v2" />
+        </Show>
+      </svg>
     </span>
   );
 }
