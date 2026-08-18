@@ -16,6 +16,7 @@ describe("OSC character generator", () => {
       { name: "Always Knows the Exits", rating: 1 },
     ]);
     expect(character.rolls.normalTrinket).toBe(1);
+    expect(character).not.toHaveProperty("weirdTrinket");
     expect(character).not.toHaveProperty("complication");
     expect(character).not.toHaveProperty("firstBrush");
   });
@@ -38,6 +39,7 @@ describe("OSC character generator", () => {
     expect(markdown).not.toContain("Background: Company town kid 1");
     expect(markdown).not.toContain("## Case File");
     expect(markdown).toContain("Professional Practice:");
+    expect(markdown).not.toContain("Weird Trinket");
     expect(markdown).toContain("Current Stress: 0");
   });
 });

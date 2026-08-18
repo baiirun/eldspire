@@ -54,7 +54,6 @@ Then roll or choose:
 1 haven or home
 1 nostalgic object
 1 normal trinket
-optional: 1 weird trinket or doodad
 1 complication, debt, or obligation
 1 first brush with the impossible
 ```
@@ -1027,114 +1026,6 @@ Roll `1d100`.
 | 98 | Foam earplug case with one earplug left. |
 | 99 | Tiny tube of super glue glued shut. |
 | 100 | A useful thing you forgot you had until your hand found it. |
-## Weird Trinkets And Doodads
-
-These are still minor objects, not artifacts. They can be uncanny, suspicious, or suggestive, but they should not automatically grant powers.
-
-Roll `1d100`.
-
-| d100 | Trinket |
-| --- | --- |
-| 1 | Bent challenge coin from a unit that does not exist. |
-| 2 | Disposable camera with three pictures left. |
-| 3 | Flash drive labeled with a date next week. |
-| 4 | Cigarette case full of tiny folded notes. |
-| 5 | Hotel keycard that opens service doors too often. |
-| 6 | Broken pager that vibrates near certain places. |
-| 7 | Zippo engraved with someone else's initials. |
-| 8 | Roll of undeveloped film from an unknown camera. |
-| 9 | Tiny vial of ash, salt, hair, teeth, or black water. |
-| 10 | Laminated badge from an obsolete agency program. |
-| 11 | Metro card, bus pass, or toll transponder that still works anywhere. |
-| 12 | Ring of keys, only one of which you understand. |
-| 13 | Cheap plastic saint, alien, mascot, or cartoon charm. |
-| 14 | Annotated takeout menu with coded phone numbers. |
-| 15 | Emergency flare with a warning in permanent marker. |
-| 16 | Bloodstained receipt for an impossible purchase. |
-| 17 | Compass that points toward regret, home, or the nearest exit. |
-| 18 | Folded paper fortune that updates after bad decisions. |
-| 19 | Tiny cassette labeled "do not play alone." |
-| 20 | A normal object nobody else can perceive. |
-| 21 | Payphone token warm from recent use. |
-| 22 | Business card that lists your next alias. |
-| 23 | Key stamped with the name of a room that burned down. |
-| 24 | Plastic wristband from a hospital that denies treating you. |
-| 25 | Library due-date card stamped tomorrow. |
-| 26 | Prayer card for a saint no church recognizes. |
-| 27 | Polaroid of a place from behind your own eyes. |
-| 28 | Receipt printed with an item you did not buy. |
-| 29 | Subway map showing one extra stop. |
-| 30 | Parking ticket for a car you have never owned. |
-| 31 | Mini tape recorder that captures silence as whispers. |
-| 32 | Flashlight that flickers in Morse when aimed at locked doors. |
-| 33 | Disposable lighter that will not light near lies. |
-| 34 | Eyeglass lens with no matching frame. |
-| 35 | Black feather sealed in an evidence sleeve. |
-| 36 | Marble that rolls uphill in one building. |
-| 37 | Matchbook with one match that never burns down. |
-| 38 | Coin that always lands on its edge during arguments. |
-| 39 | Hotel bell that rings softly before danger. |
-| 40 | Toy phone that sometimes receives calls. |
-| 41 | Broken watch stopped at different times for different people. |
-| 42 | Aspirin tin full of baby teeth labeled by address. |
-| 43 | Keychain thermometer that reads emotional temperature. |
-| 44 | Ticket stub for an event canceled before you were born. |
-| 45 | Postcard from a town removed from maps. |
-| 46 | Empty pill bottle with your handwriting on the label. |
-| 47 | Name tag with a name people almost call you. |
-| 48 | Security badge with a photo taken during your sleep. |
-| 49 | USB drive that weighs more after bad news. |
-| 50 | Smashed phone that still receives weather alerts indoors. |
-| 51 | Pocket mirror that shows rooms one hour ago. |
-| 52 | Makeup compact full of gray dust. |
-| 53 | Prayer beads with one bead missing every dawn. |
-| 54 | Red string tied in knots you never learned. |
-| 55 | Dice that only roll numbers you have dreamed. |
-| 56 | Domino from a set with too many pips. |
-| 57 | Playing card with a face replaced by yours. |
-| 58 | Board-game token shaped like your childhood home. |
-| 59 | Tiny plastic dinosaur with fresh mud on its feet. |
-| 60 | Candy wrapper from a brand discontinued decades ago. |
-| 61 | Soda tab that hums near transmission towers. |
-| 62 | Folded map of a mall with no exterior doors. |
-| 63 | Church bulletin announcing your arrival. |
-| 64 | Funeral program with the date left blank. |
-| 65 | Wedding favor from two people who never met. |
-| 66 | Baby photo marked with a case number. |
-| 67 | ID bracelet printed with your blood type and a question mark. |
-| 68 | Small jar of rain collected indoors. |
-| 69 | Seed packet for a plant with no common name. |
-| 70 | Pressed flower that opens at night. |
-| 71 | Stone that feels like a pulse when held too long. |
-| 72 | Shell that plays traffic noise instead of ocean. |
-| 73 | Bottle cap stamped with coordinates. |
-| 74 | Folded paper boat that stays damp. |
-| 75 | Origami crane made from a classified memo. |
-| 76 | Envelope that reseals itself after being read. |
-| 77 | Index card listing three things you have not done yet. |
-| 78 | Sticky note that moves to mirrors. |
-| 79 | Golf pencil that writes one extra word per sentence. |
-| 80 | Fountain pen that skips over certain names. |
-| 81 | Photocopy of your palm with unfamiliar lines. |
-| 82 | X-ray of a hand with too many bones. |
-| 83 | Audio CD burned with one track titled Run. |
-| 84 | DVD menu for a film that changes genre. |
-| 85 | Antenna clipped from a radio that still receives signal. |
-| 86 | Button from a uniform nobody admits issuing. |
-| 87 | Glove that fits the wrong hand perfectly. |
-| 88 | Shoelace tied in a knot that tightens near thresholds. |
-| 89 | Masking tape labeled with dates instead of words. |
-| 90 | Empty evidence tube tagged as living material. |
-| 91 | Specimen slide with a fingerprint under the glass. |
-| 92 | Glass vial labeled first snow. |
-| 93 | Tiny bell with no clapper that rings underwater. |
-| 94 | Something ordinary that every camera refuses to focus on. |
-| 95 | Something you keep finding after throwing it away. |
-| 96 | Something that clearly belonged to you in a life you did not live. |
-| 97 | A normal object that casts the wrong shadow. |
-| 98 | A key that gets colder near familiar doors. |
-| 99 | A receipt that adds one item after every mission. |
-| 100 | Something warm in your pocket whenever someone says your real name. |
 ## Complications, Debts, And Obligations
 
 Roll `1d100`, choose, or combine two entries.

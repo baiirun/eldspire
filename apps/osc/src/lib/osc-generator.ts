@@ -9,7 +9,6 @@ export const characterFields = [
   "haven",
   "nostalgicObject",
   "normalTrinket",
-  "weirdTrinket",
 ] as const;
 
 export type CharacterField = (typeof characterFields)[number];
@@ -23,7 +22,6 @@ const fieldTables = {
   haven: "havens",
   nostalgicObject: "nostalgicObjects",
   normalTrinket: "normalTrinkets",
-  weirdTrinket: "weirdTrinkets",
 } as const satisfies Record<CharacterField, OscTableKey>;
 
 export type RatedFeature = {
@@ -126,7 +124,6 @@ ${traits}
 - Haven: ${character.haven}
 - Nostalgic Object: ${character.nostalgicObject}
 - Normal Trinket: ${character.normalTrinket}
-- Optional Weird Trinket: ${character.weirdTrinket}
 
 ## Pressure
 

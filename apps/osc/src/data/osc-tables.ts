@@ -10,7 +10,6 @@ const tableSections = {
   havens: "Havens And Homes",
   nostalgicObjects: "Nostalgic Objects",
   normalTrinkets: "Normal Trinkets",
-  weirdTrinkets: "Weird Trinkets And Doodads",
   complications: "Complications, Debts, And Obligations",
   firstBrushes: "First Brush With The Impossible",
 } as const;

@@ -29,7 +29,6 @@ const fieldLabels: Record<CharacterField, string> = {
   haven: "Haven",
   nostalgicObject: "Nostalgic Object",
   normalTrinket: "Normal Trinket",
-  weirdTrinket: "Optional Weird Trinket",
 };
 
 const ratedFields = ["practice", "relationship"] as const;
@@ -41,7 +40,6 @@ const textureFields = [
   "haven",
   "nostalgicObject",
   "normalTrinket",
-  "weirdTrinket",
 ] as const;
 
 function CharacterGenerator() {

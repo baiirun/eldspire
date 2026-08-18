@@ -3,7 +3,7 @@ import { oscTables } from "./osc-tables";
 
 describe("OSC character tables", () => {
   it("imports every d100 table from the canonical table bank", () => {
-    expect(Object.keys(oscTables)).toHaveLength(12);
+    expect(Object.keys(oscTables)).toHaveLength(11);
     for (const table of Object.values(oscTables)) {
       expect(table).toHaveLength(100);
     }
