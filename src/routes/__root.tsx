@@ -134,7 +134,7 @@ function RootDocument(props: { children: Solid.JSX.Element }) {
             <Link class="site-name" to="/">Eldspire</Link>
             <nav class="site-nav" aria-label="Primary navigation">
               <Link to="/rules">Rules</Link>
-              <Link to="/generator">Generator</Link>
+              <Link to="/generator">Character Generator ✨</Link>
               <Link to="/sheet">Sheet</Link>
             </nav>
           </header>
