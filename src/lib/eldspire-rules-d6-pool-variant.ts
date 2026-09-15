@@ -38,9 +38,8 @@ export function renderEldspireRulesD6PoolVariant(): string {
       '<article class="rules-page rules-variant-page" aria-label="Experimental Eldspire d6-pool rules">',
     )
     .replace("Eldspire Expedition Rules", "Experimental Eldspire Rules")
-    .replace("<h1>How To Play</h1>", "<h1>How To Play: d6-Pool Variant</h1>")
     .replace(
-      '<p class="rules-note"><strong>These are the current rules.</strong> Experimental alternatives are available as the <a href="/rules/variant">step-dice variant</a> and <a href="/rules/variant/d6-pool">d6-pool variant</a>.</p>',
-      '<p class="rules-note"><strong>Experimental and noncanonical.</strong> This page replaces the character, action, harm, advancement, and spellcasting procedures with the Approaches d6-pool variant. Return to the <a href="/rules">current rules</a> or compare the <a href="/rules/variant">step-dice variant</a>.</p>',
+      "<h1>How To Play</h1>",
+      '<h1>How To Play: d6-Pool Variant</h1><p class="rules-note"><strong>Experimental and noncanonical.</strong> This page replaces the character, action, harm, advancement, and spellcasting procedures with the Approaches d6-pool variant. Return to the <a href="/rules">current rules</a> or compare the <a href="/rules/variant">step-dice variant</a>.</p>',
     );
 }
