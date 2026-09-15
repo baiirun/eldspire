@@ -16,7 +16,6 @@ describe("Eldspire rules", () => {
     expect(html).toContain("replaces one Action d6");
     expect(html).toContain("Two or more dice show 6+");
     expect(html).toContain("At Action 0, roll two dice and keep the lower");
-    expect(html).toContain("The Action and optional Feature build the roll");
     expect(html).toContain("Fatigue is a visible clock from 0–10");
     expect(html).toContain("Invoke</strong> rating equals or exceeds its Tier");
     expect(html).toContain("New Practiced Feature (d8)");
@@ -31,6 +30,10 @@ describe("Eldspire rules", () => {
     expect(html).not.toContain("Rally check");
     expect(html).not.toContain("Tier does not");
     expect(html).not.toContain("Experimental alternatives");
+    expect(html).not.toContain("Adjudicating the Fiction");
+    expect(html).not.toContain("The GM");
+    expect(html).not.toContain("Lead and Spotlight");
+    expect(html).not.toContain("When Opposition Leads");
     expect(html).not.toContain("<strong>Fray.</strong>");
     expect(html).not.toContain("<strong>Faltering.</strong>");
     expect(html).not.toContain("Threat Format");
