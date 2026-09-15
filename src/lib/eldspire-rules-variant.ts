@@ -1,7 +1,13 @@
 import rulesVariantSections from "../content/eldspire-rules-variant.html?raw";
 import { renderEldspireRules } from "./eldspire-rules";
 
-const variantSectionIds = ["characters", "rolling", "magic", "advancement"] as const;
+const variantSectionIds = [
+  "characters",
+  "rolling",
+  "harm",
+  "magic",
+  "advancement",
+] as const;
 
 function sectionPattern(id: string): RegExp {
   return new RegExp(

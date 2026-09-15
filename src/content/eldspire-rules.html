@@ -37,42 +37,51 @@
 
             <section class="rules-section" id="characters">
               <h2>Create a Character</h2>
-              <h3>Rated Features</h3>
-              <p>Write one adventuring <strong>Archetype</strong> and four <strong>Traits</strong>:</p>
+              <h3>Action Ratings</h3>
+              <p>Actions describe practiced competence in concrete activities. They are rated from 0–5 and supply that many d6s when rolled.</p>
               <table class="rules-table">
-                <thead><tr><th>Feature</th><th>Rating</th></tr></thead>
+                <thead><tr><th>Action</th><th>Used to...</th></tr></thead>
                 <tbody>
-                  <tr><td>Archetype</td><td>2</td></tr>
-                  <tr><td>Trait</td><td>2</td></tr>
-                  <tr><td>Trait</td><td>1</td></tr>
-                  <tr><td>Trait</td><td>1</td></tr>
-                  <tr><td>Trait</td><td>1</td></tr>
+                  <tr><td><strong>Exert</strong></td><td>Lift, drag, break, hold, dig, or overpower an obstacle.</td></tr>
+                  <tr><td><strong>Traverse</strong></td><td>Climb, swim, leap, balance, chase, or escape through dangerous terrain.</td></tr>
+                  <tr><td><strong>Sneak</strong></td><td>Hide, infiltrate, steal unnoticed, or conceal something.</td></tr>
+                  <tr><td><strong>Fight</strong></td><td>Strike, grapple, defend, or control someone in close combat.</td></tr>
+                  <tr><td><strong>Shoot</strong></td><td>Attack accurately with bows, thrown weapons, or other ranged weapons.</td></tr>
+                  <tr><td><strong>Survey</strong></td><td>Actively search, reconnoiter, keep watch, or assess an immediate situation.</td></tr>
+                  <tr><td><strong>Hunt</strong></td><td>Track, stalk, forage, trap, or harvest creatures.</td></tr>
+                  <tr><td><strong>Travel</strong></td><td>Navigate, make camp, choose routes, or manage an expedition through hostile country.</td></tr>
+                  <tr><td><strong>Tinker</strong></td><td>Build, repair, sabotage, disarm, or operate mechanisms and relics.</td></tr>
+                  <tr><td><strong>Mend</strong></td><td>Diagnose and treat wounds, disease, poison, or bodily distress.</td></tr>
+                  <tr><td><strong>Study</strong></td><td>Recall lore, decipher writing, investigate evidence, or understand something unfamiliar.</td></tr>
+                  <tr><td><strong>Sway</strong></td><td>Persuade, deceive, bargain, threaten, provoke, or rally someone.</td></tr>
+                  <tr><td><strong>Invoke</strong></td><td>Cast, control, bind, ward, or dispel magic.</td></tr>
                 </tbody>
               </table>
-              <p>An Archetype is a recognizable adventuring discipline such as <em>Foxhole Archer</em>, <em>Consecrated Cavalier</em>, or <em>Unquiet Grave Tender</em>. It applies only when an action expresses that discipline.</p>
-              <p>Traits are evocative, performable descriptors, instincts, reputations, capabilities, scars, and experiences such as <em>Strong As An Ox</em>, <em>Always Counts The Exits</em>, or <em>Escaped The Flooded Library</em>.</p>
-              <p>Only one Feature supplies dice to an action. If several apply, choose one. Features never stack.</p>
-              <table class="rules-table">
-                <thead><tr><th>Rating</th><th>Standing</th></tr></thead>
-                <tbody>
-                  <tr><td>1</td><td>Established</td></tr>
-                  <tr><td>2</td><td>Practiced</td></tr>
-                  <tr><td>3</td><td>Seasoned</td></tr>
-                  <tr><td>4</td><td>Exceptional</td></tr>
-                  <tr><td>5</td><td>Legendary</td></tr>
-                </tbody>
-              </table>
+              <p>Every Action begins at 1. Choose one starting array:</p>
+              <ul>
+                <li><strong>Focused:</strong> two Actions at 3, three at 2, and the remaining eight at 1.</li>
+                <li><strong>Versatile:</strong> one Action at 3, five at 2, and the remaining seven at 1.</li>
+              </ul>
 
-              <h3>Character Texture</h3>
-              <p>Define or generate a Background, inciting incident or motivation, Hearth Tie, Road Tie, Appearance, Keepsake, Mundane Item, Comfort, and Haven.</p>
-              <p>Texture is unrated. It establishes knowledge, access, permission, obligations, recovery, revelations, and consequences, but never adds dice. Repeatedly important texture may later become a Trait.</p>
+              <h3>Background, Archetype, and Features</h3>
+              <p>Choose or generate one <strong>Background</strong>, one <strong>Archetype</strong>, and four <strong>Traits</strong>. Background and Archetype combine without restriction. Together they establish identity, history, capability, permission, items, relationships, troubles, and questions.</p>
+              <p>Record one concrete Feature from the Background, one from the Archetype, and one from each Trait. Assign two as Expert and the remaining four as Practiced. Rate the specific playable fact—<em>Monster Anatomy d10</em>, <em>Never Lost d8</em>, or <em>Courtly Education d8</em>—rather than treating a broad packet label such as <em>Hunter</em> or <em>Noble</em> as a universal bonus.</p>
+              <table class="rules-table">
+                <thead><tr><th>Feature rating</th><th>Die</th></tr></thead>
+                <tbody>
+                  <tr><td>Practiced</td><td>d8</td></tr>
+                  <tr><td>Expert</td><td>d10</td></tr>
+                  <tr><td>Master</td><td>d12</td></tr>
+                </tbody>
+              </table>
+              <p>A rated Feature may come from a Background, Archetype, Trait, or later experience. Other character facts remain mechanically important even when unrated: they establish knowledge, access, permission, obligations, effect, consequences, and what the character notices. Features do not limit what a character may attempt.</p>
 
               <h3>Starting State</h3>
               <ul>
                 <li>Fatigue 0 and Fatigue Floor 0.</li>
                 <li>No Wounds, Conditions, or XP.</li>
                 <li>Seven personal equipment slots plus a backpack granting three additional slots. The backpack's slots begin as Open Pack permissions.</li>
-                <li>A character with a magical Feature begins with three Tier 1 spells total.</li>
+                <li>A character whose Background, Archetype, or Traits grant magical permission begins with three Tier 1 spells total.</li>
               </ul>
             </section>
 
@@ -82,51 +91,39 @@
                 <li>Establish the immediate fiction.</li>
                 <li>The player states a goal and method.</li>
                 <li>The GM states what is possible, what threatens the attempt, and likely consequences.</li>
-                <li>If the outcome is uncertain and consequential, choose one Feature and any situational Fatigue dice.</li>
+                <li>If the outcome is uncertain and consequential, choose the Action matching the concrete act and invoke at most one relevant Feature.</li>
                 <li>Roll, apply the result, change the fiction, and keep or move the spotlight according to the new openings and urgent threats.</li>
               </ol>
-              <p>Roll d10s equal to the chosen Feature's rating and keep the highest action die. If no Feature grounds the attempt, roll 2d10 and keep the lower die.</p>
+              <p>Roll d6s equal to the Action rating. A relevant Feature replaces one Action d6 with its d8, d10, or d12; it does not add another die. Read the highest die.</p>
               <table class="rules-table">
-                <thead><tr><th>Highest Action Die</th><th>Result</th></tr></thead>
+                <thead><tr><th>Dice</th><th>Result</th></tr></thead>
                 <tbody>
-                  <tr><td>1-5</td><td>Failure. Danger lands or the situation worsens.</td></tr>
-                  <tr><td>6-9</td><td>Mixed success. Achieve the intent with a consequence.</td></tr>
-                  <tr><td>10</td><td>Clean success. Achieve the intent without the announced consequence.</td></tr>
-                  <tr><td>Two or more 10s</td><td>Exceptional success. Exceed the original intent.</td></tr>
+                  <tr><td>Highest is 1–4</td><td><strong>Failure.</strong> The action fails and the established consequence lands.</td></tr>
+                  <tr><td>Highest is 5</td><td><strong>Mixed success.</strong> The action succeeds and an established consequence or cost lands.</td></tr>
+                  <tr><td>Highest is 6+</td><td><strong>Clean success.</strong> The action succeeds without the immediate consequence.</td></tr>
+                  <tr><td>Two or more dice show 6+</td><td><strong>Exceptional success.</strong> The action succeeds with greater effect or another fitting benefit.</td></tr>
                 </tbody>
               </table>
+              <p>Faces above 6 do not create additional result bands. Invoke a Feature for free when the player can name a concrete, credible connection. Accept that connection without grading its relevance; reject it only when the established fiction clearly does not support it. Multiple Features never stack.</p>
+              <p>At Action 0, roll two dice and keep the lower. Without a Feature, roll 2d6. With a relevant Feature, roll 2d8, 2d10, or 2d12 according to its rating. Only the kept die counts, so the roll cannot produce an exceptional success.</p>
 
-              <h3>Separate Fatigue Dice</h3>
-              <p>The GM assigns 0-3 Fatigue dice when the situation itself carries pressure. Roll them alongside the action pool but keep them separate. They never determine whether the action succeeds.</p>
-              <table class="rules-table">
-                <thead><tr><th>Dice</th><th>Pressure</th></tr></thead>
-                <tbody>
-                  <tr><td>0</td><td>Ordinary uncertainty.</td></tr>
-                  <tr><td>1</td><td>Meaningful exertion, exposure, fear, or instability.</td></tr>
-                  <tr><td>2</td><td>Severe pressure, serious injury, hostile environment, or desperate circumstances.</td></tr>
-                  <tr><td>3</td><td>Overwhelming danger or extreme exposure.</td></tr>
-                </tbody>
-              </table>
-              <ul>
-                <li>Each Fatigue die that rolls 1-5 adds 1 Fatigue.</li>
-                <li>Any Fatigue die that rolls 1 triggers one Rally check after resolving the action.</li>
-                <li>Never make more than one Rally check from a roll, including when that roll also raises Fatigue to 20.</li>
-              </ul>
-
-              <h3>Tag Team</h3>
-              <p>When two or more characters commit to one coordinated action, describe one shared goal and how every participant contributes. Choose one participant's relevant Feature to form the action pool. Each additional credible participant adds one action die, regardless of their Feature rating. Roll once and resolve one shared outcome.</p>
-              <p>Merely declaring assistance does not qualify. Everyone who contributes a die acts concretely in the fiction, is exposed to the result, and cannot withdraw after seeing it.</p>
-              <p>Resolve the action's separate Fatigue dice once. Each Fatigue die showing 1-5 adds 1 Fatigue to one participant according to the fiction. If several are equally exposed, the group chooses who bears it. A 1 triggers one Rally check by the participant who bears that Fatigue; if several 1s affect different participants, choose one of them to Rally. Never make more than one Rally check from the action.</p>
-              <p>The action produces one shared consequence. It may affect one, several, or every participant according to the established threat. Do not automatically copy every Fatigue or consequence onto everyone.</p>
+              <h3>Help</h3>
+              <p>When characters commit to one coordinated action, state one shared goal and choose a lead. Each helper must contribute concretely in the fiction, gain 1 Fatigue, and add one d6 to the lead's pool. Roll once. Everyone placed in danger shares exposure to the announced consequences.</p>
 
               <h3>Push</h3>
-              <p>Before rolling, you may Push once by invoking one additional applicable Trait. Describe how that Trait drives the character beyond their ordinary approach. Add one ordinary action die, regardless of the Trait's rating, and add one ordinary Fatigue die to the action's existing Fatigue pool.</p>
-              <p>The additional dice follow their normal rules and do not need to remain distinguishable. The invoked Trait must apply distinctly rather than restating the primary Feature. An Archetype cannot be invoked as the additional Push Trait. Push cannot make an impossible action possible or bypass a fictional restriction without a credible fictional answer.</p>
-              <p>During Tag Team, any participant may invoke one of their Traits to Push, but the shared action can still be Pushed only once. Resolve the added Fatigue die through the ordinary shared-exposure rule.</p>
+              <p>Before rolling, gain 1–3 Fatigue to add the same number of d6s. The Fatigue is gained regardless of the result, and any other Fatigue stacks afterward. Push cannot make an impossible action possible or bypass a fictional restriction.</p>
 
-              <h3>Position and Consequences</h3>
-              <p>Position has no rated categories. Communicate it concretely: the ledge is crumbling, the crossbow is trained on you, the passage is too narrow for the axe, or the ritual will attract something.</p>
-              <p>Consequences can add Fatigue, inflict a Wound or Condition, damage or consume equipment, remove opportunity, cause delay or exposure, change a relationship, or let an announced threat land. An established consequence does not require another roll.</p>
+              <h3>Adjudicating the Fiction</h3>
+              <p>There is no Situation die, dynamic Difficulty, or formal position-and-effect procedure. The Action and optional Feature determine the roll. Opposition, preparation, equipment, and circumstances determine permission, likely effect, consequences, armor, and how much progress is required.</p>
+              <p>Most adjudication should be a silent ruling. Bring it into conversation when a limitation or danger would not be obvious, the possible effect is uncertain, or different actions would materially change the situation. Consider four levers:</p>
+              <ul>
+                <li><strong>Permission:</strong> can the action work at all?</li>
+                <li><strong>Position:</strong> what leverage or danger shapes the attempt?</li>
+                <li><strong>Effect:</strong> what will success accomplish given method, scale, quality, and opposition?</li>
+                <li><strong>Consequence:</strong> what established danger lands on a failure or mixed success?</li>
+              </ul>
+              <p>Backgrounds, Archetypes, Traits, items, relationships, spells, preparation, and the environment give concrete reasons to pull those levers. Do not worsen position or reduce effect merely because an Action rating is low; the rating already changes the probability. Usually one dominant fictional factor is enough.</p>
+              <p>Consequences can add Fatigue, inflict a Wound or Condition, damage or consume equipment, remove opportunity, cause delay or exposure, change a relationship, or let an announced threat land. An established consequence does not require another roll and cannot erase a successful result.</p>
 
               <h3>Spotlight and Opposition</h3>
               <p>There is no separate combat mode and enemies do not roll. Conflict normally begins with a character's goal and method; the GM states what opposes the action and its likely consequences. Opposition acts first only when surprise, position, an earlier consequence, hesitation, or ignored danger gives it the lead.</p>
@@ -164,7 +161,7 @@
               <ul>
                 <li><strong>Exceptional success:</strong> the arch buries the ogre and leaves a safe route onward.</li>
                 <li><strong>Clean success:</strong> the arch falls between the party and the ogre; Mara retains the lead.</li>
-                <li><strong>Success with a consequence:</strong> the arch blocks the ogre, but Mara is stranded on its side of the collapse.</li>
+                <li><strong>Mixed success:</strong> the arch blocks the ogre, but Mara is stranded on its side of the collapse.</li>
                 <li><strong>Failure:</strong> the ogre reaches Mara first and sweeps her away from the support, taking the lead.</li>
               </ul>
               <p class="rules-note"><strong>The normal rhythm:</strong> goal → opposition and stakes → one roll → changed fiction. Use Warning → response only when opposition already has the lead.</p>
@@ -172,25 +169,18 @@
 
             <section class="rules-section" id="harm">
               <h2>Fatigue, Wounds, and Conditions</h2>
-              <h3>Fatigue and Rally</h3>
-              <p>Fatigue is the toll of exertion, hunger, fear, weather, poor sleep, glancing harm, blood loss, magic, and deprivation. It ranges from 0-20 and can never recover below the current Fatigue Floor. The fiction may add Fatigue directly.</p>
-              <p>At 20 Fatigue, Rally and stop. The character cannot continue until recovery lowers Fatigue below 20.</p>
-              <p>To Rally, roll 1d20. Roll over current Fatigue to keep control. Roll equal to or under it to use the failed result below.</p>
-              <table class="rules-table">
-                <thead><tr><th>d20</th><th>Fallout</th></tr></thead>
-                <tbody>
-                  <tr><td>1-5</td><td><strong>Fray.</strong> Suffer one immediate fallout: deplete a relevant resource, damage relevant equipment, lose position, or gain a fitting short-lived Condition.</td></tr>
-                  <tr><td>6-10</td><td><strong>Struggle.</strong> Suffer one lasting fallout: lose or break equipment, lose a resource bundle or treasure, gain a Condition requiring meaningful recovery, or let an established threat land.</td></tr>
-                  <tr><td>11-15</td><td><strong>Break.</strong> Suffer one severe fallout: a Wound when supported by the established danger, a Condition that removes you from the scene, or the loss of something important to the expedition.</td></tr>
-                  <tr><td>16-19</td><td><strong>Collapse.</strong> Suffer one expedition-ending fallout: a Wound or Condition whose established fiction prevents continuing, or catastrophic equipment, resource, route, or objective loss.</td></tr>
-                  <tr><td>20</td><td><strong>Taken Out.</strong> The established pressure removes you from the expedition. Returning requires rescue, substantial recovery, or meaningful transformation.</td></tr>
-                </tbody>
-              </table>
-              <p>Resolve the triggering action first. Rally never changes that action's result or undoes achieved intent; it changes what follows. The GM selects only fallout supported by the established pressure. When several costs are equally credible, offer two and let the player choose. One result creates one coherent fallout rather than a checklist of penalties.</p>
-              <p>Rally never clears Fatigue. At 20 Fatigue, stop after Rally regardless of the result. Rally can inflict a Wound only when the established fiction is Wound-capable, and death remains governed by Wounds and Meet Death.</p>
-
-              <h4>Hard mode: 2d10 Rally</h4>
-              <p>For a harsher Fatigue spiral, roll 2d10 instead of 1d20 and compare the total to current Fatigue normally. Low Fatigue is easier to withstand, but Rally becomes sharply less reliable above 10 Fatigue; use the total on the same fallout table. The lowest possible result is 2.</p>
+              <h3>Fatigue and Fallout</h3>
+              <p>Fatigue is a visible clock from 0–10 measuring exertion, hunger, fear, weather, poor sleep, glancing harm, blood loss, magic, and deprivation. It can never recover below the current Fatigue Floor.</p>
+              <ul>
+                <li><strong>Push:</strong> gain 1–3 Fatigue to add the same number of d6s.</li>
+                <li><strong>Help:</strong> a helper who contributes a die gains 1 Fatigue.</li>
+                <li><strong>Failure:</strong> after a consequential roll fails, the acting character gains 1 Fatigue.</li>
+                <li><strong>Fictional pressure:</strong> established exertion, exposure, fear, violence, deprivation, or similar pressure can inflict 1–3 Fatigue: meaningful, severe, or overwhelming.</li>
+                <li><strong>Explicit costs:</strong> spells, techniques, items, and other rules may list Fatigue as their price.</li>
+              </ul>
+              <p>These sources stack. Announce voluntary costs and threatened Fatigue before commitment when possible. Because failure already adds 1 Fatigue, do not also use Fatigue as its ordinary consequence unless a distinct source of pressure justifies it.</p>
+              <p>When Fatigue reaches or exceeds 10, finish resolving the triggering action and its ordinary consequences. The character then suffers automatic Fallout; there is no Rally check. Name one Condition supported by the pressure that filled the clock. If a cause-specific Fallout table exists, the group may roll on it to determine the form of Fallout, never whether Fallout occurs.</p>
+              <p>After Fallout, clear 10 Fatigue while retaining any excess and respecting the Fatigue Floor. Reaching the threshold does not itself create a Wound or undo what the character accomplished.</p>
 
               <h3>Wounds</h3>
               <p>Wounds are lasting injuries caused only by Wound-capable fiction, such as <em>Broken Ribs</em>, <em>Concussion</em>, <em>Burned Hand</em>, <em>Gashed Thigh</em>, or <em>Crushed Knee</em>. Name each one concretely. Fatigue never automatically becomes a Wound.</p>
@@ -198,9 +188,9 @@
                 <thead><tr><th>Wounds</th><th>Untreated Floor</th><th>All Treated</th></tr></thead>
                 <tbody>
                   <tr><td>0</td><td>0</td><td>0</td></tr>
-                  <tr><td>1</td><td>5</td><td>0</td></tr>
-                  <tr><td>2</td><td>10</td><td>5</td></tr>
-                  <tr><td>3</td><td>15</td><td>10</td></tr>
+                  <tr><td>1</td><td>3</td><td>0</td></tr>
+                  <tr><td>2</td><td>5</td><td>3</td></tr>
+                  <tr><td>3</td><td>8</td><td>5</td></tr>
                 </tbody>
               </table>
               <p>Treating a Wound stabilizes it and changes its restrictions. Use the treated floor only when every current Wound is treated. Healing removes a Wound and follows the injury's fiction.</p>
@@ -316,21 +306,18 @@
 
             <section class="rules-section" id="magic">
               <h2>Magic</h2>
-              <p>Each spell has a fixed Tier from 1-5 and text defining effect, scale, reach, requirements, and permission. To cast it, know the spell and use a relevant magical Feature rated at least as high as its Tier.</p>
-              <ol>
-                <li>Build the action pool from the magical Feature.</li>
-                <li>Convert action dice equal to the spell's Tier into Arcane dice.</li>
-                <li>Roll normally. Arcane dice remain action dice.</li>
-                <li>Read Arcane dice for Fatigue, exhaustion, and mishaps.</li>
-              </ol>
+              <p>Each spell is a learned capability with a fixed Tier from 1–5 and text defining effect, scale, reach, requirements, and fictional permission. A character may attempt a known spell only when their <strong>Invoke</strong> rating equals or exceeds its Tier.</p>
+              <p>Casting uses the full Invoke pool and the same result table as every other Action. Tier does not remove dice or change the result bands. A relevant Feature may replace one Invoke d6 under the ordinary rule, but casting never requires a magical Feature.</p>
+              <p>Before rolling, gain Fatigue equal to the spell's Tier. This cost is paid regardless of the result and stacks with Fatigue from failure, Push, consequences, or other sources.</p>
               <ul>
-                <li>Each Arcane die showing 1-5 adds 1 Fatigue.</li>
-                <li>Any Arcane die showing 1 exhausts the spell after the attempt.</li>
-                <li>Two or more Arcane dice showing 1 trigger one magical mishap.</li>
-                <li>Arcane dice never trigger Rally.</li>
+                <li><strong>Failure:</strong> the spell fails and becomes Exhausted. Apply the ordinary fictional consequence.</li>
+                <li><strong>Mixed success:</strong> the spell works and an ordinary fiction-driven consequence or cost lands. It causes no automatic additional Fatigue or exhaustion.</li>
+                <li><strong>Clean success:</strong> the spell works as intended.</li>
+                <li><strong>Exceptional success:</strong> the spell works with greater effect appropriate to its permission and scale.</li>
               </ul>
+              <p>A casting triggers one magical Mishap if it fails and at least one character die shows a natural 1, or if the casting's Fatigue causes the caster to reach 10. Resolve the spell and its ordinary result first. A threshold Mishap replaces the ordinary Fallout from that threshold; never apply both, and never trigger more than one Mishap from a casting.</p>
               <p>One Work activity at camp restores all exhausted spells when the caster performs their tradition's recovery practice. Learned spells are lost only through explicit fiction that severs their source.</p>
-              <p>Until a mishap table exists, resolve a trigger as a severe magical consequence shaped by the spell, Tier, tradition, place, and immediate fiction. Record it for later design.</p>
+              <p>Mishaps should come from the spell entry or a short tradition table. Tier informs their possible severity and scale. A Mishap does not automatically exhaust a successfully cast spell unless its authored result says otherwise.</p>
             </section>
 
             <section class="rules-section" id="downtime">
@@ -366,11 +353,13 @@
               <table class="rules-table">
                 <thead><tr><th>Advance</th><th>XP</th></tr></thead>
                 <tbody>
-                  <tr><td>New Feature at rating 1</td><td>10</td></tr>
-                  <tr><td>Rating 1 to 2</td><td>20</td></tr>
-                  <tr><td>Rating 2 to 3</td><td>40</td></tr>
-                  <tr><td>Rating 3 to 4</td><td>60</td></tr>
-                  <tr><td>Rating 4 to 5</td><td>80</td></tr>
+                  <tr><td>New Practiced Feature (d8)</td><td>10</td></tr>
+                  <tr><td>Feature: Practiced d8 to Expert d10</td><td>20</td></tr>
+                  <tr><td>Feature: Expert d10 to Master d12</td><td>40</td></tr>
+                  <tr><td>Action: 1 to 2</td><td>20</td></tr>
+                  <tr><td>Action: 2 to 3</td><td>40</td></tr>
+                  <tr><td>Action: 3 to 4</td><td>60</td></tr>
+                  <tr><td>Action: 4 to 5</td><td>80</td></tr>
                 </tbody>
               </table>
               <p>Growth must follow demonstrated change, training, mentorship, discovery, transformation, or important texture. Spending XP consumes no downtime activity.</p>
