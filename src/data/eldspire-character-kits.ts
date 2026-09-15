@@ -9,7 +9,7 @@ export const backgroundKits = [
     description: "Your household fed, housed, and overheard people passing through.",
   },
   {
-    name: "Border Town",
+    name: "Contested Border Town",
     description: "You grew up where borders and rulers changed before families did.",
   },
   {
@@ -21,20 +21,20 @@ export const backgroundKits = [
     description: "A religious house raised you amid bells, labor, and borrowed books.",
   },
   {
-    name: "Fallen House",
-    description: "You inherited the manners and obligations of a family without its former power.",
+    name: "Exiled Noble House",
+    description: "Your family lost its lands and power, but not its name, obligations, or enemies.",
   },
   {
     name: "War Camp",
     description: "Your childhood followed baggage trains, winter quarters, and marching armies.",
   },
   {
-    name: "Quarry Village",
+    name: "Quarry Settlement",
     description: "You were raised among stonecutters, dust, blasting, and dangerous slopes.",
   },
   {
-    name: "River Mudlarks",
-    description: "You scavenged the banks, drains, and exposed riverbed for whatever could be sold.",
+    name: "Floodplain Village",
+    description: "Your community lived by seasonal floods, river work, muddy roads, and shared stores.",
   },
   {
     name: "Merchant Ship",
@@ -45,7 +45,7 @@ export const backgroundKits = [
     description: "Home was a moving company of wagons, livestock, traders, and hired guards.",
   },
   {
-    name: "Debtor's Prison",
+    name: "Debtors' Prison",
     description: "You shared confinement with a relative whose obligations became part of your life.",
   },
   {
@@ -57,7 +57,7 @@ export const backgroundKits = [
     description: "Your home received the sick, injured, frightened, and indebted at every hour.",
   },
   {
-    name: "Tollbridge Family",
+    name: "Tollbridge",
     description: "Your household kept a crossing and dealt with everyone who needed the road beyond it.",
   },
   {
@@ -69,7 +69,7 @@ export const backgroundKits = [
     description: "You were raised under strict rules among crowded bunks and compulsory labor.",
   },
   {
-    name: "Lighthouse Family",
+    name: "Lighthouse",
     description: "Your household kept a warning light where storms, wrecks, and isolation shaped every season.",
   },
   {
@@ -81,8 +81,8 @@ export const backgroundKits = [
     description: "Your people carried what they could while searching for somewhere permitted to become home.",
   },
   {
-    name: "Frontier Farmstead",
-    description: "You grew up where weather, soil, animals, and distant neighbors decided whether anyone ate.",
+    name: "Market Quarter",
+    description: "You belonged to a crowded district of stalls, workshops, warehouses, lodging houses, and public deals.",
   },
 ] as const satisfies readonly CharacterKitSeed[];
 
