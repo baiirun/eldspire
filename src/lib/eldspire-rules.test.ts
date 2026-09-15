@@ -11,7 +11,9 @@ describe("Eldspire rules", () => {
     expect(html).toContain('id="character-tables"');
     expect(html).not.toContain('href="/rules/variant"');
     expect(html).toContain("Actions describe practiced competence");
-    expect(html).toContain("Untrained Actions are rated 0");
+    expect(html).toContain("Assign seven starting Action points");
+    expect(html).toContain("rate two Actions 2 and three Actions 1");
+    expect(html).toContain("Every other Action is untrained and rated 0");
     expect(html).not.toContain("Choose one starting array");
     expect(html).not.toContain("<strong>Focused:</strong>");
     expect(html).not.toContain("<strong>Versatile:</strong>");
