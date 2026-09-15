@@ -11,7 +11,10 @@ describe("Eldspire rules", () => {
     expect(html).toContain('id="character-tables"');
     expect(html).not.toContain('href="/rules/variant"');
     expect(html).toContain("Actions describe practiced competence");
-    expect(html).toContain("two Actions at 3, three at 2");
+    expect(html).toContain("Untrained Actions are rated 0");
+    expect(html).not.toContain("Choose one starting array");
+    expect(html).not.toContain("<strong>Focused:</strong>");
+    expect(html).not.toContain("<strong>Versatile:</strong>");
     expect(html).toContain("Monster Anatomy d10");
     expect(html).toContain("replaces one Action d6");
     expect(html).toContain("Two or more dice show 6+");
