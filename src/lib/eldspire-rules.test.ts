@@ -17,6 +17,8 @@ describe("Eldspire rules", () => {
     expect(html).not.toContain("<strong>Versatile:</strong>");
     expect(html).toContain("Monster Anatomy d10");
     expect(html).toContain("replaces one Action d6");
+    expect(html).toContain("Highest is 1–3");
+    expect(html).toContain("Highest is 4–5");
     expect(html).toContain("Two or more dice show 6+");
     expect(html).toContain("At Action 0, roll two dice and keep the lower");
     expect(html).toContain("Fatigue is a visible clock from 0–10");
@@ -41,6 +43,7 @@ describe("Eldspire rules", () => {
     expect(html).not.toContain("Untreated Floor");
     expect(html).not.toContain("All Treated");
     expect(html).not.toContain("A good camp clears 3 Fatigue");
+    expect(html).not.toContain("Highest is 1–4");
     expect(html).not.toContain("<strong>Fray.</strong>");
     expect(html).not.toContain("<strong>Faltering.</strong>");
     expect(html).not.toContain("Threat Format");
