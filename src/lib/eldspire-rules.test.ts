@@ -34,6 +34,9 @@ describe("Eldspire rules", () => {
     expect(html).not.toContain("The GM");
     expect(html).not.toContain("Lead and Spotlight");
     expect(html).not.toContain("When Opposition Leads");
+    expect(html).not.toContain("Fatigue Floor");
+    expect(html).not.toContain("Untreated Floor");
+    expect(html).not.toContain("All Treated");
     expect(html).not.toContain("<strong>Fray.</strong>");
     expect(html).not.toContain("<strong>Faltering.</strong>");
     expect(html).not.toContain("Threat Format");
