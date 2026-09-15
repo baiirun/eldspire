@@ -8,9 +8,14 @@ import {
 } from "./eldspire-generator";
 
 describe("eldspire character generator", () => {
-  it("keeps every character table at d100", () => {
-    for (const entries of Object.values(eldspireTables)) {
-      expect(entries).toHaveLength(100);
+  it("uses d20 kit tables and d100 supporting tables", () => {
+    expect(eldspireTables.backgrounds).toHaveLength(20);
+    expect(eldspireTables.archetypes).toHaveLength(20);
+
+    for (const [key, entries] of Object.entries(eldspireTables)) {
+      if (key !== "backgrounds" && key !== "archetypes") {
+        expect(entries).toHaveLength(100);
+      }
     }
   });
 

@@ -1,4 +1,5 @@
 import rulesTemplate from "../content/eldspire-rules.html?raw";
+import { archetypeKits, backgroundKits } from "@/data/eldspire-character-kits";
 import { eldspireTables, type EldspireTableKey } from "@/data/eldspire-tables";
 
 const tableTitles = {
@@ -31,14 +32,26 @@ function renderRows(entries: readonly string[], offset: number): string {
     .join("");
 }
 
+function tableEntries(key: EldspireTableKey): readonly string[] {
+  if (key === "backgrounds") {
+    return backgroundKits.map(({ name, description }) => `${name} — ${description}`);
+  }
+
+  if (key === "archetypes") {
+    return archetypeKits.map(({ name, description }) => `${name} — ${description}`);
+  }
+
+  return eldspireTables[key];
+}
+
 function renderRandomTable(key: EldspireTableKey): string {
-  const entries = eldspireTables[key];
+  const entries = tableEntries(key);
   const midpoint = Math.ceil(entries.length / 2);
   const halves = [entries.slice(0, midpoint), entries.slice(midpoint)];
   const id = key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
 
   return `<section class="rules-random-table" id="table-${id}">
-    <h3>${tableTitles[key]} (d100)</h3>
+    <h3>${tableTitles[key]} (d${entries.length})</h3>
     <div class="rules-random-columns">
       ${halves
         .map(

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { renderEldspireRules } from "./eldspire-rules";
 
 describe("Eldspire rules", () => {
-  it("renders the migrated rules and every d100 table", () => {
+  it("renders the migrated rules and every character table", () => {
     const html = renderEldspireRules();
 
     expect(html).toContain("How To Play");
@@ -51,6 +51,9 @@ describe("Eldspire rules", () => {
     expect(html).not.toContain("Threat Format");
     expect(html).not.toContain("Threat Spark Tables");
     expect(html).not.toContain("{{table:");
-    expect(html.match(/<tr><td>100<\/td>/g)).toHaveLength(9);
+    expect(html.match(/<h3>(Backgrounds|Archetypes) \(d20\)<\/h3>/g)).toHaveLength(2);
+    expect(html).toContain("Crossroads Inn — Your household fed, housed, and overheard");
+    expect(html).toContain("Old-Road Wayfinder — You guide people and expeditions");
+    expect(html.match(/<tr><td>100<\/td>/g)).toHaveLength(7);
   });
 });
