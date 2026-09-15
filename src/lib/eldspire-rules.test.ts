@@ -37,6 +37,7 @@ describe("Eldspire rules", () => {
     expect(html).not.toContain("Fatigue Floor");
     expect(html).not.toContain("Untreated Floor");
     expect(html).not.toContain("All Treated");
+    expect(html).not.toContain("A good camp clears 3 Fatigue");
     expect(html).not.toContain("<strong>Fray.</strong>");
     expect(html).not.toContain("<strong>Faltering.</strong>");
     expect(html).not.toContain("Threat Format");
