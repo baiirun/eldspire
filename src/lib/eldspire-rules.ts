@@ -1,5 +1,4 @@
 import rulesTemplate from "../content/eldspire-rules.html?raw";
-import { archetypeKits, backgroundKits } from "@/data/eldspire-character-kits";
 import { eldspireTables, type EldspireTableKey } from "@/data/eldspire-tables";
 
 const tableTitles = {
@@ -33,14 +32,6 @@ function renderRows(entries: readonly string[], offset: number): string {
 }
 
 function tableEntries(key: EldspireTableKey): readonly string[] {
-  if (key === "backgrounds") {
-    return backgroundKits.map(({ name, description }) => `${name} — ${description}`);
-  }
-
-  if (key === "archetypes") {
-    return archetypeKits.map(({ name, description }) => `${name} — ${description}`);
-  }
-
   return eldspireTables[key];
 }
 

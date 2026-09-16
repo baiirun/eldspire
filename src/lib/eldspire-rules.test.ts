@@ -51,10 +51,11 @@ describe("Eldspire rules", () => {
     expect(html).not.toContain("Threat Format");
     expect(html).not.toContain("Threat Spark Tables");
     expect(html).not.toContain("{{table:");
-    expect(html.match(/<h3>(Backgrounds|Archetypes) \(d20\)<\/h3>/g)).toHaveLength(2);
-    expect(html).toContain("Crossroads Inn — Your household fed, housed, and overheard");
-    expect(html).toContain("Market Quarter — You belonged to a crowded district");
-    expect(html).toContain("Old-Road Wayfinder — You guide people and expeditions");
-    expect(html.match(/<tr><td>100<\/td>/g)).toHaveLength(7);
+    expect(html.match(/<h3>(Backgrounds|Archetypes) \(d100\)<\/h3>/g)).toHaveLength(2);
+    expect(html).toContain("Crossroads Inn");
+    expect(html).toContain("Retired Adventurer&#39;s Household");
+    expect(html).toContain("Hedge Knight");
+    expect(html).toContain("Grail Knight");
+    expect(html.match(/<tr><td>100<\/td>/g)).toHaveLength(9);
   });
 });
