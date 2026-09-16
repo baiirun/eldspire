@@ -8,9 +8,11 @@ import {
   type JSX,
 } from "solid-js";
 import {
+  actions,
   characterFields,
   characterMarkdown,
   cryptoRandomIndex,
+  drawActions,
   drawTraits,
   generateCharacter,
   rerollField,
@@ -35,7 +37,6 @@ const fieldLabels: Record<CharacterField, string> = {
 };
 
 const textureFields = [
-  "background",
   "appearance",
   "hearthTie",
   "roadTie",
@@ -44,11 +45,16 @@ const textureFields = [
   "comfort",
 ] as const satisfies readonly CharacterField[];
 
+const identityFields = [
+  "background",
+  "archetype",
+] as const satisfies readonly CharacterField[];
+
+type LockKey = CharacterField | "actions" | "traits";
+
 function CharacterGenerator() {
   const [character, setCharacter] = createSignal<GeneratedCharacter>();
-  const [locked, setLocked] = createSignal<ReadonlySet<CharacterField | "traits">>(
-    new Set(),
-  );
+  const [locked, setLocked] = createSignal<ReadonlySet<LockKey>>(new Set());
   const [copyLabel, setCopyLabel] = createSignal("Copy Markdown");
 
   onMount(() => setCharacter(generateCharacter()));
@@ -70,13 +76,14 @@ function CharacterGenerator() {
           next.rolls[field] = previous.rolls[field];
         }
       }
+      if (protectedFields.has("actions")) next.actions = previous.actions;
       if (protectedFields.has("traits")) next.traits = previous.traits;
     }
 
     setCharacter(next);
   }
 
-  function toggleLock(field: CharacterField | "traits") {
+  function toggleLock(field: LockKey) {
     setLocked((current) => {
       const next = new Set(current);
       if (next.has(field)) next.delete(field);
@@ -93,6 +100,11 @@ function CharacterGenerator() {
   function rerollTraits() {
     const current = character();
     if (current) setCharacter({ ...current, traits: drawTraits(cryptoRandomIndex) });
+  }
+
+  function rerollActions() {
+    const current = character();
+    if (current) setCharacter({ ...current, actions: drawActions(cryptoRandomIndex) });
   }
 
   async function copyMarkdown() {
@@ -136,21 +148,44 @@ function CharacterGenerator() {
               <strong>{current().roadTie.toLowerCase()}</strong> on the road.
             </p>
 
+            <GeneratorSection title="Character">
+              <For each={identityFields}>
+                {(field) => (
+                  <div class="texture-line">
+                    <div>
+                      <span class="texture-label">{fieldLabels[field]}</span>
+                      <span>{current()[field]}</span>
+                    </div>
+                    <FieldActions
+                      label={fieldLabels[field]}
+                      locked={locked().has(field)}
+                      onReroll={() => reroll(field)}
+                      onLock={() => toggleLock(field)}
+                    />
+                  </div>
+                )}
+              </For>
+            </GeneratorSection>
+
             <GeneratorSection
-              title="Archetype"
+              title="Actions"
               actions={
                 <FieldActions
-                  label="Archetype"
-                  locked={locked().has("archetype")}
-                  onReroll={() => reroll("archetype")}
-                  onLock={() => toggleLock("archetype")}
+                  label="Actions"
+                  locked={locked().has("actions")}
+                  onReroll={rerollActions}
+                  onLock={() => toggleLock("actions")}
                 />
               }
             >
-              <div class="rated-line">
-                <span>{current().archetype}</span>
-                <strong>2</strong>
-              </div>
+              <For each={actions}>
+                {(action) => (
+                  <div class="rated-line">
+                    <span>{action}</span>
+                    <strong>{current().actions[action]}</strong>
+                  </div>
+                )}
+              </For>
             </GeneratorSection>
 
             <GeneratorSection
@@ -167,8 +202,7 @@ function CharacterGenerator() {
               <For each={current().traits}>
                 {(trait) => (
                   <div class="rated-line">
-                    <span>{trait.name}</span>
-                    <strong>{trait.rating}</strong>
+                    <span>{trait}</span>
                   </div>
                 )}
               </For>

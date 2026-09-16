@@ -13,6 +13,24 @@ export const characterFields = [
 
 export type CharacterField = (typeof characterFields)[number];
 
+export const actions = [
+  "Exert",
+  "Traverse",
+  "Sneak",
+  "Fight",
+  "Shoot",
+  "Survey",
+  "Hunt",
+  "Travel",
+  "Tinker",
+  "Mend",
+  "Study",
+  "Sway",
+  "Invoke",
+] as const;
+
+export type Action = (typeof actions)[number];
+
 const fieldTables = {
   background: "backgrounds",
   archetype: "archetypes",
@@ -24,13 +42,9 @@ const fieldTables = {
   comfort: "comforts",
 } as const satisfies Record<CharacterField, EldspireTableKey>;
 
-export type RatedFeature = {
-  name: string;
-  rating: number;
-};
-
 export type GeneratedCharacter = Record<CharacterField, string> & {
-  traits: RatedFeature[];
+  actions: Record<Action, number>;
+  traits: string[];
   rolls: Record<CharacterField, number>;
 };
 
@@ -57,17 +71,35 @@ function draw(field: CharacterField, randomIndex: RandomIndex) {
   return { value: table[index], roll: index + 1 };
 }
 
-export function drawTraits(randomIndex: RandomIndex): RatedFeature[] {
+export function drawTraits(randomIndex: RandomIndex): string[] {
   const pool = [...eldspireTables.traits];
 
-  return [2, 1, 1, 1].map((rating) => {
+  return Array.from({ length: 4 }, () => {
     const index = randomIndex(pool.length);
     if (!Number.isInteger(index) || index < 0 || index >= pool.length) {
       throw new RangeError(`Random index ${index} is invalid for traits`);
     }
 
-    return { name: pool.splice(index, 1)[0], rating };
+    return pool.splice(index, 1)[0];
   });
+}
+
+export function drawActions(randomIndex: RandomIndex): Record<Action, number> {
+  const pool = [...actions];
+  const result = Object.fromEntries(
+    actions.map((action) => [action, 0]),
+  ) as Record<Action, number>;
+
+  for (const rating of [2, 2, 1, 1, 1]) {
+    const index = randomIndex(pool.length);
+    if (!Number.isInteger(index) || index < 0 || index >= pool.length) {
+      throw new RangeError(`Random index ${index} is invalid for actions`);
+    }
+
+    result[pool.splice(index, 1)[0]] = rating;
+  }
+
+  return result;
 }
 
 export function generateCharacter(
@@ -85,6 +117,7 @@ export function generateCharacter(
   return {
     ...values,
     rolls,
+    actions: drawActions(randomIndex),
     traits: drawTraits(randomIndex),
   };
 }
@@ -107,17 +140,23 @@ function sentence(value: string): string {
 }
 
 export function characterMarkdown(character: GeneratedCharacter): string {
-  const traitLines = character.traits
-    .map((trait) => `- ${trait.name} ${trait.rating}`)
+  const actionLines = actions
+    .map((action) => `- ${action}: ${character.actions[action]}`)
     .join("\n");
+  const traitLines = character.traits.map((trait) => `- ${trait}`).join("\n");
 
   return `# Generated Expedition Character
 
 This traveler carries the background ${sentence(character.background)} and moves through the world as a ${sentence(character.archetype).toLowerCase()}. They are ${sentence(character.appearance).toLowerCase()}, remain tied to ${sentence(character.hearthTie).toLowerCase()}, and trust ${sentence(character.roadTie).toLowerCase()} on the road.
 
-## Character Features
+## Character
 
-- Archetype: ${character.archetype} 2
+- Background: ${character.background}
+- Archetype: ${character.archetype}
+
+## Actions
+
+${actionLines}
 
 ## Traits
 
@@ -125,7 +164,6 @@ ${traitLines}
 
 ## Texture
 
-- Background: ${character.background}
 - Appearance: ${character.appearance}
 - Hearth Tie: ${character.hearthTie}
 - Road Tie: ${character.roadTie}

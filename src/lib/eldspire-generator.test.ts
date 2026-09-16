@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { eldspireTables } from "@/data/eldspire-tables";
 import {
+  actions,
   characterMarkdown,
+  drawActions,
   drawTraits,
   generateCharacter,
   rerollField,
@@ -14,11 +16,21 @@ describe("eldspire character generator", () => {
     }
   });
 
-  it("draws four distinct traits with the starting ratings", () => {
+  it("draws four distinct unrated traits", () => {
     const traits = drawTraits(() => 0);
 
-    expect(traits.map((trait) => trait.rating)).toEqual([2, 1, 1, 1]);
-    expect(new Set(traits.map((trait) => trait.name))).toHaveLength(4);
+    expect(traits).toHaveLength(4);
+    expect(new Set(traits)).toHaveLength(4);
+  });
+
+  it("assigns the seven starting points to five distinct actions", () => {
+    const ratings = drawActions(() => 0);
+
+    expect(Object.keys(ratings)).toEqual([...actions]);
+    expect(Object.values(ratings).filter((rating) => rating === 2)).toHaveLength(2);
+    expect(Object.values(ratings).filter((rating) => rating === 1)).toHaveLength(3);
+    expect(Object.values(ratings).filter((rating) => rating === 0)).toHaveLength(8);
+    expect(Object.values(ratings).reduce((total, rating) => total + rating, 0)).toBe(7);
   });
 
   it("generates every character field and records one-based rolls", () => {
@@ -26,6 +38,7 @@ describe("eldspire character generator", () => {
 
     expect(character.background).toBe(eldspireTables.backgrounds[0]);
     expect(character.archetype).toBe(eldspireTables.archetypes[0]);
+    expect(character.actions.Exert).toBe(2);
     expect(Object.values(character.rolls)).toEqual(Array(8).fill(1));
   });
 
@@ -42,7 +55,9 @@ describe("eldspire character generator", () => {
     const markdown = characterMarkdown(generateCharacter(() => 0));
 
     expect(markdown).toContain("# Generated Expedition Character");
-    expect(markdown).toContain("## Character Features");
+    expect(markdown).toContain("## Character");
+    expect(markdown).toContain("## Actions");
+    expect(markdown).toContain("- Exert: 2");
     expect(markdown).toContain("## Traits");
     expect(markdown).toContain("- Current Fatigue: 0");
   });
