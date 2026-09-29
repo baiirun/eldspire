@@ -31,7 +31,7 @@ describe("eldspire character generator", () => {
     expect(Object.keys(ratings)).toEqual([...actions]);
     expect(Object.values(ratings).filter((rating) => rating === 2)).toHaveLength(2);
     expect(Object.values(ratings).filter((rating) => rating === 1)).toHaveLength(3);
-    expect(Object.values(ratings).filter((rating) => rating === 0)).toHaveLength(8);
+    expect(Object.values(ratings).filter((rating) => rating === 0)).toHaveLength(7);
     expect(Object.values(ratings).reduce((total, rating) => total + rating, 0)).toBe(7);
   });
 

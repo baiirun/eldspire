@@ -21,7 +21,6 @@ export const actions = [
   "Shoot",
   "Survey",
   "Hunt",
-  "Travel",
   "Craft",
   "Study",
   "Sway",
