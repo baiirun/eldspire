@@ -241,12 +241,15 @@
               <p>Use a point crawl. Each route states its length in days and any specific landmarks, requirements, obstacles, or secrets. Use the journey procedure when travel pressure matters; summarize safe or uneventful journeys.</p>
 
               <h3>Journey</h3>
+              <p>Name the route's length in days, and the party chooses a guide. Then, for each travel day:</p>
               <ol>
-                <li>Name the route's length in days. The party chooses a guide.</li>
-                <li>The guide makes the journey roll. Its result sets how many days pass before the next event.</li>
-                <li>Travel those days, making camp each night.</li>
-                <li>If the days reach the destination, the party arrives. Otherwise, roll the event die and resolve the event, then make the journey roll again.</li>
+                <li><strong>Journey roll.</strong> The guide rolls to see how the day goes.</li>
+                <li><strong>Event check.</strong> Roll a d6. On a 1–2, an event happens.</li>
+                <li><strong>Event roll.</strong> If an event happens, roll the event dice openly and read the ladder.</li>
+                <li><strong>Play it out.</strong> Frame the event and handle it with ordinary Action rolls.</li>
+                <li><strong>Camp.</strong></li>
               </ol>
+              <p>When the party has travelled the route's length in days, they arrive.</p>
 
               <h3>Journey Roll</h3>
               <p>Start with dice equal to the guide's <strong>Traverse</strong>. Then add or remove one die for each question:</p>
@@ -262,31 +265,42 @@
               </table>
               <p>The pool holds at most 6 dice. A fitting Trait replaces one d6 with a d10 as usual. At 0 dice, roll 2d6 and keep the lower. Help and Push do not add dice to the journey roll.</p>
               <table class="rules-table">
-                <thead><tr><th>Result</th><th>Next event</th></tr></thead>
+                <thead><tr><th>Result</th><th>The day</th></tr></thead>
                 <tbody>
-                  <tr><td>Failure</td><td>After 1 day</td></tr>
-                  <tr><td>Mixed success</td><td>After 2 days</td></tr>
-                  <tr><td>Clean success</td><td>After 3 days</td></tr>
-                  <tr><td>Exceptional success</td><td>After 4 days</td></tr>
+                  <tr><td>Failure</td><td>A hard day. Each traveller gains 2 Fatigue.</td></tr>
+                  <tr><td>Mixed success</td><td>A tiring day. Each traveller gains 1 Fatigue.</td></tr>
+                  <tr><td>Clean success</td><td>A good day, with no cost.</td></tr>
+                  <tr><td>Exceptional success</td><td>A good day. Tonight each character takes two different camp activities.</td></tr>
                 </tbody>
               </table>
 
-              <h3>Events</h3>
-              <p>Roll a d10. The event falls on whoever the fiction suggests. That character rolls the Action that fits, and others may Help. The event's Fatigue applies to every traveller whatever the result.</p>
+              <h3>Event Roll</h3>
+              <p>When the event check calls for an event, start with 1d, then:</p>
+              <ul>
+                <li>+1d if today's journey roll was a Clean or Exceptional success; −1d if it failed.</li>
+                <li>+1d if someone Scouted ahead at last night's camp.</li>
+                <li>±1d for anything else the fiction supports.</li>
+              </ul>
+              <p>At 0 dice, roll 2d6 and keep the lower. Read the highest die:</p>
               <table class="rules-table">
-                <thead><tr><th>d10</th><th>Event</th><th>Fatigue</th></tr></thead>
+                <thead><tr><th>Result</th><th>Event</th></tr></thead>
                 <tbody>
-                  <tr><td>1</td><td><strong>Disaster.</strong> On a Failure, take a Wound.</td><td>3</td></tr>
-                  <tr><td>2–3</td><td><strong>Loss.</strong> Rations, gear, or the trail. On a Failure, it is gone.</td><td>2</td></tr>
-                  <tr><td>4–6</td><td><strong>Mishap.</strong> On a Failure, the journey takes one more day.</td><td>2</td></tr>
-                  <tr><td>7–8</td><td><strong>Encounter.</strong> Strangers, beasts, or a sign.</td><td>1</td></tr>
-                  <tr><td>9</td><td><strong>Short cut.</strong> On a success, the journey takes one less day.</td><td>1</td></tr>
-                  <tr><td>10</td><td><strong>Wonder.</strong> A discovery.</td><td>0</td></tr>
+                  <tr><td>1</td><td><strong>Disaster.</strong> Two costs, and a Wound is possible.</td></tr>
+                  <tr><td>2</td><td><strong>Hardship.</strong> One cost: something lost, or the trail.</td></tr>
+                  <tr><td>3</td><td><strong>Obstacle.</strong> Go around for 1 day, or push through with a roll.</td></tr>
+                  <tr><td>4</td><td><strong>Encounter.</strong> Someone or something; it could go either way.</td></tr>
+                  <tr><td>5</td><td><strong>Sign.</strong> A sight, a clue, or news.</td></tr>
+                  <tr><td>6</td><td><strong>Find.</strong> Shelter (a good camp tonight), a cache, or a ruin to explore.</td></tr>
+                  <tr><td>Two 6s</td><td><strong>Wonder.</strong> Everyone clears 1 Fatigue, and it plants a hook.</td></tr>
                 </tbody>
               </table>
+              <p>Pick or roll the specific event from the route and its terrain.</p>
+
+              <h3>Play It Out</h3>
+              <p>Frame the event as a situation with at least two ways through. Whoever acts rolls the Action that fits, and others may Help. A Clean success avoids the event's costs, a Mixed success pays one, and a Failure pays all of them. A cost is one of: 1 Fatigue for each traveller, a ration, a day, a piece of gear, or a Wound (Disaster only).</p>
 
               <h3>Hurry</h3>
-              <p>The party may hurry through a day, covering two days of travel in one. Each traveller gains 2 Fatigue, and that night nobody takes a camp activity or clears Fatigue.</p>
+              <p>The party may hurry through a day, covering two days of travel in one. Each traveller gains 2 Fatigue, and that night nobody takes a camp activity or clears Fatigue. A hurried day still has one journey roll and one event check.</p>
 
               <h3>Dungeons and Ruins</h3>
               <p>Explore dungeons and ruins through ordinary freeform play. Make location-specific danger checks when time, noise, delay, resting, backtracking, or conspicuous action creates exposure.</p>
@@ -295,12 +309,13 @@
             <section class="rules-section" id="camp">
               <h2>Camp</h2>
               <p>An overnight camp consumes that day's one ration per character. Establish the site, shelter, food, warmth, security, watchkeeping, and precautions.</p>
-              <p>Each character may take one camp activity:</p>
+              <p>Each character may take one camp activity, or two different activities after an Exceptional journey roll:</p>
               <ul>
                 <li><strong>Tend:</strong> treat Wounds or Conditions with appropriate capability and supplies.</li>
                 <li><strong>Repair:</strong> restore damaged gear, armor, or equipment.</li>
                 <li><strong>Provision:</strong> forage, hunt, gather water, or prepare food. This is the only way to find food while travelling.</li>
-                <li><strong>Prepare:</strong> scout, fortify, conceal, study maps, or ready the next stage.</li>
+                <li><strong>Prepare:</strong> fortify, conceal, study maps, or ready the next stage.</li>
+                <li><strong>Scout ahead:</strong> range ahead of tomorrow's road. No roll; add +1d to the next event roll. It never affects the journey roll.</li>
                 <li><strong>Connect:</strong> engage in your Comfort or share companionship, and establish fitting character change.</li>
                 <li><strong>Work:</strong> pursue research, training, crafting, spell recovery, or another undertaking.</li>
               </ul>
