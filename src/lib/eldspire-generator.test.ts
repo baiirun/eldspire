@@ -4,9 +4,11 @@ import {
   actions,
   characterMarkdown,
   drawActions,
+  drawResistances,
   drawTraits,
   generateCharacter,
   rerollField,
+  resistanceFromD6,
 } from "./eldspire-generator";
 
 describe("eldspire character generator", () => {
@@ -29,8 +31,20 @@ describe("eldspire character generator", () => {
     expect(Object.keys(ratings)).toEqual([...actions]);
     expect(Object.values(ratings).filter((rating) => rating === 2)).toHaveLength(2);
     expect(Object.values(ratings).filter((rating) => rating === 1)).toHaveLength(3);
-    expect(Object.values(ratings).filter((rating) => rating === 0)).toHaveLength(8);
+    expect(Object.values(ratings).filter((rating) => rating === 0)).toHaveLength(9);
     expect(Object.values(ratings).reduce((total, rating) => total + rating, 0)).toBe(7);
+  });
+
+  it("maps a d6 to resistance ratings 0-3", () => {
+    expect([1, 2, 3, 4, 5, 6].map(resistanceFromD6)).toEqual([0, 1, 1, 2, 2, 3]);
+    expect(() => resistanceFromD6(7)).toThrow(RangeError);
+  });
+
+  it("rolls Body, Mind, and Spirit in order", () => {
+    const faces = [0, 3, 5];
+    const ratings = drawResistances(() => faces.shift() ?? 0);
+
+    expect(ratings).toEqual({ Body: 0, Mind: 2, Spirit: 3 });
   });
 
   it("generates every character field and records one-based rolls", () => {
@@ -58,6 +72,8 @@ describe("eldspire character generator", () => {
     expect(markdown).toContain("## Character");
     expect(markdown).toContain("## Actions");
     expect(markdown).toContain("- Exert: 2");
+    expect(markdown).toContain("## Resistance");
+    expect(markdown).toContain("- Body: 0");
     expect(markdown).toContain("## Traits");
     expect(markdown).toContain("- Current Fatigue: 0");
   });

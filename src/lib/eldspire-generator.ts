@@ -22,14 +22,19 @@ export const actions = [
   "Survey",
   "Hunt",
   "Travel",
-  "Tinker",
+  "Craft",
   "Mend",
   "Study",
   "Sway",
+  "Command",
   "Invoke",
 ] as const;
 
 export type Action = (typeof actions)[number];
+
+export const resistances = ["Body", "Mind", "Spirit"] as const;
+
+export type Resistance = (typeof resistances)[number];
 
 const fieldTables = {
   background: "backgrounds",
@@ -44,6 +49,7 @@ const fieldTables = {
 
 export type GeneratedCharacter = Record<CharacterField, string> & {
   actions: Record<Action, number>;
+  resistances: Record<Resistance, number>;
   traits: string[];
   rolls: Record<CharacterField, number>;
 };
@@ -102,6 +108,28 @@ export function drawActions(randomIndex: RandomIndex): Record<Action, number> {
   return result;
 }
 
+// Resistance is rolled, not bought: 1d6 maps 1 / 2–3 / 4–5 / 6 to 0 / 1 / 2 / 3.
+export function resistanceFromD6(face: number): number {
+  if (!Number.isInteger(face) || face < 1 || face > 6) {
+    throw new RangeError(`d6 face ${face} is invalid`);
+  }
+  if (face === 1) return 0;
+  if (face <= 3) return 1;
+  if (face <= 5) return 2;
+  return 3;
+}
+
+export function drawResistances(
+  randomIndex: RandomIndex,
+): Record<Resistance, number> {
+  return Object.fromEntries(
+    resistances.map((resistance) => [
+      resistance,
+      resistanceFromD6(randomIndex(6) + 1),
+    ]),
+  ) as Record<Resistance, number>;
+}
+
 export function generateCharacter(
   randomIndex: RandomIndex = cryptoRandomIndex,
 ): GeneratedCharacter {
@@ -119,6 +147,7 @@ export function generateCharacter(
     rolls,
     actions: drawActions(randomIndex),
     traits: drawTraits(randomIndex),
+    resistances: drawResistances(randomIndex),
   };
 }
 
@@ -143,6 +172,9 @@ export function characterMarkdown(character: GeneratedCharacter): string {
   const actionLines = actions
     .map((action) => `- ${action}: ${character.actions[action]}`)
     .join("\n");
+  const resistanceLines = resistances
+    .map((resistance) => `- ${resistance}: ${character.resistances[resistance]}`)
+    .join("\n");
   const traitLines = character.traits.map((trait) => `- ${trait}`).join("\n");
 
   return `# Generated Expedition Character
@@ -157,6 +189,10 @@ This traveler carries the background ${sentence(character.background)} and moves
 ## Actions
 
 ${actionLines}
+
+## Resistance
+
+${resistanceLines}
 
 ## Traits
 

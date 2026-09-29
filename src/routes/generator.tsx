@@ -13,9 +13,11 @@ import {
   characterMarkdown,
   cryptoRandomIndex,
   drawActions,
+  drawResistances,
   drawTraits,
   generateCharacter,
   rerollField,
+  resistances,
   type CharacterField,
   type GeneratedCharacter,
 } from "@/lib/eldspire-generator";
@@ -50,7 +52,7 @@ const identityFields = [
   "archetype",
 ] as const satisfies readonly CharacterField[];
 
-type LockKey = CharacterField | "actions" | "traits";
+type LockKey = CharacterField | "actions" | "resistances" | "traits";
 
 function CharacterGenerator() {
   const [character, setCharacter] = createSignal<GeneratedCharacter>();
@@ -77,6 +79,7 @@ function CharacterGenerator() {
         }
       }
       if (protectedFields.has("actions")) next.actions = previous.actions;
+      if (protectedFields.has("resistances")) next.resistances = previous.resistances;
       if (protectedFields.has("traits")) next.traits = previous.traits;
     }
 
@@ -105,6 +108,13 @@ function CharacterGenerator() {
   function rerollActions() {
     const current = character();
     if (current) setCharacter({ ...current, actions: drawActions(cryptoRandomIndex) });
+  }
+
+  function rerollResistances() {
+    const current = character();
+    if (current) {
+      setCharacter({ ...current, resistances: drawResistances(cryptoRandomIndex) });
+    }
   }
 
   async function copyMarkdown() {
@@ -183,6 +193,27 @@ function CharacterGenerator() {
                   <div class="rated-line">
                     <span>{action}</span>
                     <strong>{current().actions[action]}</strong>
+                  </div>
+                )}
+              </For>
+            </GeneratorSection>
+
+            <GeneratorSection
+              title="Resistance"
+              actions={
+                <FieldActions
+                  label="Resistance"
+                  locked={locked().has("resistances")}
+                  onReroll={rerollResistances}
+                  onLock={() => toggleLock("resistances")}
+                />
+              }
+            >
+              <For each={resistances}>
+                {(resistance) => (
+                  <div class="rated-line">
+                    <span>{resistance}</span>
+                    <strong>{current().resistances[resistance]}</strong>
                   </div>
                 )}
               </For>
