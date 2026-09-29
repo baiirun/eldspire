@@ -23,7 +23,6 @@ export const actions = [
   "Hunt",
   "Travel",
   "Craft",
-  "Mend",
   "Study",
   "Sway",
   "Command",
