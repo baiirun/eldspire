@@ -856,3 +856,245 @@ button:disabled {
     color: #fff !important;
   }
 }
+
+/* Hex map prototype (/map) */
+.hexmap-intro {
+  width: min(100%, 68ch);
+}
+
+.hexmap-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 17rem;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.hexmap-stage {
+  position: relative;
+  height: min(76vh, 46rem);
+  min-height: 24rem;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  background: #161b24;
+}
+
+.hexmap-stage canvas {
+  display: block;
+  touch-action: none;
+}
+
+.hexmap-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hexmap-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 0.82rem;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  color: #2a2118;
+  text-shadow: 0 0 3px #efe4c8, 0 0 6px #efe4c8, 0 0 10px #efe4c8;
+}
+
+.hexmap-label.is-big {
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+}
+
+.hexmap-label.is-rumour {
+  font-style: italic;
+  font-variant: normal;
+  color: #64523d;
+}
+
+.hexmap-label.is-gm {
+  font-size: 0.66rem;
+  font-variant: normal;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #3b3f46;
+}
+
+.hexmap-loading,
+.hexmap-toast {
+  position: absolute;
+  left: 50%;
+  margin: 0;
+  transform: translateX(-50%);
+  font-style: italic;
+  text-align: center;
+}
+
+.hexmap-loading {
+  top: 45%;
+  color: #efe4c8;
+}
+
+.hexmap-toast {
+  top: 1rem;
+  max-width: calc(100% - 2rem);
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+}
+
+.hexmap-panel {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.hexmap-clock {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  font-variant-numeric: tabular-nums;
+}
+
+.hexmap-clock span,
+.hexmap-meta,
+.hexmap-legend {
+  color: var(--muted);
+}
+
+.hexmap-views {
+  display: flex;
+}
+
+.hexmap-views button {
+  flex: 1;
+}
+
+.hexmap-views button + button {
+  border-left: 0;
+}
+
+.hexmap-views button[aria-pressed="true"],
+.hexmap-panel button.is-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.hexmap-card h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.hexmap-meta {
+  margin: 0.2rem 0 0;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.hexmap-hint {
+  margin: 0.5rem 0 0;
+  font-style: italic;
+}
+
+.hexmap-pins {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hexmap-pins li {
+  border-left: 3px solid #8e2f22;
+  padding-left: 0.6rem;
+  line-height: 1.35;
+}
+
+.hexmap-pins li.is-gm {
+  border-left-color: var(--muted);
+}
+
+.hexmap-pins small {
+  display: block;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hexmap-card-actions,
+.hexmap-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+}
+
+.hexmap-actions {
+  margin-top: 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+
+.hexmap-panel button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.hexmap-pinform {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+
+.hexmap-pinform input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--rule);
+  padding: 0.4rem 0.5rem;
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.hexmap-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.72rem;
+}
+
+.hexmap-legend i {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  margin-right: 0.3rem;
+  border: 1px solid var(--rule);
+  vertical-align: -0.05rem;
+}
+
+.hexmap-legend .is-unexplored { background: #e9dcb8; }
+.hexmap-legend .is-rumoured { background: #c9b182; }
+.hexmap-legend .is-seen { background: #a8ab90; }
+.hexmap-legend .is-visited { background: #7f9a58; }
+
+@media (max-width: 760px) {
+  .hexmap-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .hexmap-stage {
+    height: 62vh;
+  }
+}

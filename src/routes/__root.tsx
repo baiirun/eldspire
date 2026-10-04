@@ -136,6 +136,7 @@ function RootDocument(props: { children: Solid.JSX.Element }) {
               <Link to="/rules">Rules</Link>
               <Link to="/generator">Generator</Link>
               <Link to="/sheet">Sheet</Link>
+              <Link to="/map">Map</Link>
             </nav>
           </header>
           <main class="site-main">
