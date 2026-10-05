@@ -92,51 +92,11 @@ const merged = (...parts: THREE.BufferGeometry[]) => {
   return g;
 };
 
-/** A hex top with a chamfered rim, so tiles catch the light along their edges. */
-function capGeometry() {
-  const ring = (r: number, y: number) =>
-    Array.from({ length: 6 }, (_, k) => {
-      const a = (k / 6) * Math.PI * 2;
-      return new THREE.Vector3(Math.sin(a) * r, y, Math.cos(a) * r);
-    });
-  const inner = ring(0.84, 0);
-  const outer = ring(HEX_R, -0.07);
-  const centre = new THREE.Vector3();
-  const pos: number[] = [];
-  const tri = (a: THREE.Vector3, b: THREE.Vector3, c: THREE.Vector3) => {
-    const n = new THREE.Vector3().subVectors(b, a).cross(new THREE.Vector3().subVectors(c, a));
-    if (n.y < 0) [b, c] = [c, b];
-    pos.push(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z);
-  };
-  for (let k = 0; k < 6; k++) {
-    const k1 = (k + 1) % 6;
-    tri(centre, inner[k], inner[k1]);
-    tri(inner[k], outer[k], outer[k1]);
-    tri(inner[k], outer[k1], inner[k1]);
-  }
-  const g = new THREE.BufferGeometry();
-  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
-  g.computeVertexNormals();
-  return g;
-}
-
-/** The side wall of a hex column, light soil at the top fading to dark earth at the base. */
-function skirtGeometry() {
-  const g = new THREE.CylinderGeometry(HEX_R, HEX_R, 1, 6, 3, true).toNonIndexed();
-  g.translate(0, 0.5, 0);
-  const top = new THREE.Color("#c9b48c");
-  const bottom = new THREE.Color("#4f3a28");
-  const p = g.attributes.position;
-  const colors = new Float32Array(p.count * 3);
-  const c = new THREE.Color();
-  for (let i = 0; i < p.count; i++) {
-    const y = p.getY(i);
-    // a darker band a third of the way down reads as a soil stratum
-    c.copy(bottom).lerp(top, Math.pow(y, 0.7)).multiplyScalar(y > 0.6 && y < 0.7 ? 0.82 : 1);
-    colors.set([c.r, c.g, c.b], i * 3);
-  }
-  g.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-  return g;
+/** Soil colour for a wall at height fraction y: light at the top, a darker stratum, dark earth below. */
+const SOIL_TOP = new THREE.Color("#c9b48c");
+const SOIL_BOTTOM = new THREE.Color("#4f3a28");
+function soil(y: number, out: THREE.Color) {
+  return out.copy(SOIL_BOTTOM).lerp(SOIL_TOP, Math.pow(Math.min(1, Math.max(0, y)), 0.7)).multiplyScalar(y > 0.6 && y < 0.7 ? 0.82 : 1);
 }
 
 /** Adds painterly mottling (and optional shimmer) in world space to a standard material. */
@@ -379,14 +339,36 @@ export function createHexMap(
     paperTex.needsUpdate = true;
   }
 
-  /* ---------------- Terrain blocks ---------------- */
-  const capMat = painted(new THREE.MeshStandardMaterial({ roughness: 0.9, flatShading: true }), 0.32, 2.6);
-  const caps = new THREE.InstancedMesh(capGeometry(), capMat, tiles.length);
-  const skirtMat = painted(new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, flatShading: true }), 0.4, 4);
-  const skirts = new THREE.InstancedMesh(skirtGeometry(), skirtMat, tiles.length);
-  caps.castShadow = caps.receiveShadow = skirts.castShadow = skirts.receiveShadow = true;
-  caps.frustumCulled = skirts.frustumCulled = false;
-  scene.add(caps, skirts);
+  /* ---------------- Terrain: one continuous surface over the hex grid ---------------- */
+  // Each hex is a plateau at its own height ringed by a slope out to its edge. Corners and edge
+  // midpoints are shared with the neighbours and take their average height and colour, so the
+  // land reads as one landscape while every hex keeps its place and its distance.
+  const MAX_SURFACE = tiles.length * 24 * 3;
+  const MAX_WALL = tiles.length * 12 * 2 * 3;
+  const dynamicGeometry = (verts: number) => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(verts * 3), 3).setUsage(THREE.DynamicDrawUsage));
+    g.setAttribute("color", new THREE.BufferAttribute(new Float32Array(verts * 3), 3).setUsage(THREE.DynamicDrawUsage));
+    g.setAttribute("normal", new THREE.BufferAttribute(new Float32Array(verts * 3), 3).setUsage(THREE.DynamicDrawUsage));
+    g.setDrawRange(0, 0);
+    // fixed bounds over the whole board, so picking works without recomputing them every frame
+    const w = SQ3 * (COLS + 1), d = 1.5 * ROWS + 1;
+    g.boundingBox = new THREE.Box3(new THREE.Vector3(-1, -1, -1), new THREE.Vector3(w, 3, d));
+    g.boundingSphere = g.boundingBox.getBoundingSphere(new THREE.Sphere());
+    return g;
+  };
+  const landMat = painted(new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, flatShading: true }), 0.32, 2.6);
+  const land = new THREE.Mesh(dynamicGeometry(MAX_SURFACE), landMat);
+  // walls are drawn double-sided rather than wound, since they face whichever way the edge runs
+  const wallMat = painted(new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, flatShading: true, side: THREE.DoubleSide }), 0.4, 4);
+  const walls = new THREE.Mesh(dynamicGeometry(MAX_WALL), wallMat);
+  land.castShadow = land.receiveShadow = walls.castShadow = walls.receiveShadow = true;
+  scene.add(land, walls);
+  // the hex grid stays on the land as a faint inked line, for placement and counting legs
+  const gridGeo = new THREE.BufferGeometry();
+  const grid = new THREE.LineSegments(gridGeo, new THREE.LineBasicMaterial({ color: 0x2e2116, transparent: true, opacity: 0.2, depthWrite: false }));
+  grid.frustumCulled = false;
+  scene.add(grid);
 
   const waterTime = { value: 0 };
   const waterMat = painted(
@@ -400,8 +382,6 @@ export function createHexMap(
   waterSurf.receiveShadow = true;
   scene.add(waterSurf);
 
-  const skirtColor = (t: Tile) =>
-    isWater(t) ? "#3f7d8f" : t.type === "mountain" || t.type === "isle" ? "#9a9488" : t.type === "hills" ? "#e2cf9e" : "#ffffff";
 
   /* ---------------- Props: trees, wheat, rocks, peaks, reeds, roads ---------------- */
   const conifer = merged(
@@ -840,7 +820,16 @@ export function createHexMap(
   scene.add(selRing, hoverRing);
   const ringAt = (ring: THREE.Line, t: Tile | null) => {
     ring.visible = Boolean(t);
-    if (t) ring.geometry.setFromPoints(hexPoints(t, (rise[t.i] > 0.5 ? surfaceY(t) : 0) + 0.03, 0.9));
+    if (!t) return;
+    if (rise[t.i] <= 0.5) return void ring.geometry.setFromPoints(hexPoints(t, 0.03, 0.9));
+    // trace the hex's rim over the terrain, never dipping below the water
+    const pts = Array.from({ length: 13 }, (_, j) => {
+      const k = j % 12;
+      const [ox, oz] = OUTER[k];
+      const y = Math.max(rimHeight[t.i * 12 + k], isWater(t) ? WATER_Y : 0);
+      return new THREE.Vector3(t.x + ox * 0.94, y + 0.04, t.z + oz * 0.94);
+    });
+    ring.geometry.setFromPoints(pts);
   };
 
   /* ---------------- Rising tiles ---------------- */
@@ -854,11 +843,116 @@ export function createHexMap(
   const tmp = new THREE.Matrix4();
   const waterIndex = new Map(waterTiles.map((t, i) => [t.i, i]));
 
+  // outer ring of a hex: corner, edge midpoint, corner … (12 points, pointy side towards +z)
+  const OUTER: [number, number][] = Array.from({ length: 12 }, (_, j) => {
+    const a = (Math.floor(j / 2) / 6) * Math.PI * 2;
+    const b = ((Math.floor(j / 2) + 1) / 6) * Math.PI * 2;
+    return j % 2 === 0 ? [Math.sin(a), Math.cos(a)] : [(Math.sin(a) + Math.sin(b)) / 2, (Math.cos(a) + Math.cos(b)) / 2];
+  });
+  const INNER = 0.55;
+  const tileColor = tiles.map(() => new THREE.Color());
+  const rimHeight = new Float32Array(tiles.length * 12);
+  const tileTop = (t: Tile) => (BASE + t.height) * easeOut(rise[t.i]);
+  const keyOf = (x: number, z: number) => Math.round(x * 64) * 100000 + Math.round(z * 64);
+
+  function rebuildTerrain() {
+    // gather every shared rim point from the hexes that are up
+    const shared = new Map<number, { h: number; n: number; land: boolean; c: THREE.Color }>();
+    const up = tiles.filter((t) => rise[t.i] > 0.001);
+    for (const t of up) {
+      for (const [ox, oz] of OUTER) {
+        const k = keyOf(t.x + ox, t.z + oz);
+        let v = shared.get(k);
+        if (!v) shared.set(k, (v = { h: 0, n: 0, land: false, c: new THREE.Color(0, 0, 0) }));
+        v.h += tileTop(t);
+        v.n++;
+        v.land ||= !isWater(t);
+        v.c.add(tileColor[t.i]);
+      }
+    }
+    const lp = land.geometry.attributes.position as THREE.BufferAttribute;
+    const lc = land.geometry.attributes.color as THREE.BufferAttribute;
+    const wp = walls.geometry.attributes.position as THREE.BufferAttribute;
+    const wc = walls.geometry.attributes.color as THREE.BufferAttribute;
+    let li = 0, wi = 0;
+    const gridPts: number[] = [];
+    const ca = new THREE.Color();
+    const vert = (attrP: THREE.BufferAttribute, attrC: THREE.BufferAttribute, i: number, v: THREE.Vector3, col: THREE.Color) => {
+      attrP.setXYZ(i, v.x, v.y, v.z);
+      attrC.setXYZ(i, col.r, col.g, col.b);
+    };
+    // triangles are wound so they face up (or outwards, for walls)
+    const tri = (v1: THREE.Vector3, c1: THREE.Color, v2: THREE.Vector3, c2: THREE.Color, v3: THREE.Vector3, c3: THREE.Color) => {
+      const ny = (v2.z - v1.z) * (v3.x - v1.x) - (v2.x - v1.x) * (v3.z - v1.z);
+      vert(lp, lc, li++, v1, c1);
+      if (ny >= 0) { vert(lp, lc, li++, v2, c2); vert(lp, lc, li++, v3, c3); }
+      else { vert(lp, lc, li++, v3, c3); vert(lp, lc, li++, v2, c2); }
+    };
+    const rimPos = new Array<THREE.Vector3>(12);
+    const rimCol = new Array<THREE.Color>(12);
+    const inner = Array.from({ length: 6 }, () => new THREE.Vector3());
+    for (const t of up) {
+      const top = tileTop(t);
+      const own = tileColor[t.i];
+      const centre = new THREE.Vector3(t.x, top, t.z);
+      for (let j = 0; j < 12; j++) {
+        const [ox, oz] = OUTER[j];
+        const v = shared.get(keyOf(t.x + ox, t.z + oz))!;
+        // any rim point touching land stays above the water, so shores rise into a bank
+        const h = v.land ? Math.max(v.h / v.n, WATER_Y + 0.04) : v.h / v.n;
+        rimHeight[t.i * 12 + j] = h;
+        rimPos[j] = new THREE.Vector3(t.x + ox, h, t.z + oz);
+        // shared points lean towards this hex's own colour so each hex keeps a little identity
+        rimCol[j] = v.c.clone().multiplyScalar(1 / v.n).lerp(own, 0.25);
+        // edges with nobody on the far side get a soil wall down to the paper
+        if (j % 2 === 1 && v.n === 1) {
+          for (const [p, q] of [[j - 1, j], [j, (j + 1) % 12]] as const) {
+            const [px, pz] = OUTER[p], [qx, qz] = OUTER[q];
+            const hp = shared.get(keyOf(t.x + px, t.z + pz))!, hq = shared.get(keyOf(t.x + qx, t.z + qz))!;
+            const yp = hp.land ? Math.max(hp.h / hp.n, WATER_Y + 0.04) : hp.h / hp.n;
+            const yq = hq.land ? Math.max(hq.h / hq.n, WATER_Y + 0.04) : hq.h / hq.n;
+            const P = [t.x + px, t.z + pz], Q = [t.x + qx, t.z + qz];
+            const quad: [number, number, number][] = [
+              [P[0], yp, P[1]], [P[0], 0, P[1]], [Q[0], 0, Q[1]],
+              [P[0], yp, P[1]], [Q[0], 0, Q[1]], [Q[0], yq, Q[1]],
+            ];
+            for (const [x, y, z] of quad) {
+              wp.setXYZ(wi, x, y, z);
+              soil(y / Math.max(yp, yq, 0.01), ca);
+              wc.setXYZ(wi++, ca.r, ca.g, ca.b);
+            }
+          }
+        }
+      }
+      for (let k = 0; k < 6; k++) {
+        const [ox, oz] = OUTER[k * 2];
+        inner[k].set(t.x + ox * INNER, top, t.z + oz * INNER);
+      }
+      for (let k = 0; k < 6; k++) {
+        const k1 = (k + 1) % 6;
+        const c0 = rimPos[k * 2], m = rimPos[k * 2 + 1], c1 = rimPos[(k * 2 + 2) % 12];
+        const cc0 = rimCol[k * 2], cm = rimCol[k * 2 + 1], cc1 = rimCol[(k * 2 + 2) % 12];
+        tri(centre, own, inner[k], own, inner[k1], own);
+        tri(inner[k], own, c0, cc0, m, cm);
+        tri(inner[k], own, m, cm, inner[k1], own);
+        tri(inner[k1], own, m, cm, c1, cc1);
+        // grid: each hex draws its own rim; a shared edge is simply drawn twice
+        const lift = (v: THREE.Vector3) => Math.max(v.y, isWater(t) ? WATER_Y : 0) + 0.012;
+        gridPts.push(c0.x, lift(c0), c0.z, m.x, lift(m), m.z, m.x, lift(m), m.z, c1.x, lift(c1), c1.z);
+      }
+    }
+    for (const g of [land.geometry, walls.geometry]) {
+      g.setDrawRange(0, g === land.geometry ? li : wi);
+      g.attributes.position.needsUpdate = true;
+      g.attributes.color.needsUpdate = true;
+      g.computeVertexNormals();
+    }
+    gridGeo.setAttribute("position", new THREE.Float32BufferAttribute(gridPts, 3));
+  }
+
   function placeTile(t: Tile) {
     const e = easeOut(rise[t.i]);
     if (e <= 0.001) {
-      caps.setMatrixAt(t.i, HIDDEN);
-      skirts.setMatrixAt(t.i, HIDDEN);
       const wi = waterIndex.get(t.i);
       if (wi !== undefined) waterSurf.setMatrixAt(wi, HIDDEN);
       for (const p of propsByTile.get(t.i) ?? []) p.mesh.setMatrixAt(p.index, HIDDEN);
@@ -867,9 +961,6 @@ export function createHexMap(
       return;
     }
     const top = (BASE + t.height) * e;
-    caps.setMatrixAt(t.i, m4.makeTranslation(t.x, top, t.z));
-    const wall = Math.max(0.02, (isWater(t) ? WATER_Y * e : top - 0.07));
-    skirts.setMatrixAt(t.i, m4.makeScale(1, wall, 1).setPosition(t.x, 0, t.z));
     const wi = waterIndex.get(t.i);
     if (wi !== undefined) waterSurf.setMatrixAt(wi, m4.makeTranslation(t.x, WATER_Y * e, t.z));
     for (const p of propsByTile.get(t.i) ?? []) {
@@ -884,8 +975,7 @@ export function createHexMap(
     }
   }
   function flushTiles() {
-    caps.instanceMatrix.needsUpdate = true;
-    skirts.instanceMatrix.needsUpdate = true;
+    rebuildTerrain();
     waterSurf.instanceMatrix.needsUpdate = true;
     for (const p of props) p.mesh.instanceMatrix.needsUpdate = true;
   }
@@ -906,12 +996,9 @@ export function createHexMap(
         .set(t.road && !t.place ? ROAD_COLOR : TERRAIN[t.type].color)
         .offsetHSL((hash(t.r, t.c) - 0.5) * 0.03, (hash(t.c + 3, t.r) - 0.5) * 0.08, (hash(t.c, t.r) - 0.5) * 0.1);
       if (fogOf(t) === 2 && !gm()) col.lerp(GREY, 0.3);
-      caps.setColorAt(t.i, col);
-      skirts.setColorAt(t.i, col.set(skirtColor(t)));
+      tileColor[t.i].copy(col);
     }
     flushTiles();
-    caps.instanceColor!.needsUpdate = true;
-    skirts.instanceColor!.needsUpdate = true;
     drawPaper();
     blackWagon.visible = gm();
     rebuildTrail();
@@ -1095,9 +1182,8 @@ export function createHexMap(
     const rect = renderer.domElement.getBoundingClientRect();
     ndc.set(((e.clientX - rect.left) / rect.width) * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1);
     ray.setFromCamera(ndc, camera);
-    const hit = ray.intersectObjects([caps, waterSurf, paper], false)[0];
+    const hit = ray.intersectObjects([land, waterSurf, paper], false)[0];
     if (!hit) return null;
-    if (hit.object === caps && hit.instanceId != null) return tiles[hit.instanceId];
     return tileAtPoint(hit.point.x, hit.point.z);
   }
   let down: { x: number; y: number } | null = null;
