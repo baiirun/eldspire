@@ -26,19 +26,19 @@ export type TerrainType =
 export type FogState = 0 | 1 | 2 | 3;
 
 export const TERRAIN: Record<TerrainType, { label: string; height: number; color: string }> = {
-  deep: { label: "Deep water", height: -0.32, color: "#35505f" },
-  water: { label: "Shallows", height: -0.18, color: "#4f7181" },
-  isle: { label: "Rock island", height: 0.16, color: "#8d8a84" },
-  marsh: { label: "Marsh", height: 0.06, color: "#6a7a4c" },
-  grass: { label: "Grassland", height: 0.14, color: "#7f9a58" },
-  wheat: { label: "Purple wheat fields", height: 0.15, color: "#8a64a6" },
-  forest: { label: "Forest", height: 0.2, color: "#4c6a3a" },
-  hills: { label: "Hills", height: 0.42, color: "#9b8c62" },
-  mountain: { label: "Mountains", height: 0.8, color: "#77736f" },
-  town: { label: "Walled city", height: 0.22, color: "#b9ad94" },
-  camp: { label: "Carnival camp", height: 0.15, color: "#93a35f" },
+  deep: { label: "Deep water", height: -0.32, color: "#3e6f80" },
+  water: { label: "Shallows", height: -0.18, color: "#78a9a4" },
+  isle: { label: "Rock island", height: 0.16, color: "#a29c8e" },
+  marsh: { label: "Marsh", height: 0.06, color: "#7d8b55" },
+  grass: { label: "Grassland", height: 0.14, color: "#93b25a" },
+  wheat: { label: "Purple wheat fields", height: 0.15, color: "#8f9a55" },
+  forest: { label: "Forest", height: 0.2, color: "#5f8040" },
+  hills: { label: "Hills", height: 0.42, color: "#b9a56c" },
+  mountain: { label: "Mountains", height: 0.8, color: "#8f877a" },
+  town: { label: "Walled city", height: 0.22, color: "#c9b98f" },
+  camp: { label: "Carnival camp", height: 0.15, color: "#a7b864" },
 };
-export const ROAD_COLOR = "#a99470";
+export const ROAD_COLOR = "#d8c39a";
 
 export type PlaceId =
   | "bellwether"

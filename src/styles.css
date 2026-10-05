@@ -857,25 +857,43 @@ button:disabled {
   }
 }
 
-/* Hex map prototype (/map) */
+/* Hex map prototype (/map): a painted diorama on a parchment map, with a map-maker's cartouche beside it */
+.hexmap-page {
+  --map-ink: #2e2116;
+  --map-sepia: #6b5238;
+  --map-faded: rgba(46, 33, 22, 0.62);
+  --map-rule: rgba(46, 33, 22, 0.28);
+  --map-paper: #f3e8cc;
+  --map-paper-deep: #e6d5ae;
+  --map-gold: #b8862f;
+  --map-red: #8e2f22;
+  --map-wood: #3a2618;
+}
+
 .hexmap-intro {
   width: min(100%, 68ch);
 }
 
 .hexmap-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 17rem;
+  grid-template-columns: minmax(0, 1fr) 18rem;
   gap: 1.25rem;
   align-items: start;
 }
 
+/* the board sits in a dark wooden frame with a gilt inner line */
 .hexmap-stage {
   position: relative;
   height: min(76vh, 46rem);
   min-height: 24rem;
   overflow: hidden;
-  border: 1px solid var(--ink);
-  background: #161b24;
+  border: 6px solid var(--map-wood);
+  border-radius: 6px;
+  background: radial-gradient(ellipse at 50% 40%, #5a3d26, #24170d);
+  box-shadow:
+    inset 0 0 0 1px rgba(232, 196, 120, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.4),
+    0 18px 40px -18px rgba(36, 23, 13, 0.75);
 }
 
 .hexmap-stage canvas {
@@ -889,36 +907,59 @@ button:disabled {
   pointer-events: none;
 }
 
+/* map lettering: inked small caps with a paper halo so it reads over terrain */
 .hexmap-label {
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-variant: small-caps;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   white-space: nowrap;
-  color: #2a2118;
-  text-shadow: 0 0 3px #efe4c8, 0 0 6px #efe4c8, 0 0 10px #efe4c8;
+  color: var(--map-ink);
+  text-shadow:
+    0 0 2px rgba(243, 232, 204, 0.95),
+    0 0 6px rgba(243, 232, 204, 0.85),
+    0 0 12px rgba(243, 232, 204, 0.6);
 }
 
 .hexmap-label.is-big {
-  font-size: 1.05rem;
-  letter-spacing: 0.12em;
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.hexmap-label.is-area {
+  font-style: italic;
+  font-variant: normal;
+  letter-spacing: 0.22em;
+  color: var(--map-sepia);
+}
+
+.hexmap-label.is-area.is-big {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.32em;
 }
 
 .hexmap-label.is-rumour {
   font-style: italic;
   font-variant: normal;
-  color: #64523d;
+  color: var(--map-sepia);
+  opacity: 0.85;
 }
 
 .hexmap-label.is-gm {
-  font-size: 0.66rem;
+  font-size: 0.62rem;
   font-variant: normal;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #3b3f46;
+  color: #f3e8cc;
+  text-shadow: none;
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+  background: rgba(58, 38, 24, 0.82);
 }
 
 .hexmap-loading,
@@ -934,35 +975,86 @@ button:disabled {
 .hexmap-loading {
   top: 45%;
   color: #efe4c8;
+  letter-spacing: 0.04em;
 }
 
 .hexmap-toast {
   top: 1rem;
   max-width: calc(100% - 2rem);
-  padding: 0.35rem 0.8rem;
-  border: 1px solid var(--ink);
-  background: var(--paper);
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--map-sepia);
+  border-radius: 2px;
+  background: var(--map-paper);
+  color: var(--map-ink);
+  box-shadow: 0 6px 18px -8px rgba(36, 23, 13, 0.6);
 }
 
+/* the side panel is a cartouche: parchment, a double inked rule, warm accents */
 .hexmap-panel {
   display: grid;
   gap: 1rem;
   min-width: 0;
+  padding: 1rem 1rem 1.1rem;
+  border: 1px solid var(--map-sepia);
+  border-radius: 3px;
+  color: var(--map-ink);
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(255, 250, 235, 0.7), transparent 60%),
+    radial-gradient(ellipse at 100% 100%, rgba(180, 140, 80, 0.18), transparent 55%),
+    var(--map-paper);
+  box-shadow:
+    inset 0 0 0 3px var(--map-paper),
+    inset 0 0 0 4px var(--map-rule),
+    0 14px 30px -20px rgba(36, 23, 13, 0.7);
 }
 
 .hexmap-clock {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding-bottom: 0.7rem;
-  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--map-rule);
   font-variant-numeric: tabular-nums;
+  color: var(--map-sepia);
 }
 
-.hexmap-clock span,
+.hexmap-clock strong {
+  color: var(--map-ink);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+}
+
+.hexmap-clock span {
+  font-style: italic;
+}
+
 .hexmap-meta,
 .hexmap-legend {
-  color: var(--muted);
+  color: var(--map-faded);
+}
+
+.hexmap-panel button {
+  border: 1px solid var(--map-sepia);
+  border-radius: 2px;
+  padding: 0.35rem 0.7rem;
+  background: rgba(255, 250, 235, 0.55);
+  color: var(--map-ink);
+  font: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  cursor: pointer;
+  transition: background-color 120ms, color 120ms;
+}
+
+.hexmap-panel button:hover:not(:disabled) {
+  background: var(--map-paper-deep);
+}
+
+.hexmap-panel button:focus-visible,
+.hexmap-pinform input:focus-visible {
+  outline: 2px solid var(--map-gold);
+  outline-offset: 1px;
 }
 
 .hexmap-views {
@@ -971,6 +1063,9 @@ button:disabled {
 
 .hexmap-views button {
   flex: 1;
+  font-variant: small-caps;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
 }
 
 .hexmap-views button + button {
@@ -979,22 +1074,28 @@ button:disabled {
 
 .hexmap-views button[aria-pressed="true"],
 .hexmap-panel button.is-primary {
-  background: var(--ink);
-  color: var(--paper);
+  border-color: var(--map-red);
+  background: var(--map-red);
+  color: #fbf3df;
+}
+
+.hexmap-panel button.is-primary:hover:not(:disabled) {
+  background: #7a261b;
 }
 
 .hexmap-card h2 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   line-height: 1.15;
+  letter-spacing: 0.02em;
   text-wrap: balance;
 }
 
 .hexmap-meta {
-  margin: 0.2rem 0 0;
-  font-size: 0.68rem;
+  margin: 0.25rem 0 0;
+  font-size: 0.66rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
 }
@@ -1002,6 +1103,7 @@ button:disabled {
 .hexmap-hint {
   margin: 0.5rem 0 0;
   font-style: italic;
+  color: var(--map-sepia);
 }
 
 .hexmap-pins {
@@ -1013,22 +1115,23 @@ button:disabled {
 }
 
 .hexmap-pins li {
-  border-left: 3px solid #8e2f22;
+  border-left: 3px solid var(--map-red);
   padding-left: 0.6rem;
   line-height: 1.35;
 }
 
 .hexmap-pins li.is-gm {
-  border-left-color: var(--muted);
+  border-left-color: var(--map-sepia);
+  border-left-style: dashed;
 }
 
 .hexmap-pins small {
   display: block;
-  font-size: 0.64rem;
+  font-size: 0.62rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--map-faded);
 }
 
 .hexmap-card-actions,
@@ -1042,11 +1145,11 @@ button:disabled {
 .hexmap-actions {
   margin-top: 0;
   padding-top: 0.9rem;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--map-rule);
 }
 
 .hexmap-panel button:disabled {
-  opacity: 0.4;
+  opacity: 0.45;
   cursor: default;
 }
 
@@ -1059,8 +1162,11 @@ button:disabled {
 .hexmap-pinform input {
   flex: 1;
   min-width: 0;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--map-rule);
+  border-radius: 2px;
   padding: 0.4rem 0.5rem;
+  background: rgba(255, 250, 235, 0.7);
+  color: var(--map-ink);
   font: inherit;
   font-size: 0.85rem;
 }
@@ -1070,24 +1176,25 @@ button:disabled {
   flex-wrap: wrap;
   gap: 0.35rem 0.9rem;
   margin: 0;
-  padding: 0;
+  padding: 0.8rem 0 0;
+  border-top: 1px solid var(--map-rule);
   list-style: none;
   font-size: 0.72rem;
 }
 
 .hexmap-legend i {
   display: inline-block;
-  width: 0.65rem;
-  height: 0.65rem;
+  width: 0.8rem;
+  height: 0.7rem;
   margin-right: 0.3rem;
-  border: 1px solid var(--rule);
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
   vertical-align: -0.05rem;
 }
 
-.hexmap-legend .is-unexplored { background: #e9dcb8; }
-.hexmap-legend .is-rumoured { background: #c9b182; }
-.hexmap-legend .is-seen { background: #a8ab90; }
-.hexmap-legend .is-visited { background: #7f9a58; }
+.hexmap-legend .is-unexplored { background: #e9dcb8; box-shadow: inset 0 0 0 1px var(--map-rule); }
+.hexmap-legend .is-rumoured { background: #cdb487; }
+.hexmap-legend .is-seen { background: #a9b07c; }
+.hexmap-legend .is-visited { background: #7fa24c; }
 
 @media (max-width: 760px) {
   .hexmap-layout {
