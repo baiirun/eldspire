@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SheetRouteImport } from './routes/sheet'
 import { Route as RulesRouteImport } from './routes/rules'
+import { Route as MapRouteImport } from './routes/map'
 import { Route as GeneratorRouteImport } from './routes/generator'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RulesVariantRouteImport } from './routes/rules_.variant'
@@ -27,6 +28,11 @@ const SheetRoute = SheetRouteImport.update({
 const RulesRoute = RulesRouteImport.update({
   id: '/rules',
   path: '/rules',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GeneratorRoute = GeneratorRouteImport.update({
@@ -68,6 +74,7 @@ const RulesVariantD6PoolRoute = RulesVariantD6PoolRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/generator': typeof GeneratorRoute
+  '/map': typeof MapRoute
   '/rules': typeof RulesRoute
   '/sheet': typeof SheetRoute
   '/api/sync': typeof ApiSyncRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/generator': typeof GeneratorRoute
+  '/map': typeof MapRoute
   '/rules': typeof RulesRoute
   '/sheet': typeof SheetRoute
   '/api/sync': typeof ApiSyncRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/generator': typeof GeneratorRoute
+  '/map': typeof MapRoute
   '/rules': typeof RulesRoute
   '/sheet': typeof SheetRoute
   '/api/sync': typeof ApiSyncRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/generator'
+    | '/map'
     | '/rules'
     | '/sheet'
     | '/api/sync'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/generator'
+    | '/map'
     | '/rules'
     | '/sheet'
     | '/api/sync'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/generator'
+    | '/map'
     | '/rules'
     | '/sheet'
     | '/api/sync'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   GeneratorRoute: typeof GeneratorRoute
+  MapRoute: typeof MapRoute
   RulesRoute: typeof RulesRoute
   SheetRoute: typeof SheetRoute
   ApiSyncRoute: typeof ApiSyncRoute
@@ -161,6 +174,13 @@ declare module '@tanstack/solid-router' {
       path: '/rules'
       fullPath: '/rules'
       preLoaderRoute: typeof RulesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/generator': {
@@ -218,6 +238,7 @@ declare module '@tanstack/solid-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GeneratorRoute: GeneratorRoute,
+  MapRoute: MapRoute,
   RulesRoute: RulesRoute,
   SheetRoute: SheetRoute,
   ApiSyncRoute: ApiSyncRoute,
