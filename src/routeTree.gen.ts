@@ -13,11 +13,9 @@ import { Route as SheetRouteImport } from './routes/sheet'
 import { Route as RulesRouteImport } from './routes/rules'
 import { Route as GeneratorRouteImport } from './routes/generator'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as RulesVariantRouteImport } from './routes/rules_.variant'
 import { Route as PagesSlugRouteImport } from './routes/pages/$slug'
 import { Route as GenerateBackgroundRouteImport } from './routes/generate/background'
 import { Route as ApiSyncRouteImport } from './routes/api/sync'
-import { Route as RulesVariantD6PoolRouteImport } from './routes/rules_.variant_.d6-pool'
 
 const SheetRoute = SheetRouteImport.update({
   id: '/sheet',
@@ -39,11 +37,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RulesVariantRoute = RulesVariantRouteImport.update({
-  id: '/rules_/variant',
-  path: '/rules/variant',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PagesSlugRoute = PagesSlugRouteImport.update({
   id: '/pages/$slug',
   path: '/pages/$slug',
@@ -59,11 +52,6 @@ const ApiSyncRoute = ApiSyncRouteImport.update({
   path: '/api/sync',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RulesVariantD6PoolRoute = RulesVariantD6PoolRouteImport.update({
-  id: '/rules_/variant_/d6-pool',
-  path: '/rules/variant/d6-pool',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,8 +61,6 @@ export interface FileRoutesByFullPath {
   '/api/sync': typeof ApiSyncRoute
   '/generate/background': typeof GenerateBackgroundRoute
   '/pages/$slug': typeof PagesSlugRoute
-  '/rules/variant': typeof RulesVariantRoute
-  '/rules/variant/d6-pool': typeof RulesVariantD6PoolRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +70,6 @@ export interface FileRoutesByTo {
   '/api/sync': typeof ApiSyncRoute
   '/generate/background': typeof GenerateBackgroundRoute
   '/pages/$slug': typeof PagesSlugRoute
-  '/rules/variant': typeof RulesVariantRoute
-  '/rules/variant/d6-pool': typeof RulesVariantD6PoolRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,8 +80,6 @@ export interface FileRoutesById {
   '/api/sync': typeof ApiSyncRoute
   '/generate/background': typeof GenerateBackgroundRoute
   '/pages/$slug': typeof PagesSlugRoute
-  '/rules_/variant': typeof RulesVariantRoute
-  '/rules_/variant_/d6-pool': typeof RulesVariantD6PoolRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -109,8 +91,6 @@ export interface FileRouteTypes {
     | '/api/sync'
     | '/generate/background'
     | '/pages/$slug'
-    | '/rules/variant'
-    | '/rules/variant/d6-pool'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,8 +100,6 @@ export interface FileRouteTypes {
     | '/api/sync'
     | '/generate/background'
     | '/pages/$slug'
-    | '/rules/variant'
-    | '/rules/variant/d6-pool'
   id:
     | '__root__'
     | '/'
@@ -131,8 +109,6 @@ export interface FileRouteTypes {
     | '/api/sync'
     | '/generate/background'
     | '/pages/$slug'
-    | '/rules_/variant'
-    | '/rules_/variant_/d6-pool'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -143,8 +119,6 @@ export interface RootRouteChildren {
   ApiSyncRoute: typeof ApiSyncRoute
   GenerateBackgroundRoute: typeof GenerateBackgroundRoute
   PagesSlugRoute: typeof PagesSlugRoute
-  RulesVariantRoute: typeof RulesVariantRoute
-  RulesVariantD6PoolRoute: typeof RulesVariantD6PoolRoute
 }
 
 declare module '@tanstack/solid-router' {
@@ -177,13 +151,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/rules_/variant': {
-      id: '/rules_/variant'
-      path: '/rules/variant'
-      fullPath: '/rules/variant'
-      preLoaderRoute: typeof RulesVariantRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/pages/$slug': {
       id: '/pages/$slug'
       path: '/pages/$slug'
@@ -205,13 +172,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof ApiSyncRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/rules_/variant_/d6-pool': {
-      id: '/rules_/variant_/d6-pool'
-      path: '/rules/variant/d6-pool'
-      fullPath: '/rules/variant/d6-pool'
-      preLoaderRoute: typeof RulesVariantD6PoolRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -223,8 +183,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApiSyncRoute: ApiSyncRoute,
   GenerateBackgroundRoute: GenerateBackgroundRoute,
   PagesSlugRoute: PagesSlugRoute,
-  RulesVariantRoute: RulesVariantRoute,
-  RulesVariantD6PoolRoute: RulesVariantD6PoolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -350,12 +350,6 @@ button:disabled {
   color: rgba(17, 17, 17, 0.76);
 }
 
-.rules-variant-page code {
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: 700;
-}
-
 .rules-procedure-list {
   counter-reset: procedure;
   margin-left: 0 !important;
@@ -386,35 +380,6 @@ button:disabled {
   counter-increment: procedure;
   font-size: 0.72rem;
   font-weight: 800;
-}
-
-.rules-variant-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem;
-}
-
-.rules-variant-card {
-  border: 1px solid var(--rule);
-  border-top: 4px solid var(--ink);
-  padding: 0.8rem;
-  font-size: 0.96rem;
-}
-
-.rules-variant-card-push {
-  border-top-width: 6px;
-}
-
-.rules-variant-card-team {
-  border-top-style: dashed;
-}
-
-.rules-variant-card h3 {
-  margin-top: 0;
-}
-
-.rules-variant-card > :last-child {
-  margin-bottom: 0;
 }
 
 .rules-random-index {
@@ -800,11 +765,7 @@ button:disabled {
     gap: 0;
   }
 
-  .rules-variant-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .texture-line {
+    .texture-line {
     grid-template-columns: 1fr;
     gap: 0.25rem;
   }
