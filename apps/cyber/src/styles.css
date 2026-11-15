@@ -1,0 +1,192 @@
+/* Same single-column page as the Eldspire generator: ink on paper, ruled sections, uppercase controls. */
+:root {
+  color-scheme: light;
+  --ink: #111;
+  --muted: rgba(17, 17, 17, 0.58);
+  --rule: rgba(17, 17, 17, 0.36);
+  --hair: rgba(17, 17, 17, 0.18);
+  --paper: #fff;
+  --serif: "Alegreya", Georgia, "Times New Roman", serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --ink: #ece9e4;
+    --muted: rgba(236, 233, 228, 0.6);
+    --rule: rgba(236, 233, 228, 0.36);
+    --hair: rgba(236, 233, 228, 0.18);
+    --paper: #141414;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { min-width: 320px; font-size: 18px; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.46;
+  padding: 3rem 16px 4rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+.site-main { width: min(100%, 68ch); margin: 0 auto; }
+
+button, textarea { font: inherit; }
+
+button {
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 0.48rem 0.72rem;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+button:hover, button:focus-visible, button.locked { background: var(--ink); color: var(--paper); }
+button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+button:disabled { opacity: 0.5; cursor: default; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.page-intro { margin-bottom: 2.25rem; }
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 0.45rem;
+  font-size: clamp(2.7rem, 9vw, 4.4rem);
+  font-weight: 800;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.dek { max-width: 46ch; margin: 0; font-size: 1.3rem; font-style: italic; line-height: 1.35; }
+
+.command-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 2.2rem;
+  border-block: 1px solid var(--rule);
+  padding: 0.8rem 0;
+}
+
+.command-primary { background: var(--ink); color: var(--paper); }
+
+.character-summary { margin: 1.5rem 0 2rem; font-size: 1.32rem; line-height: 1.48; }
+
+.generator-section { margin-top: 1.7rem; border-top: 1px solid var(--rule); padding-top: 0.7rem; }
+
+.generator-section > header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+h2 { margin: 0 0 0.3rem; font-size: 1.5rem; font-weight: 800; }
+
+.rated-line, .texture-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  border-bottom: 1px solid var(--hair);
+  padding: 0.55rem 0;
+}
+
+.generator-section > .rated-line:last-child,
+.generator-section > .texture-line:last-child { border-bottom: 0; }
+
+.rated-line strong, .inline-die { font-variant-numeric: tabular-nums; }
+.placeholder { color: var(--muted); font-size: 0.86rem; font-style: italic; }
+.wound-slots { letter-spacing: 0.1em; }
+
+.texture-line > div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.texture-label {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding-top: 0.2rem;
+}
+
+.field-actions { display: inline-flex; gap: 0.35rem; align-self: start; }
+
+.field-actions button {
+  border: 0;
+  padding: 0.12rem 0.2rem;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.68rem;
+}
+
+.field-actions button:hover,
+.field-actions button:focus-visible,
+.field-actions button.locked {
+  color: var(--ink);
+  background: transparent;
+  text-decoration: underline;
+}
+
+.markdown-disclosure { margin-top: 2rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+
+.markdown-disclosure summary {
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.markdown-disclosure textarea {
+  width: 100%;
+  min-height: 22rem;
+  margin-top: 0.8rem;
+  border: 1px solid var(--rule);
+  padding: 0.8rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  resize: vertical;
+}
+
+@media (max-width: 480px) {
+  .texture-line > div { grid-template-columns: 1fr; gap: 0.1rem; }
+}
